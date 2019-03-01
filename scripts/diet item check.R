@@ -7,6 +7,8 @@ library(taxize)
 library(dplyr)
 library(tidyr)
 
+install.packages(c("taxize","rfishbase"))
+
 data <- read_excel("data/Dietdata_corrected.xlsx", sheet = "Sheet1")
 names(data)
 
@@ -164,10 +166,6 @@ apply(data$site_code, FUN = function(x){
   table(data$item_phylum[data$item_phylum %in% data$item_cor])
 }) 
 
-phylum <- data %>%
-  group_by (site_code, item_phylum) %>% 
-  filter(data$item_phylum[data$item_phylum %in% data$item_cor])
-  tally () #Doesnt work
 
 data %>% 
   group_by (site_code, item_phylum) %>% 
@@ -227,3 +225,5 @@ per.gen.class[1] <- round(per.gen.class[1], 2)
  
 write.xlsx(data, "dietdata2.0.xlsx", sheetName = "Sheet1", 
            col.names = TRUE, row.names = TRUE, append = FALSE)
+
+length(unique(data$item_cor))
