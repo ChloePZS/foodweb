@@ -4,7 +4,10 @@ library(dplyr)
 library(tidyr)
 library(data.table)
 
-data_raw <- read_excel("data/dietdata2.0.xlsx", sheet = "Sheet1", trim_ws=TRUE)
+data_raw <- read_excel("data/dietdata2.0.xlsx", sheet = "Sheet1", trim_ws=TRUE, na="NA")
+
+?read_excel
+warnings()
 
 data <- data_raw %>% 
   select(site_code,class,family_cor,fish_sp,genus_cor,sp_cor,item_type,
@@ -14,7 +17,11 @@ data <- data_raw %>%
          mean_SL  ,    min_SL  ,max_SL, min_TL ,max_TL,time,source) 
 
 data$item_spname <- paste(data$item_gen_cor, data$item_sp_cor, " ") #new variable with sp name
+data$item_spname <- trimws(data$item_spname, which="both") 
+data$item_spname[data$item_spname=="NA NA"] <- NA
 data$item_sp_cor[data$item_sp_cor=="sp"] <- NA
+
+
 
 data$item_type <- as.character(data$item_type)
 data$item_kingdom <- as.character(data$item_kingdom)  
@@ -70,12 +77,6 @@ tax <- bind_rows(mad_per, haw_per, vir_per, mari_per) %>%
 
 #create a another data for removing items 
 datatest <- data
-
-datatest$item_spname <- trimws(datatest$item_spname, which="both") #removing leading ad trailing whitespace
-
-datatest$item_spname[datatest$item_spname=="NA NA"] <- NA #replace NA NA by NA
-str(datatest$item_spname)
-
 
 #datatest$item_cor <- data$item_spname #get rid of the item_cor variable as was a mix of all items col
 
