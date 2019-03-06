@@ -12,16 +12,19 @@ warnings()
 data <- data_raw %>% 
   select(site_code,class,family_cor,fish_sp,genus_cor,sp_cor,item_type,
          item_kingdom, item_phylum , item_class,item_ord_cor,item_fam_cor,
-         item_cor,item_gen_cor, item_sp_cor,nb_sample,nb_guts ,    
+         item_cor,item_gen_cor, item_sp_cor,grp_raw, nb_sample,nb_guts ,    
          nb_item ,     item_freq ,   item_volper,item_massper, item_numper,
          mean_SL  ,    min_SL  ,max_SL, min_TL ,max_TL,time,source) 
 
+data <- unique(data)
+
+names(data_raw)
+
+#Create variable spname and replace "sp" by NA
 data$item_spname <- paste(data$item_gen_cor, data$item_sp_cor, " ") #new variable with sp name
 data$item_spname <- trimws(data$item_spname, which="both") 
 data$item_spname[data$item_spname=="NA NA"] <- NA
 data$item_sp_cor[data$item_sp_cor=="sp"] <- NA
-
-
 
 data$item_type <- as.character(data$item_type)
 data$item_kingdom <- as.character(data$item_kingdom)  
@@ -42,7 +45,7 @@ haw <- data%>% filter(site_code=="haw")
 haw_tax <- haw %>% select(7:15) %>%
   summarise_all(funs(sum(!is.na(.))))
 
-haw_per <- round(haw_tax*100/968, 2)
+haw_per <- round(haw_tax*100/843, 2)
 
 #mad
 mad <- data%>% filter(site_code=="mad")
@@ -50,7 +53,7 @@ mad <- data%>% filter(site_code=="mad")
 mad_tax <- mad %>% select(7:15) %>%
   summarise_all(funs(sum(!is.na(.))))
 
-mad_per <- round(mad_tax*100/3246, 2)
+mad_per <- round(mad_tax*100/1502, 2)
 
 #vir
 vir <- data%>% filter(site_code=="vir")
@@ -58,7 +61,7 @@ vir <- data%>% filter(site_code=="vir")
 vir_tax <- vir %>% select(7:15) %>%
   summarise_all(funs(sum(!is.na(.))))
 
-vir_per <- round(vir_tax*100/3392, 2)
+vir_per <- round(vir_tax*100/3229, 2)
 
 
 #mari
@@ -67,7 +70,7 @@ mari <- data%>% filter(site_code=="mari")
 mari_tax <- mari %>% select(7:15) %>%
   summarise_all(funs(sum(!is.na(.))))
 
-mari_per <- round(mari_tax*100/1154, 2)
+mari_per <- round(mari_tax*100/976, 2)
 
 tax <- bind_rows(mad_per, haw_per, vir_per, mari_per) %>%
   rownames_to_column(var="site_code") %>%
@@ -84,21 +87,6 @@ datatest <- data
  
 
     ####Discard unrelevant items row
-datatest$item_type <- as.factor(datatest$item_type) 
-unique(datatest$item_type)
-str(datatest$item_type)
-levels(datatest$item_type)[2] <- NA
-class(datatest$item_cor)
-
-unique(datatest$item_type)
-str(datatest$item_type)
-levels(datatest$item_fam_cor)[205] <- NA
-class(datatest$item_cor)
-
-unique(datatest$item_type)
-str(datatest$item_type)
-levels(datatest$item_ord_cor)[87] <- NA
-class(datatest$item_cor)
 
 #Here just remove rows under certain conditions, pretty straight forward
 datatest <- filter(datatest,!is.na(item_type)) #Remove items for which the type is NA  
@@ -169,12 +157,157 @@ datatest_cor <- datatest %>%
 ?duplicated
 
 
+    ####Add a broad item groups colomn####
+
+unique(data$item_cor[is.na(data$item_phylum)])
+
+unique(data$item_phylum)
+
+#Create a vector of corrected names from the "grp_raw" vector
+data$item_guild <- data$grp_raw
+unique(data$grp_raw)
+grp_err <- unique(data$grp_raw)
+grp_cor <- c(
+  "Fish"               ,          "Cephalopoda",                 
+  "Sea turtles"        ,          "Sipuncula",                 
+  "Crab"               ,          "Polychaeta",                 
+  "Bivalvia",                   "Shrimp",                      
+  "Hemichordata",                "Stomatopoda",                 
+  "Gastropoda",                   "Copepoda",                    
+  "Zooplankton",                    "Plants",                      
+  "Animalia",                  "Zooplankton",                      
+  "Tunicata",                    "Eggs",                        
+  "Siphonophora",                "Ostracoda",                   
+  "Crustacea",                    "Amphipoda",                  
+  "Cephalopoda",                       NA ,                           
+  "Cephalopoda",                    "Echinoidea",                   
+  "Insecta",                      "Paguroidea",                 
+  "Seagrass",                     "Isopoda",                     
+  "Ophiuroidea",                    "Polyplacophora",                     
+  "Scyllaridae",            "Cirripedia",                    
+  "Foraminifera",                 "Echiuroidea",                  
+  "Palinuridae",                "Eggs",                   
+  "Tanaidacea",                      "Polychaeta",                  
+  "Ctenophora",                  "Heteropoda",                  
+  "Zooplankton",                   "Asteroidea",                   
+  "Anthozoa",                   "Porifera",                     
+  "Zooplankton",                 "Scaphopoda",                  
+  "Priapulida",                  "Bryozoa",                     
+  "Holothuria",                 "Polyplacophora",             
+  "Algae",                        "Eggs",                 
+  "Worms",                    "Organic",    
+  "Zoantharia",                 "Hydrozoa",                  
+  "Algae",            "Scyphozoa",                 
+  "Mollusca",                      "Cnidaria",         
+  "Algae",               "Echinodermata",                 
+  "Pycnogonida",                  "Alcyonaria",                  
+  "Spermatophyta", "Annelida",                     
+  "Scyllaridae",            "Detritus",            
+  "Anthozoa",                 NA,                  
+  "Tunicata",                   "Arachnida",                   
+  "Sipuncula",        "Gastropoda",      
+  "Stomatopoda",                  "Gastropoda",             
+  "Bivalvia",                   "Gastropoda",                     
+  "Paguroidea",                 "Cephalopoda",                    
+  "Eggs",              "Algae",                 
+  "Organic",     "Detritus",                      
+  "Algae",         "Hydrozoa",                    
+  "Algae",            "Detritus",    
+  "Diatoms",                      "Nemertea",                  
+  "Cyanobacteria",              "Crab",                     
+  "Tunicata",                        "Insecta",                       
+  "Eggs",                "Algae",         
+  "Actiniaria",                     "Algae",               
+  "Detritus",                    "Inorganic",                        
+  "Hydrozoa",               "Bivalvia",                 
+  "Chaetognatha",                 NA,               
+  "Diatoms",             "Foraminifera",           
+  "Detritus",                  "Algae",                  
+  NA,             "Detritus",                  
+  "Detritus",                     "Algae",       
+  "Coralline algae",              "Algae",                
+  "Gastropoda",                   NA,                     
+  "Ostracoda",                    "Mollusca",                    
+  "Chordata",                     "Cephalopoda" ,                
+  NA,                        "Foraminifera",           
+  "Larvae",                  "Cnidaria",                
+  "Polyplacophora",                   "Detritus",               
+  "Inorganic",                      "Inorganic",                
+  "Sipuncula",           "Nemertea",                  
+  NA,               "Detritus",               
+  "Ophiuroidea",              "Porifera",                      
+  "Porifera",                     "Copepoda",                   
+  "Algae",                   "Amphipoda",                  
+  "Spermatophyta",                 "Echinoidea",                   
+  "Scleractinia",                "Gastropoda",              
+  "Cirripedia",          "Alcyonaria",                 
+  "Ostracoda",                   "Gastropoda",                 
+  "Porifera",                      "Mollusca",                  
+  "Hydrozoa",                    "Polychaeta",                
+  "Tunicata",                     "Zooplankton",                     
+  "Crab",                       "Sipuncula",                
+  "Animalia",                      "Detritus",                   
+  "Detritus",                           "Algae",         
+  "Nematoda",                    "Cirripedia",                  
+  "Tunicata",              "Paguroidea",                     
+  "Pycnogonida",                 "Tanaidacea",                  
+  "Ophiuroidea",                   "Bryozoa",                 
+  "Alcyonaria",                   "Crinoidea",                     
+  "Zoantharia",                  "Actiniaria",                 
+  "Spermatophyta",          "Hemichordata",              
+  "Detritus",                  "Holothuria",                
+  "Polychaeta",                     "Cephalopoda",                
+  "Stomatopoda",           "Arachnida",                    
+  "Arachnida",                   "Crustacea",                    
+  NA,             "Scaphopoda",                 
+  "Scyllaridae",                    "Cephalochordata",            
+  "Detritus",                      "Crab",                 
+  NA,                       "Crustacea")
+
+grp <- data.frame(avant = grp_err, apres = grp_cor) #create a data frame of before and after correction
+
+write.csv(grp, file="grp_cor.csv") 
+
+grp <-read.csv("grp_cor.csv", sep=";") #export the csv, so i can modify the csv directly
+
+data_replace <- merge(data, grp, by.x="grp_raw", by.y ="avant") #merge
+
+data_replace <- data_replace[,-32]
+names(data_replace)[32] <- "grp"
 
 
+#Previous grp were incorrect, so new tab based on item_cor, ord and class)
+m <-data_replace %>% 
+  select(grp_raw, grp, item_class, item_ord_cor, item_cor)
 
+mm <- unique(m)
 
+write.csv(mm, "grp_item.csv")
+grp_item <-read.csv("grp_item.csv", sep=";") #export the csv, so i can modify the csv directly
+grp_item <- grp_item[,c(3,6)]
+names(grp_item)[1] <- "grp_new"
+grp_item <- (unique(grp_item))
 
+#Check number of unique prey items
+data %>% select(item_cor) %>% n_distinct()
+grp_item %>% select(item_cor) %>% n_distinct() #same 
 
+data_replace %>% select(grp_new) %>% n_distinct()
+grp_item %>% select(grp_new) %>% n_distinct()
 
+class(grp_item$item_cor)
+class(data_replace$item_cor) 
+grp_item$item_cor <- as.character(grp_item$item_cor) #now both variables are character
+
+data_replace <- dplyr::left_join(data, grp_item, by = "item_cor") %>% # SOLVED there was pb in single key values. so why merge create much more rows !!!!
+                rename(grp = grp_new)
+data_replace$grp <- as.character(data_replace$grp)
+
+#Here just remove rows under certain conditions, pretty straight forward
+data_replace <- filter(data_replace,!is.na(item_type)) #Remove items for which the type is NA  
+data_replace <-filter(data_replace,!is.na(item_cor) , item_kingdom %in% c("Animalia","Plantae"))  #Remove row for which item = Na and kingdom Animalia or Plantae
+data_replace <- filter(data_replace %>% filter(!item_cor=="Gurry"))  #remove gurry items
+data_replace <- filter(data_replace, !item_cor=="Animalia" & !item_cor=="Plantae") 
+data_replace <-filter(data_replace, is.na(time) | time =="day") #don't keep samples at night
 
 

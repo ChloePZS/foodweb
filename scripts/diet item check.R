@@ -227,3 +227,8 @@ write.xlsx(data, "dietdata2.0.xlsx", sheetName = "Sheet1",
            col.names = TRUE, row.names = TRUE, append = FALSE)
 
 length(unique(data$item_cor))
+
+
+#GEt item from fishbase
+library(rfishbase)
+diet <- fooditems(data$fish_sp, server = "fishbase")
