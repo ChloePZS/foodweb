@@ -12,10 +12,16 @@ warnings()
 data <- data_raw %>% 
   select(site_code,class,family_cor,fish_sp,genus_cor,sp_cor,item_type,
          item_kingdom, item_phylum , item_class,item_ord_cor,item_fam_cor,
-         item_cor,item_gen_cor, item_sp_cor,grp_raw, nb_sample,nb_guts ,    
+         item_cor,item_gen_cor, item_sp_cor,grp_raw, item_raw, nb_sample,nb_guts ,    
          nb_item ,     item_freq ,   item_volper,item_massper, item_numper,
          mean_SL  ,    min_SL  ,max_SL, min_TL ,max_TL,time,source) 
 
+data <- unique(data)
+
+data <- filter(data,!is.na(item_cor))
+data <- filter(data %>% filter(!item_cor=="Gurry"))  #remove gurry items
+data <- filter(data, !item_cor=="Animalia" & !item_cor=="Plantae") 
+data <- filter(data, is.na(time) | time =="day") #don't keep samples at night
 data <- unique(data)
 
 names(data_raw)
@@ -42,35 +48,35 @@ data$site_code <- as.character(data$site_code)
 #haw
 haw <- data%>% filter(site_code=="haw")
 
-haw_tax <- haw %>% select(7:15) %>%
+haw_tax <- haw %>% select(8:16) %>%
   summarise_all(funs(sum(!is.na(.))))
 
-haw_per <- round(haw_tax*100/843, 2)
+haw_per <- round(haw_tax*100/892, 2)
 
 #mad
 mad <- data%>% filter(site_code=="mad")
 
-mad_tax <- mad %>% select(7:15) %>%
+mad_tax <- mad %>% select(8:16) %>%
   summarise_all(funs(sum(!is.na(.))))
 
-mad_per <- round(mad_tax*100/1502, 2)
+mad_per <- round(mad_tax*100/1611, 2)
 
 #vir
 vir <- data%>% filter(site_code=="vir")
 
-vir_tax <- vir %>% select(7:15) %>%
+vir_tax <- vir %>% select(8:16) %>%
   summarise_all(funs(sum(!is.na(.))))
 
-vir_per <- round(vir_tax*100/3229, 2)
+vir_per <- round(vir_tax*100/3318, 2)
 
 
 #mari
 mari <- data%>% filter(site_code=="mari")
 
-mari_tax <- mari %>% select(7:15) %>%
+mari_tax <- mari %>% select(8:16) %>%
   summarise_all(funs(sum(!is.na(.))))
 
-mari_per <- round(mari_tax*100/976, 2)
+mari_per <- round(mari_tax*100/1126, 2)
 
 tax <- bind_rows(mad_per, haw_per, vir_per, mari_per) %>%
   rownames_to_column(var="site_code") %>%
@@ -158,10 +164,6 @@ datatest_cor <- datatest %>%
 
 
     ####Add a broad item groups colomn####
-
-unique(data$item_cor[is.na(data$item_phylum)])
-
-unique(data$item_phylum)
 
 #Create a vector of corrected names from the "grp_raw" vector
 data$item_guild <- data$grp_raw
@@ -268,17 +270,16 @@ grp <- data.frame(avant = grp_err, apres = grp_cor) #create a data frame of befo
 
 write.csv(grp, file="grp_cor.csv") 
 
-grp <-read.csv("grp_cor.csv", sep=";") #export the csv, so i can modify the csv directly
-
-data_replace <- merge(data, grp, by.x="grp_raw", by.y ="avant") #merge
+grp <-read.csv("grp.csv", sep=",") #export the csv, so i can modify the csv directly
+unique(grp)
+data_replace <- merge(data, grp[,c("grp_raw","grp")], by="grp_raw") #merge
 
 data_replace <- data_replace[,-32]
 names(data_replace)[32] <- "grp"
 
-
-#Previous grp were incorrect, so new tab based on item_cor, ord and class)
-m <-data_replace %>% 
-  select(grp_raw, grp, item_class, item_ord_cor, item_cor)
+#Previous grp were incorrect, so new tab based on item_cor, item_raw,grp_raw)
+m <-data %>% 
+  select(grp_raw, item_raw, item_class, item_ord_cor, item_cor)
 
 mm <- unique(m)
 
@@ -288,6 +289,11 @@ grp_item <- grp_item[,c(3,6)]
 names(grp_item)[1] <- "grp_new"
 grp_item <- (unique(grp_item))
 
+
+data$item_raw <- as.character(data$item_raw)
+grp_item$item_cor<- as.character(grp_item$item_cor)
+data$item_cor <- as.character(data$item_cor)
+
 #Check number of unique prey items
 data %>% select(item_cor) %>% n_distinct()
 grp_item %>% select(item_cor) %>% n_distinct() #same 
@@ -295,19 +301,42 @@ grp_item %>% select(item_cor) %>% n_distinct() #same
 data_replace %>% select(grp_new) %>% n_distinct()
 grp_item %>% select(grp_new) %>% n_distinct()
 
-class(grp_item$item_cor)
-class(data_replace$item_cor) 
-grp_item$item_cor <- as.character(grp_item$item_cor) #now both variables are character
 
+#Create new data frame with data and former grp for items
 data_replace <- dplyr::left_join(data, grp_item, by = "item_cor") %>% # SOLVED there was pb in single key values. so why merge create much more rows !!!!
-                rename(grp = grp_new)
-data_replace$grp <- as.character(data_replace$grp)
+                rename(grp = grp)
 
-#Here just remove rows under certain conditions, pretty straight forward
-data_replace <- filter(data_replace,!is.na(item_type)) #Remove items for which the type is NA  
-data_replace <-filter(data_replace,!is.na(item_cor) , item_kingdom %in% c("Animalia","Plantae"))  #Remove row for which item = Na and kingdom Animalia or Plantae
-data_replace <- filter(data_replace %>% filter(!item_cor=="Gurry"))  #remove gurry items
-data_replace <- filter(data_replace, !item_cor=="Animalia" & !item_cor=="Plantae") 
-data_replace <-filter(data_replace, is.na(time) | time =="day") #don't keep samples at night
+#Get a new item data frame to create new group base on grp raw and item raw
+grp_item2 <-data_replace %>% 
+  select(grp_raw, grp, item_raw, item_class, item_ord_cor, item_cor)
+
+grp_item2 <- unique(grp_item2)
+
+write.csv(grp_item2, "grp_item2.csv")
+
+grp_item2 <- read.csv("grp_item2.csv", sep=";")
+grp_item2$item_raw <- as.character(grp_item2$item_raw)
+
+grp_item2 <- unique(grp_item2)
+
+#Upload and merge data with grps
+data2 <- dplyr::left_join(data, grp_item2[,c("item_raw","grp1","grp2")], by="item_raw") # SOLVED there was pb in single key values. so why merge create much more rows !!!!
+data2 <- unique(data2)
+
+#Pb with the merge so checked for duplicates | SOLVED
+all(data$item_raw %in% grp_item2$item_raw)
+
+setdiff(data$item_raw , grp_item2$item_raw)
+
+data %>% select(item_raw) %>% n_distinct()
+grp_item2 %>% select(item_raw) %>% n_distinct()
+
+a <- grp_item2 %>% count(item_raw, grp1)
+a[duplicated(a$item_raw),]
+
+b <- grp_item2 %>% count(item_raw, grp2)
+b[duplicated(b$item_raw),]
+
+rm(a); rm(b)
 
 
