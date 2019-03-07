@@ -6,10 +6,10 @@ library(fossil)
 library(tidyverse)
 
 #Create data frame per site
-haw <- data %>% filter(site_code=="haw")
-vir <- data %>% filter(site_code=="vir")
-mari <- data %>% filter(site_code=="mari")
-mad <- data %>% filter(site_code=="mad")
+haw <- data2 %>% filter(site_code=="haw")
+vir <- data2 %>% filter(site_code=="vir")
+mari <- data2 %>% filter(site_code=="mari")
+mad <- data2 %>% filter(site_code=="mad")
 
 haw <- as.data.frame(haw)
 vir <- as.data.frame(vir)
@@ -96,7 +96,7 @@ vir.matrix.std <- apply(vir.matrix, 2,function(x) x/sum(x)) #divie each cell by 
 #Let's do the plot
 #plotweb(sortweb(vir.matrix, sort.order="dec"), text.rot = 90, method="normal", arrow="down") #to sort out the matrix
 #Get interactions and box colors
-phylum.all <- as.data.frame(vir[c(4,10)]) #select fish fam and item phylum col
+phylum.all <- as.data.frame(vir[c(3,9)]) #select fish fam and item phylum col
 phylum.unique <- unique(phylum.all) #get unique rows
 colnames(phylum.unique) <- c("Taxon", "Phyla")
 phylum <- as.data.frame(unique(phylum.unique$Phyla))
@@ -138,7 +138,7 @@ mari.matrix[i1] <- x[i1]
 mari.matrix.std <- apply(mari.matrix, 2,function(x) x/sum(x))
 
 #Prepare data frame for color function PHYLUM
-phylum.all <- as.data.frame(mari[c(4,10)])
+phylum.all <- as.data.frame(mari[c(3,9)])
 phylum.unique <- unique(phylum.all)
 colnames(phylum.unique) <- c("Taxon", "Phyla")
 phylum <- as.data.frame(unique(phylum.unique$Phyla))
@@ -179,7 +179,7 @@ haw.matrix[i1] <- x[i1]
 haw.matrix.std <- apply(haw.matrix, 2,function(x) x/sum(x))
 
 #Prepare data frame for color function PHYLUM
-phylum.all <- as.data.frame(haw[c(4,10)])
+phylum.all <- as.data.frame(haw[c(3,9)])
 phylum.unique <- unique(phylum.all)
 colnames(phylum.unique) <- c("Taxon", "Phyla")
 phylum <- as.data.frame(unique(phylum.unique$Phyla))
@@ -220,7 +220,7 @@ mad.matrix[i1] <- x[i1]
 mad.matrix.std <- apply(mad.matrix, 2,function(x) x/sum(x))
 
 #Prepare data frame for color function PHYLUM
-phylum.all <- as.data.frame(mad[c(4,10)])
+phylum.all <- as.data.frame(mad[c(3,9)])
 phylum.unique <- unique(phylum.all)
 colnames(phylum.unique) <- c("Taxon", "Phyla")
 phylum <- as.data.frame(unique(phylum.unique$Phyla))
@@ -248,57 +248,6 @@ plotweb(mad.matrix.std,method="normal", empty = TRUE, arrow="down",text.rot=90,
         labsize = 1.2, ybig = 1.2, low.spacing = NULL) #to sort out the matrix
 
 
-
-
-
-
-
-
-
-  ####LEt's try on Mada fish families x grp
-str(mad)
-mad$grp <- as.character(mad$grp)
-n <- unique(mad$grp) #49/72
-m <- unique(mad$family_cor) #36 families
-
-x <- with(mad, table(mad$grp, mad$family_cor))
-matrix <- matrix(0,ncol=length(m),nrow=length(n),dimnames=list(n,m))
-
-i1 <- as.matrix(expand.grid(rownames(x),colnames(x)))
-
-matrix[i1] <- x[i1]
-
-
-#Plot
-plotweb(mad.matrix,method="normal", empty = TRUE, arrow="no",text.rot=90,
-        bor.col.interaction = FALSE,y.width.low=0.05, y.width.high=0.03,
-        labsize = 1.2, ybig = 1.2, low.spacing = NULL) #to sort out the matrix
-
-
-####LEt's try on Marshall Islands fish families x grp
-str(mari)
-mari$grp <- as.character(mari$grp)
-n <- unique(mari$grp) #49/72
-m <- unique(mari$family_cor) #36 families
-
-x <- with(mari, table(mari$grp, mari$family_cor))
-mari.matrix <- matrix(0,ncol=length(m),nrow=length(n),dimnames=list(n,m))
-
-i1 <- as.matrix(expand.grid(rownames(x),colnames(x)))
-
-mari.matrix[i1] <- x[i1]
-
-
-#Plot
-plotweb(sortweb(mari.matrix, sort.order = "dec"),method="normal", empty = TRUE, arrow="no",text.rot=90,
-        bor.col.interaction = FALSE,y.width.low=0.05, y.width.high=0.03,
-        labsize = 1.2, ybig = 1.2, low.spacing = NULL) #to sort out the matrix
-
-
-
-
-
-
     ####Fish families x Class ####
 #Virgin Islands
 #First need to build an interaction matrix on fish families and phylum 
@@ -320,7 +269,7 @@ vir.matrix.std <- apply(vir.matrix, 2,function(x) x/sum(x)) #divie each cell by 
 #Let's do the plot
 #plotweb(sortweb(vir.matrix, sort.order="dec"), text.rot = 90, method="normal", arrow="down") #to sort out the matrix
 #Get interactions and box colors
-class.all <- as.data.frame(vir[c(4,11)]) #select fish fam and item class col
+class.all <- as.data.frame(vir[c(3,10)]) #select fish fam and item class col
 class.unique <- unique(class.all) #get unique rows
 colnames(class.unique) <- c("Taxon", "Class")
 class <- as.data.frame(unique(class.unique$Class))
@@ -368,7 +317,7 @@ mari.matrix.std <- apply(mari.matrix, 2,function(x) x/sum(x)) #divie each cell b
 #Let's do the plot
 #plotweb(sortweb(mari.matrix, sort.order="dec"), text.rot = 90, method="normal", arrow="down") #to sort out the matrix
 #Get interactions and box colors
-class.all <- as.data.frame(mari[c(4,11)]) #select fish fam and item class col
+class.all <- as.data.frame(mari[c(3,10)]) #select fish fam and item class col
 class.unique <- unique(class.all) #get unique rows
 colnames(class.unique) <- c("Taxon", "Class")
 class <- as.data.frame(unique(class.unique$Class))
@@ -416,7 +365,7 @@ haw.matrix.std <- apply(haw.matrix, 2,function(x) x/sum(x)) #divie each cell by 
 #Let's do the plot
 #plotweb(sortweb(haw.matrix, sort.order="dec"), text.rot = 90, method="normal", arrow="down") #to sort out the matrix
 #Get interactions and box colors
-class.all <- as.data.frame(haw[c(4,11)]) #select fish fam and item class col
+class.all <- as.data.frame(haw[c(3,10)]) #select fish fam and item class col
 class.unique <- unique(class.all) #get unique rows
 colnames(class.unique) <- c("Taxon", "Class")
 class <- as.data.frame(unique(class.unique$Class))
@@ -463,7 +412,7 @@ mad.matrix.std <- apply(mad.matrix, 2,function(x) x/sum(x)) #divie each cell by 
 #Let's do the plot
 #plotweb(sortweb(mad.matrix, sort.order="dec"), text.rot = 90, method="normal", arrow="down") #to sort out the matrix
 #Get interactions and box colors
-class.all <- as.data.frame(mad[c(4,11)]) #select fish fam and item class col
+class.all <- as.data.frame(mad[c(3,10)]) #select fish fam and item class col
 class.unique <- unique(class.all) #get unique rows
 colnames(class.unique) <- c("Taxon", "Class")
 class <- as.data.frame(unique(class.unique$Class))
@@ -490,14 +439,427 @@ plotweb(mad.matrix.std,method="normal", empty = TRUE, arrow="no",text.rot=90,
         col.low = box.colors, bor.col.interaction = FALSE,y.width.low=0.05, y.width.high=0.03,
         labsize = 1.20, ybig = 1.1, bor.col.low = box.colors) #to sort out the matrix
 
-    
+  
 
+    ####Fish families x Group 1####
 
+  #Virgin Islands
+#First need to build an interaction matrix on fish families and phylum 
+str(vir)
+n <- unique(vir$grp1) 
+m <- unique(vir$family_cor) 
 
+c <- count(vir, grp1)
 
+x <- with(vir, table(vir$grp1,vir$family_cor))
+vir.matrix <- matrix(0,ncol=length(m),nrow=length(n),dimnames=list(n,m))
+i1 <- as.matrix(expand.grid(rownames(x),colnames(x)))
+vir.matrix[i1] <- x[i1]
 
+#Standardize nb of links by dividing by the sum of the cols(here fish families)
+dim(vir.matrix)
+#vir.matrix.std <- vir.matrix/colSums(vir.matrix)
 
-    ####Fish families x Broad groups####
+vir.matrix.std <- apply(vir.matrix, 2,function(x) x/sum(x)) #divie each cell by the sum of its column 2 means by column
+
+#Let's do the plot
+#plotweb(sortweb(vir.matrix, sort.order="dec"), text.rot = 90, method="normal", arrow="down") #to sort out the matrix
+#Get interactions and box colors
+grp1.all <- as.data.frame(vir[,c(3,33)]) #select fish fam and item grp1 col
+grp1.unique <- unique(grp1.all) #get unique rows
+colnames(grp1.unique) <- c("Taxon", "grp")
+grp1 <- as.data.frame(unique(grp1.unique$grp))
+colnames(grp1) <- "grp"
+grp1.ord <- as.data.frame(grp1[order(grp1$grp),]) #Alphabetic order
+colnames(grp1.ord) <- "grp"
+
+colfunc4 <- colorRampPalette(c("mediumpurple4","mediumblue","skyblue","lightseagreen","gold","coral1","gray85","black"))
+colfunc4(48) #get 16 colors betweens those given into colorRampPalette
+plot(rep(1,48),col=(colfunc4(48)),pch=19,cex=2) #plot to see the colours
+
+grp1.ord$colors <- colfunc4(48)
+
+colorvector <- as.data.frame(merge(grp1.ord, grp1.unique, by = "grp"))
+names(colorvector)[2] <- "colors"
+box.colors <- as.character(grp1.ord$colors)
+colorvec1 <- as.character(colorvector$colors)
+head(colorvec1)
+colfunc4
+
+#with Jordan's FUN arguments
+plotweb(vir.matrix.std,method="normal", empty = TRUE, arrow="no",text.rot=90,
+        col.low = box.colors, bor.col.interaction = FALSE, y.width.low=0.05, y.width.high=0.03,
+        labsize = 1.20, ybig = 1.1, bor.col.low = box.colors) 
+
+plotweb(sortweb(vir.matrix.std,sort.ord="dec"), method="normal", empty = TRUE, arrow="no",text.rot=90,
+        col.low = box.colors, bor.col.interaction = FALSE, y.width.low=0.05, y.width.high=0.03,
+        labsize = 1.20, ybig = 1.1, bor.col.low = box.colors) #to sort out by rows and cols total
+
+  #Marshall Islands
+#First need to build an interaction matrix on fish families and phylum 
+str(mari)
+n <- unique(mari$grp1) 
+m <- unique(mari$family_cor) 
+
+c <- count(mari, grp1)
+
+x <- with(mari, table(mari$grp1,mari$family_cor))
+mari.matrix <- matrix(0,ncol=length(m),nrow=length(n),dimnames=list(n,m))
+i1 <- as.matrix(expand.grid(rownames(x),colnames(x)))
+mari.matrix[i1] <- x[i1]
+
+#Standardize nb of links by dividing by the sum of the cols(here fish families)
+dim(mari.matrix)
+#mari.matrix.std <- mari.matrix/colSums(mari.matrix)
+
+mari.matrix.std <- apply(mari.matrix, 2,function(x) x/sum(x)) #divie each cell by the sum of its column 2 means by column
+
+#Let's do the plot
+#plotweb(sortweb(mari.matrix, sort.order="dec"), text.rot = 90, method="normal", arrow="down") #to sort out the matrix
+#Get interactions and box colors
+grp1.all <- as.data.frame(mari[,c(3,33)]) #select fish fam and item grp1 col
+grp1.unique <- unique(grp1.all) #get unique rows
+colnames(grp1.unique) <- c("Taxon", "grp")
+grp1 <- as.data.frame(unique(grp1.unique$grp))
+colnames(grp1) <- "grp"
+grp1.ord <- as.data.frame(grp1[order(grp1$grp),]) #Alphabetic order
+colnames(grp1.ord) <- "grp"
+
+colfunc4 <- colorRampPalette(c("mediumpurple4","mediumblue","skyblue","lightseagreen","gold","coral1","gray85","black"))
+colfunc4(38) #get 16 colors betweens those given into colorRampPalette
+plot(rep(1,38),col=(colfunc4(38)),pch=19,cex=2) #plot to see the colours
+
+grp1.ord$colors <- colfunc4(38)
+
+colorvector <- as.data.frame(merge(grp1.ord, grp1.unique, by = "grp"))
+names(colorvector)[2] <- "colors"
+box.colors <- as.character(grp1.ord$colors)
+colorvec1 <- as.character(colorvector$colors)
+head(colorvec1)
+colfunc4
+
+#with Jordan's FUN arguments
+plotweb(mari.matrix.std,method="normal", empty = TRUE, arrow="no",text.rot=90,
+        col.low = box.colors, bor.col.interaction = FALSE, y.width.low=0.05, y.width.high=0.03,
+        labsize = 1.20, ybig = 1.1, bor.col.low = box.colors) 
+
+plotweb(sortweb(mari.matrix.std, sort.ord="dec"), method="normal", empty = TRUE, arrow="no",text.rot=90,
+        col.low = box.colors, bor.col.interaction = FALSE, y.width.low=0.05, y.width.high=0.03,
+        labsize = 1.20, ybig = 1.1, bor.col.low = box.colors) #to sort out the matrix
+
+  #Hawai
+#First need to build an interaction matrix on fish families and phylum 
+str(haw)
+n <- unique(haw$grp1) 
+m <- unique(haw$family_cor) 
+
+c <- count(haw, grp1)
+
+x <- with(haw, table(haw$grp1,haw$family_cor))
+haw.matrix <- matrix(0,ncol=length(m),nrow=length(n),dimnames=list(n,m))
+i1 <- as.matrix(expand.grid(rownames(x),colnames(x)))
+haw.matrix[i1] <- x[i1]
+
+#Standardize nb of links by dividing by the sum of the cols(here fish families)
+dim(haw.matrix)
+#haw.matrix.std <- haw.matrix/colSums(haw.matrix)
+
+haw.matrix.std <- apply(haw.matrix, 2,function(x) x/sum(x)) #divie each cell by the sum of its column 2 means by column
+
+#Let's do the plot
+#plotweb(sortweb(haw.matrix, sort.order="dec"), text.rot = 90, method="normal", arrow="down") #to sort out the matrix
+#Get interactions and box colors
+grp1.all <- as.data.frame(haw[,c(3,33)]) #select fish fam and item grp1 col
+grp1.unique <- unique(grp1.all) #get unique rows
+colnames(grp1.unique) <- c("Taxon", "grp")
+grp1 <- as.data.frame(unique(grp1.unique$grp))
+colnames(grp1) <- "grp"
+grp1.ord <- as.data.frame(grp1[order(grp1$grp),]) #Alphabetic order
+colnames(grp1.ord) <- "grp"
+
+colfunc4 <- colorRampPalette(c("mediumpurple4","mediumblue","skyblue","lightseagreen","gold","coral1","gray85","black"))
+colfunc4(41) #get 16 colors betweens those given into colorRampPalette
+plot(rep(1,41),col=(colfunc4(41)),pch=19,cex=2) #plot to see the colours
+
+grp1.ord$colors <- colfunc4(41)
+
+colorvector <- as.data.frame(merge(grp1.ord, grp1.unique, by = "grp"))
+names(colorvector)[2] <- "colors"
+box.colors <- as.character(grp1.ord$colors)
+colorvec1 <- as.character(colorvector$colors)
+head(colorvec1)
+colfunc4
+
+#with Jordan's FUN arguments
+plotweb(haw.matrix.std,method="normal", empty = TRUE, arrow="no",text.rot=90,
+        col.low = box.colors, bor.col.interaction = FALSE, y.width.low=0.05, y.width.high=0.03,
+        labsize = 1.20, ybig = 1.1, bor.col.low = box.colors) #to sort out the matrix
+
+plotweb(sortweb(haw.matrix.std, sort.ord="dec"), method="normal", empty = TRUE, arrow="no",text.rot=90,
+        col.low = box.colors, bor.col.interaction = FALSE,y.width.low=0.05, y.width.high=0.03,
+        labsize = 1.20, ybig = 1.1, bor.col.low = box.colors) #to sort out the matrix
+
+  #Madagascar
+#First need to build an interaction matrix on fish families and phylum 
+str(mad)
+n <- unique(mad$grp1) 
+m <- unique(mad$family_cor) 
+
+c <- count(mad, grp1)
+
+x <- with(mad, table(mad$grp1,mad$family_cor))
+mad.matrix <- matrix(0,ncol=length(m),nrow=length(n),dimnames=list(n,m))
+i1 <- as.matrix(expand.grid(rownames(x),colnames(x)))
+mad.matrix[i1] <- x[i1]
+
+#Standardize nb of links by dividing by the sum of the cols(here fish families)
+dim(mad.matrix)
+#mad.matrix.std <- mad.matrix/colSums(mad.matrix)
+
+mad.matrix.std <- apply(mad.matrix, 2,function(x) x/sum(x)) #divie each cell by the sum of its column 2 means by column
+
+#Let's do the plot
+#plotweb(sortweb(mad.matrix, sort.order="dec"), text.rot = 90, method="normal", arrow="down") #to sort out the matrix
+#Get interactions and box colors
+grp1.all <- as.data.frame(mad[,c(3,33)]) #select fish fam and item grp1 col
+grp1.unique <- unique(grp1.all) #get unique rows
+colnames(grp1.unique) <- c("Taxon", "grp")
+grp1 <- as.data.frame(unique(grp1.unique$grp))
+colnames(grp1) <- "grp"
+grp1.ord <- as.data.frame(grp1[order(grp1$grp),]) #Alphabetic order
+colnames(grp1.ord) <- "grp"
+
+colfunc4 <- colorRampPalette(c("mediumpurple4","mediumblue","skyblue","lightseagreen","gold","coral1","gray85","black"))
+colfunc4(39) #get 16 colors betweens those given into colorRampPalette
+plot(rep(1,39),col=(colfunc4(39)),pch=19,cex=2) #plot to see the colours
+
+grp1.ord$colors <- colfunc4(39)
+
+colorvector <- as.data.frame(merge(grp1.ord, grp1.unique, by = "grp"))
+names(colorvector)[2] <- "colors"
+box.colors <- as.character(grp1.ord$colors)
+colorvec1 <- as.character(colorvector$colors)
+head(colorvec1)
+colfunc4
+
+#with Jordan's FUN arguments
+plotweb(mad.matrix.std,method="normal", empty = TRUE, arrow="no",text.rot=90,
+        col.low = box.colors, bor.col.interaction = FALSE, y.width.low=0.05, y.width.high=0.03,
+        labsize = 1.20, ybig = 1.1, bor.col.low = box.colors) #to sort out the matrix
+
+plotweb(sortweb(mad.matrix.std, sort.ord="dec"), method="normal", empty = TRUE, arrow="no",text.rot=90,
+        col.low = box.colors, bor.col.interaction = FALSE,y.width.low=0.05, y.width.high=0.03,
+        labsize = 1.20, ybig = 1.1, bor.col.low = box.colors) #to sort out the matrix
+
+    ####Fish families x Group 2####
+
+  #Virgin Islands
+#First need to build an interaction matrix on fish families and phylum 
+str(vir)
+n <- unique(vir$grp2) 
+m <- unique(vir$family_cor) 
+
+c <- count(vir, grp2)
+
+x <- with(vir, table(vir$grp2,vir$family_cor))
+vir.matrix <- matrix(0,ncol=length(m),nrow=length(n),dimnames=list(n,m))
+i1 <- as.matrix(expand.grid(rownames(x),colnames(x)))
+vir.matrix[i1] <- x[i1]
+
+#Standardize nb of links by dividing by the sum of the cols(here fish families)
+dim(vir.matrix)
+#vir.matrix.std <- vir.matrix/colSums(vir.matrix)
+
+vir.matrix.std <- apply(vir.matrix, 2,function(x) x/sum(x)) #divie each cell by the sum of its column 2 means by column
+
+#Let's do the plot
+#plotweb(sortweb(vir.matrix, sort.order="dec"), text.rot = 90, method="normal", arrow="down") #to sort out the matrix
+#Get interactions and box colors
+grp2.all <- as.data.frame(vir[,c(3,34)]) #select fish fam and item grp2 col
+grp2.unique <- unique(grp2.all) #get unique rows
+colnames(grp2.unique) <- c("Taxon", "grp")
+grp2 <- as.data.frame(unique(grp2.unique$grp))
+colnames(grp2) <- "grp"
+grp2.ord <- as.data.frame(grp2[order(grp2$grp),]) #Alphabetic order
+colnames(grp2.ord) <- "grp"
+
+colfunc4 <- colorRampPalette(c("mediumpurple4","mediumblue","skyblue","lightseagreen","gold","coral1","gray85","black"))
+colfunc4(57) #get 16 colors betweens those given into colorRampPalette
+plot(rep(1,57),col=(colfunc4(57)),pch=19,cex=2) #plot to see the colours
+
+grp2.ord$colors <- colfunc4(57)
+
+colorvector <- as.data.frame(merge(grp2.ord, grp2.unique, by = "grp"))
+names(colorvector)[2] <- "colors"
+box.colors <- as.character(grp2.ord$colors)
+colorvec1 <- as.character(colorvector$colors)
+head(colorvec1)
+colfunc4
+
+#with Jordan's FUN arguments
+plotweb(vir.matrix.std,method="normal", empty = TRUE, arrow="no",text.rot=90,
+        col.low = box.colors, bor.col.interaction = FALSE, y.width.low=0.05, y.width.high=0.03,
+        labsize = 1.20, ybig = 1.1, bor.col.low = box.colors) 
+
+plotweb(sortweb(vir.matrix.std,sort.ord="dec"), method="normal", empty = TRUE, arrow="no",text.rot=90,
+        col.low = box.colors, bor.col.interaction = FALSE, y.width.low=0.05, y.width.high=0.03,
+        labsize = 1.20, ybig = 1.1, bor.col.low = box.colors) #to sort out by rows and cols total
+
+  #Marshall Islands
+#First need to build an interaction matrix on fish families and phylum 
+str(mari)
+n <- unique(mari$grp2) 
+m <- unique(mari$family_cor) 
+
+c <- count(mari, grp2)
+
+x <- with(mari, table(mari$grp2,mari$family_cor))
+mari.matrix <- matrix(0,ncol=length(m),nrow=length(n),dimnames=list(n,m))
+i1 <- as.matrix(expand.grid(rownames(x),colnames(x)))
+mari.matrix[i1] <- x[i1]
+
+#Standardize nb of links by dividing by the sum of the cols(here fish families)
+dim(mari.matrix)
+#mari.matrix.std <- mari.matrix/colSums(mari.matrix)
+
+mari.matrix.std <- apply(mari.matrix, 2,function(x) x/sum(x)) #divie each cell by the sum of its column 2 means by column
+
+#Let's do the plot
+#plotweb(sortweb(mari.matrix, sort.order="dec"), text.rot = 90, method="normal", arrow="down") #to sort out the matrix
+#Get interactions and box colors
+grp2.all <- as.data.frame(mari[,c(3,34)]) #select fish fam and item grp2 col
+grp2.unique <- unique(grp2.all) #get unique rows
+colnames(grp2.unique) <- c("Taxon", "grp")
+grp2 <- as.data.frame(unique(grp2.unique$grp))
+colnames(grp2) <- "grp"
+grp2.ord <- as.data.frame(grp2[order(grp2$grp),]) #Alphabetic order
+colnames(grp2.ord) <- "grp"
+
+colfunc4 <- colorRampPalette(c("mediumpurple4","mediumblue","skyblue","lightseagreen","gold","coral1","gray85","black"))
+colfunc4(42) #get 16 colors betweens those given into colorRampPalette
+plot(rep(1,42),col=(colfunc4(42)),pch=19,cex=2) #plot to see the colours
+
+grp2.ord$colors <- colfunc4(42)
+
+colorvector <- as.data.frame(merge(grp2.ord, grp2.unique, by = "grp"))
+names(colorvector)[2] <- "colors"
+box.colors <- as.character(grp2.ord$colors)
+colorvec1 <- as.character(colorvector$colors)
+head(colorvec1)
+colfunc4
+
+#with Jordan's FUN arguments
+plotweb(mari.matrix.std,method="normal", empty = TRUE, arrow="no",text.rot=90,
+        col.low = box.colors, bor.col.interaction = FALSE, y.width.low=0.05, y.width.high=0.03,
+        labsize = 1.20, ybig = 1.1, bor.col.low = box.colors) 
+
+plotweb(sortweb(mari.matrix.std,sort.ord="dec"), method="normal", empty = TRUE, arrow="no",text.rot=90,
+        col.low = box.colors, bor.col.interaction = FALSE, y.width.low=0.05, y.width.high=0.03,
+        labsize = 1.20, ybig = 1.1, bor.col.low = box.colors) #to sort out by rows and cols total
+
+  #Hawai
+#First need to build an interaction matrix on fish families and phylum 
+str(haw)
+n <- unique(haw$grp2) 
+m <- unique(haw$family_cor) 
+
+c <- count(haw, grp2)
+
+x <- with(haw, table(haw$grp2,haw$family_cor))
+haw.matrix <- matrix(0,ncol=length(m),nrow=length(n),dimnames=list(n,m))
+i1 <- as.matrix(expand.grid(rownames(x),colnames(x)))
+haw.matrix[i1] <- x[i1]
+
+#Standardize nb of links by dividing by the sum of the cols(here fish families)
+dim(haw.matrix)
+#haw.matrix.std <- haw.matrix/colSums(haw.matrix)
+
+haw.matrix.std <- apply(haw.matrix, 2,function(x) x/sum(x)) #divie each cell by the sum of its column 2 means by column
+
+#Let's do the plot
+#plotweb(sortweb(haw.matrix, sort.order="dec"), text.rot = 90, method="normal", arrow="down") #to sort out the matrix
+#Get interactions and box colors
+grp2.all <- as.data.frame(haw[,c(3,34)]) #select fish fam and item grp2 col
+grp2.unique <- unique(grp2.all) #get unique rows
+colnames(grp2.unique) <- c("Taxon", "grp")
+grp2 <- as.data.frame(unique(grp2.unique$grp))
+colnames(grp2) <- "grp"
+grp2.ord <- as.data.frame(grp2[order(grp2$grp),]) #Alphabetic order
+colnames(grp2.ord) <- "grp"
+
+colfunc4 <- colorRampPalette(c("mediumpurple4","mediumblue","skyblue","lightseagreen","gold","coral1","gray85","black"))
+colfunc4(46) #get 16 colors betweens those given into colorRampPalette
+plot(rep(1,46),col=(colfunc4(46)),pch=19,cex=2) #plot to see the colours
+
+grp2.ord$colors <- colfunc4(46)
+
+colorvector <- as.data.frame(merge(grp2.ord, grp2.unique, by = "grp"))
+names(colorvector)[2] <- "colors"
+box.colors <- as.character(grp2.ord$colors)
+colorvec1 <- as.character(colorvector$colors)
+head(colorvec1)
+colfunc4
+
+#with Jordan's FUN arguments
+plotweb(haw.matrix.std,method="normal", empty = TRUE, arrow="no",text.rot=90,
+        col.low = box.colors, bor.col.interaction = FALSE, y.width.low=0.05, y.width.high=0.03,
+        labsize = 1.20, ybig = 1.1, bor.col.low = box.colors) 
+
+plotweb(sortweb(haw.matrix.std,sort.ord="dec"), method="normal", empty = TRUE, arrow="no",text.rot=90,
+        col.low = box.colors, bor.col.interaction = FALSE, y.width.low=0.05, y.width.high=0.03,
+        labsize = 1.20, ybig = 1.1, bor.col.low = box.colors) #to sort out by rows and cols total
+
+  #Madagascar
+#First need to build an interaction matrix on fish families and phylum 
+str(mad)
+n <- unique(mad$grp2) 
+m <- unique(mad$family_cor) 
+
+c <- count(mad, grp2)
+
+x <- with(mad, table(mad$grp2,mad$family_cor))
+mad.matrix <- matrix(0,ncol=length(m),nrow=length(n),dimnames=list(n,m))
+i1 <- as.matrix(expand.grid(rownames(x),colnames(x)))
+mad.matrix[i1] <- x[i1]
+
+#Standardize nb of links by dividing by the sum of the cols(here fish families)
+dim(mad.matrix)
+#mad.matrix.std <- mad.matrix/colSums(mad.matrix)
+
+mad.matrix.std <- apply(mad.matrix, 2,function(x) x/sum(x)) #divie each cell by the sum of its column 2 means by column
+
+#Let's do the plot
+#plotweb(sortweb(mad.matrix, sort.order="dec"), text.rot = 90, method="normal", arrow="down") #to sort out the matrix
+#Get interactions and box colors
+grp2.all <- as.data.frame(mad[,c(3,34)]) #select fish fam and item grp2 col
+grp2.unique <- unique(grp2.all) #get unique rows
+colnames(grp2.unique) <- c("Taxon", "grp")
+grp2 <- as.data.frame(unique(grp2.unique$grp))
+colnames(grp2) <- "grp"
+grp2.ord <- as.data.frame(grp2[order(grp2$grp),]) #Alphabetic order
+colnames(grp2.ord) <- "grp"
+
+colfunc4 <- colorRampPalette(c("mediumpurple4","mediumblue","skyblue","lightseagreen","gold","coral1","gray85","black"))
+colfunc4(48) #get 16 colors betweens those given into colorRampPalette
+plot(rep(1,48),col=(colfunc4(48)),pch=19,cex=2) #plot to see the colours
+
+grp2.ord$colors <- colfunc4(48)
+
+colorvector <- as.data.frame(merge(grp2.ord, grp2.unique, by = "grp"))
+names(colorvector)[2] <- "colors"
+box.colors <- as.character(grp2.ord$colors)
+colorvec1 <- as.character(colorvector$colors)
+head(colorvec1)
+colfunc4
+
+#with Jordan's FUN arguments
+plotweb(mad.matrix.std,method="normal", empty = TRUE, arrow="no",text.rot=90,
+        col.low = box.colors, bor.col.interaction = FALSE, y.width.low=0.05, y.width.high=0.03,
+        labsize = 1.20, ybig = 1.1, bor.col.low = box.colors) 
+
+plotweb(sortweb(mad.matrix.std,sort.ord="dec"), method="normal", empty = TRUE, arrow="no",text.rot=90,
+        col.low = box.colors, bor.col.interaction = FALSE, y.width.low=0.05, y.width.high=0.03,
+        labsize = 1.20, ybig = 1.1, bor.col.low = box.colors) #to sort out by rows and cols total
 
 
 #####Template####

@@ -323,6 +323,13 @@ grp_item2 <- unique(grp_item2)
 data2 <- dplyr::left_join(data, grp_item2[,c("item_raw","grp1","grp2")], by="item_raw") # SOLVED there was pb in single key values. so why merge create much more rows !!!!
 data2 <- unique(data2)
 
+data2$grp1 <- as.character(data2$grp1)
+data2$grp2 <- as.character(data2$grp2)
+
+grps <- data2 %>% count(grp1, grp2)
+
+write.csv(grps,"grps_data2.csv")
+
 #Pb with the merge so checked for duplicates | SOLVED
 all(data$item_raw %in% grp_item2$item_raw)
 
