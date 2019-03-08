@@ -328,7 +328,7 @@ data2$grp2 <- as.character(data2$grp2)
 
 grps <- data2 %>% count(grp1, grp2)
 
-write.csv(grps,"grps_data2.csv")
+write.csv(grps,"nbgrp_data2.csv")
 
 #Pb with the merge so checked for duplicates | SOLVED
 all(data$item_raw %in% grp_item2$item_raw)
