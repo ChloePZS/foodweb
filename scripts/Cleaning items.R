@@ -48,7 +48,7 @@ data$site_code <- as.character(data$site_code)
 #haw
 haw <- data%>% filter(site_code=="haw")
 
-haw_tax <- haw %>% select(8:16) %>%
+haw_tax <- haw %>% select(7:15) %>%
   summarise_all(funs(sum(!is.na(.))))
 
 haw_per <- round(haw_tax*100/892, 2)
@@ -56,7 +56,7 @@ haw_per <- round(haw_tax*100/892, 2)
 #mad
 mad <- data%>% filter(site_code=="mad")
 
-mad_tax <- mad %>% select(8:16) %>%
+mad_tax <- mad %>% select(7:15) %>%
   summarise_all(funs(sum(!is.na(.))))
 
 mad_per <- round(mad_tax*100/1611, 2)
@@ -64,7 +64,7 @@ mad_per <- round(mad_tax*100/1611, 2)
 #vir
 vir <- data%>% filter(site_code=="vir")
 
-vir_tax <- vir %>% select(8:16) %>%
+vir_tax <- vir %>% select(7:15) %>%
   summarise_all(funs(sum(!is.na(.))))
 
 vir_per <- round(vir_tax*100/3318, 2)
@@ -73,7 +73,7 @@ vir_per <- round(vir_tax*100/3318, 2)
 #mari
 mari <- data%>% filter(site_code=="mari")
 
-mari_tax <- mari %>% select(8:16) %>%
+mari_tax <- mari %>% select(7:15) %>%
   summarise_all(funs(sum(!is.na(.))))
 
 mari_per <- round(mari_tax*100/1126, 2)
@@ -347,3 +347,30 @@ b[duplicated(b$item_raw),]
 rm(a); rm(b)
 
 
+##Check nb of items for each group per site
+
+per_grp <- data2 %>% group_by(site_code) %>%
+  count(grp1, grp2) %>%
+  mutate (per = n/sum(n)*100)
+
+few_obs <- per_grp %>% filter(n <=3)        
+#pb for virgin islands very few detritus, becoz item as algae&detritus ...
+#would be possible to duplicate rows and have a row for algae and one for detritus
+
+
+##Let's try to duplicate each rows and change item names for the duplicate as detritus
+vir.algae_detritus <- data2 %>% filter(grepl("Algae&", item_raw)) #select rows for which item_raw contains ""
+
+dup <- vir.algae_detritus %>% slice(rep(1:n(), each=2)) #duplicate each row
+
+dup$item_cor[c(2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38)]<- "Detritus" #rename deplicate by "Detritus"
+
+#Try add the new rows
+new_data <- rbind(data2, dup[dup$item_cor=="Detritus",])
+new_data %>% filter(grepl("Algae&", item_raw),item_cor=="Detritus") %>% 
+  select(item_raw, item_cor, grp1,grp2) #to check selection
+
+#Renaming the grp1 and grp 2 if item_cor == Detritus than values = Detritus
+new_data <- new_data %>% mutate(grp1 = replace(grp1, item_cor == "Detritus", "Detritus")) %>%
+  mutate(grp2 = replace(grp2, item_cor == "Detritus", "Detritus")) 
+         
