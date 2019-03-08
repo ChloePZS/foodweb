@@ -91,7 +91,19 @@ vir.matrix[i1] <- x[i1]
 dim(vir.matrix)
 #vir.matrix.std <- vir.matrix/colSums(vir.matrix)
 
-vir.matrix.std <- apply(vir.matrix, 2,function(x) x/sum(x)) #divie each cell by the sum of its column 2 means by column
+vale <- vir.matrix/colSums(vir.matrix)
+
+colSums(vale)
+
+plotweb(vale,method="normal", empty = TRUE, arrow="down.center",text.rot=90,
+        col.low = box.colors, bor.col.interaction = FALSE,y.width.low=0.05, y.width.high=0.03,
+        labsize = 1.20, ybig = 1.1) #to sort out the matrix
+
+colsum <- data.frame(colSums(vir.matrix))
+
+vir.matrix.std <- apply(vir.matrix, 2,function(x) x/sum(x)) #divide each cell by the sum of its column 2 means by column
+
+colSums(vir.matrix.std) #column sums = 1
 
 #Let's do the plot
 #plotweb(sortweb(vir.matrix, sort.order="dec"), text.rot = 90, method="normal", arrow="down") #to sort out the matrix
@@ -100,16 +112,16 @@ phylum.all <- as.data.frame(vir[c(3,9)]) #select fish fam and item phylum col
 phylum.unique <- unique(phylum.all) #get unique rows
 colnames(phylum.unique) <- c("Taxon", "Phyla")
 phylum <- as.data.frame(unique(phylum.unique$Phyla))
-phyla <- as.data.frame(phylum[-5,]) #remove NA phylum
+phyla <- as.data.frame(phylum[-9,]) #remove NA phylum
 colnames(phyla) <- "Phyla"
 phyla2 <- as.data.frame(phyla[order(phyla$Phyla),]) #Alphabetic order
 colnames(phyla2) <- "Phyla"
 
 colfunc4 <- colorRampPalette(c("mediumpurple4","mediumblue","skyblue","lightseagreen","gold","coral1","gray85","black"))
-colfunc4(16) #get 16 colors betweens those given into colorRampPalette
-plot(rep(1,16),col=(colfunc4(16)),pch=19,cex=2) #plot to see the colours
+colfunc4(18) #get 18 colors betweens those given into colorRampPalette
+plot(rep(1,18),col=(colfunc4(18)),pch=19,cex=2) #plot to see the colours
 
-phyla2$colors <- colfunc4(16)
+phyla2$colors <- colfunc4(18)
 
 colorvector <- as.data.frame(merge(phyla2, phylum.unique, by = "Phyla"))
 names(colorvector)[2] <- "colors"
@@ -121,7 +133,7 @@ colfunc4
 #with Jordan's FUN arguments
 plotweb(vir.matrix.std,method="normal", empty = TRUE, arrow="down.center",text.rot=90,
         col.low = box.colors, bor.col.interaction = FALSE,y.width.low=0.05, y.width.high=0.03,
-        labsize = 1.20, ybig = 1.1) #to sort out the matrix
+        labsize = 1.20, ybig = 1.1, bor.col.low = box.colors) #to sort out the matrix
 #can't get the proper colours for each interactions  : color of interaction according to box colour !!
 
   #Marshall Islands#
@@ -142,16 +154,16 @@ phylum.all <- as.data.frame(mari[c(3,9)])
 phylum.unique <- unique(phylum.all)
 colnames(phylum.unique) <- c("Taxon", "Phyla")
 phylum <- as.data.frame(unique(phylum.unique$Phyla))
-phyla <- as.data.frame(phylum[-2,])
+phyla <- as.data.frame(phylum[-8,])
 colnames(phyla) <- "Phyla"
 phyla2 <- as.data.frame(phyla[order(phyla$Phyla),])
 colnames(phyla2) <- "Phyla"
 
 colfunc4 <- colorRampPalette(c("mediumpurple4","mediumblue","skyblue","lightseagreen","gold","coral1","gray85","black"))
-colfunc4(14) 
-plot(rep(1,14),col=(colfunc4(14)),pch=19,cex=2) #plot to see the colours
+colfunc4(16) 
+plot(rep(1,16),col=(colfunc4(16)),pch=19,cex=2) #plot to see the colours
 
-phyla2$colors <- colfunc4(14)
+phyla2$colors <- colfunc4(16)
 
 colorvector <- as.data.frame(merge(phyla2, phylum.unique, by = "Phyla"))
 names(colorvector)[2] <- "colors"
@@ -163,7 +175,7 @@ colfunc4
 #with Jordan's fun arguments
 plotweb(mari.matrix.std,method="normal", empty = TRUE, arrow="down",text.rot=90,
         col.low = box.colors, bor.col.interaction = FALSE,y.width.low=0.05, y.width.high=0.03,
-        labsize = 1.2, ybig = 1.2, low.spacing = NULL) #to sort out the matrix
+        labsize = 1.2, ybig = 1.2, low.spacing = NULL, bor.col.low = box.colors) #to sort out the matrix
 
   #Hawai#
 #First need to build an interaction matrix on fish families and phylum 
@@ -183,16 +195,16 @@ phylum.all <- as.data.frame(haw[c(3,9)])
 phylum.unique <- unique(phylum.all)
 colnames(phylum.unique) <- c("Taxon", "Phyla")
 phylum <- as.data.frame(unique(phylum.unique$Phyla))
-phyla <- as.data.frame(phylum[-2,])
+phyla <- as.data.frame(phylum[-8,])
 colnames(phyla) <- "Phyla"
 phyla2 <- as.data.frame(phyla[order(phyla$Phyla),])
 colnames(phyla2) <- "Phyla"
 
 colfunc4 <- colorRampPalette(c("mediumpurple4","mediumblue","skyblue","lightseagreen","gold","coral1","gray85","black"))
-colfunc4(13) 
-plot(rep(1,13),col=(colfunc4(13)),pch=19,cex=2) #plot to see the colours
+colfunc4(15) 
+plot(rep(1,15),col=(colfunc4(15)),pch=19,cex=2) #plot to see the colours
 
-phyla2$colors <- colfunc4(13)
+phyla2$colors <- colfunc4(15)
 
 colorvector <- as.data.frame(merge(phyla2, phylum.unique, by = "Phyla"))
 names(colorvector)[2] <- "colors"
@@ -204,7 +216,7 @@ colfunc4
 #with Jordan's fun arguments
 plotweb(haw.matrix.std,method="normal", empty = TRUE, arrow="down",text.rot=90,
         col.low = box.colors, bor.col.interaction = FALSE,y.width.low=0.05, y.width.high=0.03,
-        labsize = 1.2, ybig = 1.2, low.spacing = NULL) #to sort out the matrix
+        labsize = 1.2, ybig = 1.2, low.spacing = NULL, bor.col.low = box.colors) #to sort out the matrix
 
 #Madagascar#
 #First need to build an interaction matrix on fish families and phylum 
@@ -224,16 +236,16 @@ phylum.all <- as.data.frame(mad[c(3,9)])
 phylum.unique <- unique(phylum.all)
 colnames(phylum.unique) <- c("Taxon", "Phyla")
 phylum <- as.data.frame(unique(phylum.unique$Phyla))
-phyla <- as.data.frame(phylum[-3,])
+phyla <- as.data.frame(phylum[-1,])
 colnames(phyla) <- "Phyla"
 phyla2 <- as.data.frame(phyla[order(phyla$Phyla),])
 colnames(phyla2) <- "Phyla"
 
 colfunc4 <- colorRampPalette(c("mediumpurple4","mediumblue","skyblue","lightseagreen","gold","coral1","gray85","black"))
-colfunc4(11) 
-plot(rep(1,11),col=(colfunc4(11)),pch=19,cex=2) #plot to see the colours
+colfunc4(12) 
+plot(rep(1,12),col=(colfunc4(12)),pch=19,cex=2) #plot to see the colours
 
-phyla2$colors <- colfunc4(11)
+phyla2$colors <- colfunc4(12)
 
 colorvector <- as.data.frame(merge(phyla2, phylum.unique, by = "Phyla"))
 names(colorvector)[2] <- "colors"
@@ -245,7 +257,7 @@ colfunc4
 #with Jordan's fun arguments
 plotweb(mad.matrix.std,method="normal", empty = TRUE, arrow="down",text.rot=90,
         col.low = box.colors, bor.col.interaction = FALSE,y.width.low=0.05, y.width.high=0.03,
-        labsize = 1.2, ybig = 1.2, low.spacing = NULL) #to sort out the matrix
+        labsize = 1.2, ybig = 1.2, low.spacing = NULL, bor.col.low = box.colors) #to sort out the matrix
 
 
     ####Fish families x Class ####
@@ -273,16 +285,16 @@ class.all <- as.data.frame(vir[c(3,10)]) #select fish fam and item class col
 class.unique <- unique(class.all) #get unique rows
 colnames(class.unique) <- c("Taxon", "Class")
 class <- as.data.frame(unique(class.unique$Class))
-class <- as.data.frame(class[-5,]) #remove NA phylum
+class <- as.data.frame(class[-8,]) #remove NA phylum
 colnames(class) <- "Class"
 class2 <- as.data.frame(class[order(class$Class),]) #Alphabetic order
 colnames(class2) <- "Class"
 
 colfunc4 <- colorRampPalette(c("mediumpurple4","mediumblue","skyblue","lightseagreen","gold","coral1","gray85","black"))
-colfunc4(34) #get 16 colors betweens those given into colorRampPalette
-plot(rep(1,34),col=(colfunc4(34)),pch=19,cex=2) #plot to see the colours
+colfunc4(35) #get 16 colors betweens those given into colorRampPalette
+plot(rep(1,35),col=(colfunc4(35)),pch=19,cex=2) #plot to see the colours
 
-class2$colors <- colfunc4(34)
+class2$colors <- colfunc4(35)
 
 colorvector <- as.data.frame(merge(class2, class.unique, by = "Class"))
 names(colorvector)[2] <- "colors"
@@ -294,7 +306,7 @@ colfunc4
 #with Jordan's FUN arguments
 plotweb(vir.matrix.std,method="normal", empty = TRUE, arrow="no",text.rot=90,
         col.low = box.colors, bor.col.interaction = FALSE,y.width.low=0.05, y.width.high=0.03,
-        labsize = 1.20, ybig = 1.1) #to sort out the matrix
+        labsize = 1.20, ybig = 1.1, bor.col.low = box.colors) #to sort out the matrix
 #can't get the proper colours for each interactions  : color of interaction according to box colour !!
 
   #Marshall Islands#
@@ -321,16 +333,16 @@ class.all <- as.data.frame(mari[c(3,10)]) #select fish fam and item class col
 class.unique <- unique(class.all) #get unique rows
 colnames(class.unique) <- c("Taxon", "Class")
 class <- as.data.frame(unique(class.unique$Class))
-class <- as.data.frame(class[-2,]) #remove NA phylum
+class <- as.data.frame(class[-5,]) #remove NA phylum
 colnames(class) <- "Class"
 class2 <- as.data.frame(class[order(class$Class),]) #Alphabetic order
 colnames(class2) <- "Class"
 
 colfunc4 <- colorRampPalette(c("mediumpurple4","mediumblue","skyblue","lightseagreen","gold","coral1","gray85","black"))
-colfunc4(23) #get 16 colors betweens those given into colorRampPalette
-plot(rep(1,23),col=(colfunc4(23)),pch=19,cex=2) #plot to see the colours
+colfunc4(26) 
+plot(rep(1,26),col=(colfunc4(26)),pch=19,cex=2) #plot to see the colours
 
-class2$colors <- colfunc4(23)
+class2$colors <- colfunc4(26)
 
 colorvector <- as.data.frame(merge(class2, class.unique, by = "Class"))
 names(colorvector)[2] <- "colors"
@@ -345,6 +357,7 @@ plotweb(mari.matrix.std,method="normal", empty = TRUE, arrow="no",text.rot=90,
         labsize = 1.20, ybig = 1.1, bor.col.low = box.colors) #to sort out the matrix
 #can't get the proper colours for each interactions  : color of interaction according to box colour !!
 
+?sortweb
   #Hawai#
 #First need to build an interaction matrix on fish families and phylum 
 str(haw)
@@ -369,7 +382,7 @@ class.all <- as.data.frame(haw[c(3,10)]) #select fish fam and item class col
 class.unique <- unique(class.all) #get unique rows
 colnames(class.unique) <- c("Taxon", "Class")
 class <- as.data.frame(unique(class.unique$Class))
-class <- as.data.frame(class[-2,]) #remove NA phylum
+class <- as.data.frame(class[-3,]) #remove NA phylum
 colnames(class) <- "Class"
 class2 <- as.data.frame(class[order(class$Class),]) #Alphabetic order
 colnames(class2) <- "Class"
@@ -416,7 +429,7 @@ class.all <- as.data.frame(mad[c(3,10)]) #select fish fam and item class col
 class.unique <- unique(class.all) #get unique rows
 colnames(class.unique) <- c("Taxon", "Class")
 class <- as.data.frame(unique(class.unique$Class))
-class <- as.data.frame(class[-3,]) #remove NA phylum
+class <- as.data.frame(class[-1,]) #remove NA phylum
 colnames(class) <- "Class"
 class2 <- as.data.frame(class[order(class$Class),]) #Alphabetic order
 colnames(class2) <- "Class"
@@ -494,6 +507,60 @@ plotweb(vir.matrix.std,method="normal", empty = TRUE, arrow="no",text.rot=90,
 plotweb(sortweb(vir.matrix.std,sort.ord="dec"), method="normal", empty = TRUE, arrow="no",text.rot=90,
         col.low = box.colors, bor.col.interaction = FALSE, y.width.low=0.05, y.width.high=0.03,
         labsize = 1.20, ybig = 1.1, bor.col.low = box.colors) #to sort out by rows and cols total
+  
+
+    ##With the new_data, duplicated rows as detritus##
+#First need to build an interaction matrix on fish families and phylum 
+vir_new <- new_data %>% filter(site_code=="vir")
+n <- unique(vir_new$grp1) 
+m <- unique(vir_new$family_cor) 
+
+c <- count(vir_new, grp1)
+
+x <- with(vir_new, table(vir_new$grp1,vir_new$family_cor))
+vir_new.matrix <- matrix(0,ncol=length(m),nrow=length(n),dimnames=list(n,m))
+i1 <- as.matrix(expand.grid(rownames(x),colnames(x)))
+vir_new.matrix[i1] <- x[i1]
+
+#Standardize nb of links by dividing by the sum of the cols(here fish families)
+dim(vir_new.matrix)
+#vir_new.matrix.std <- vir_new.matrix/colSums(vir_new.matrix)
+
+vir_new.matrix.std <- apply(vir_new.matrix, 2,function(x) x/sum(x)) #divie each cell by the sum of its column 2 means by column
+
+#Let's do the plot
+#plotweb(sortweb(vir_new.matrix, sort.order="dec"), text.rot = 90, method="normal", arrow="down") #to sort out the matrix
+#Get interactions and box colors
+grp1.all <- as.data.frame(vir_new[,c(3,33)]) #select fish fam and item grp1 col
+grp1.unique <- unique(grp1.all) #get unique rows
+colnames(grp1.unique) <- c("Taxon", "grp")
+grp1 <- as.data.frame(unique(grp1.unique$grp))
+colnames(grp1) <- "grp"
+grp1.ord <- as.data.frame(grp1[order(grp1$grp),]) #Alphabetic order
+colnames(grp1.ord) <- "grp"
+
+colfunc4 <- colorRampPalette(c("mediumpurple4","mediumblue","skyblue","lightseagreen","gold","coral1","gray85","black"))
+colfunc4(48) #get 16 colors betweens those given into colorRampPalette
+plot(rep(1,48),col=(colfunc4(48)),pch=19,cex=2) #plot to see the colours
+
+grp1.ord$colors <- colfunc4(48)
+
+colorvector <- as.data.frame(merge(grp1.ord, grp1.unique, by = "grp"))
+names(colorvector)[2] <- "colors"
+box.colors <- as.character(grp1.ord$colors)
+colorvec1 <- as.character(colorvector$colors)
+head(colorvec1)
+colfunc4
+
+#with Jordan's FUN arguments
+plotweb(vir_new.matrix.std,method="normal", empty = TRUE, arrow="no",text.rot=90,
+        col.low = box.colors, bor.col.interaction = FALSE, y.width.low=0.05, y.width.high=0.03,
+        labsize = 1.20, ybig = 1.1, bor.col.low = box.colors) 
+
+plotweb(sortweb(vir_new.matrix.std,sort.ord="dec"), method="normal", empty = TRUE, arrow="no",text.rot=90,
+        col.low = box.colors, bor.col.interaction = FALSE, y.width.low=0.05, y.width.high=0.03,
+        labsize = 1.20, ybig = 1.1, bor.col.low = box.colors) #to sort out 
+
 
   #Marshall Islands
 #First need to build an interaction matrix on fish families and phylum 
