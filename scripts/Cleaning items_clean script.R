@@ -255,3 +255,5 @@ z[duplicated(z$item_raw),]
 data_clean2 %>% filter(item_raw=="Solenogastrids_Chitons") #It was for that item
 solch<-which(data_clean2$item_raw=="Solenogastrids_Chitons") #Id which row number
 data_clean2 <- data_clean2[-c(3221,3225),] #remove the duplicated rows
+
+write.csv2(data_clean2, "data_clean2.csv")
