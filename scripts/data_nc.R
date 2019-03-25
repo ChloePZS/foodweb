@@ -49,8 +49,8 @@ data %>% gather(key, value, ..., na.rm = FALSE, convert = FALSE)
 
 data_nc2 <- gather(data_nc, key = "nb_item", value = "item", diet1, diet2, diet3, diet4)#Collapse columne into column with single key values
 
-data_nc3 <- gather(data_nc,
-                   key = "%nb_item",
+data_nc2.2 <- gather(data_nc,
+                   key = "nb_item",
                    value = "item_per", 
                    diet1_per,diet2_per,diet3_per,diet4_per) 
 
@@ -74,14 +74,24 @@ data_nc2 %>% filter(data_nc2[,8]=="9999")
 data_nc2 <- data_nc2 %>% filter(item!="Vide" , item!="non examiné" , item!="indéterminé" , item!="inconnu" , item!="divers") %>%
   filter(!is.na(item))
 
-data_nc2 %>% filter(nom=="Lethrinus nebulosus") %>% select(item)
+data_nc2.2 <- data_nc2.2 %>% filter(item_per!=0)
+
+data_nc2.2 %>% filter(nom=="Lethrinus nebulosus") %>% select(item_per)
+
+nb_item <- data_nc2 %>% group_by(nom) %>% count(item) %>% filter(!is.na(nom))
+
+per_item <- data_nc2.2 %>% group_by(nb_item, nom) %>% count(item_per)
 
 names(data_nc2)
 
 #Merge date set
 data_nc3 <- unique(data_nc2[c("Family","Genus","Species","nom","item")]) %>%
   dplyr::left_join(nc,by = "nom", all.x=T) %>% 
-  filter(!is.na(Family))
+  filter(!is.na(Family)) %>%
+  dplyr::left_join(nb_item, by = c("nom","item")) %>% 
+  mutate(freq_item = n/nb_guts)
+
+
 
   #5. Clean the variables 
 #Change Family name with lower cases and first letter as upper case
@@ -147,8 +157,7 @@ data_nc3 <- data_nc3 %>% mutate(item_raw = case_when(item == "Poisson" ~ "Actino
                                          item == "Plancton" ~ "Plankton", 
                                          item == "plancton" ~ "Plankton",
                                          item == "chiton" ~ "Polyplacophora"))
-#Duplicate for which two items but maybe couldn't do the difference... so let like that for now
-data_nc3 %>% filter(item_raw=="Palinuridae/Scyllaridae")
+
 
     #6. Get taxonomy of items
 library(acs)
@@ -202,7 +211,7 @@ data_nc4 %>% filter(item_raw == "Debris") #Check if Debris still here
 data_nc4$site_code <- "nca"
 
 #getting the class for predators species
-class_sp <- tax_name(data_nc4$Family), get=c("class", db="ncbi")
+class_sp <- tax_name(data_nc4$Family), get=c("class", db="ncbi"))
 
 unique(class_sp[c("class","query")])
 
@@ -290,14 +299,23 @@ dup_septeu$item_ord[c(1,3,5,7,9,11,13,15,17,19)] <- "Teuthida"
 data_nc6 <- rbind(data_nc5, dup_palscy, dup_septeu) #Add rows
 
 #Remove rows with double family/order names
-a <- which(data_nc6$item_family == "Palinuridae/Scyllaridae") 
-b <- which(data_nc6$item_ord=="Sepiida/Teuthida")
+data_nc6 <- data_nc6 %>% filter(is.na(item_family) | item_family != "Palinuridae/Scyllaridae")
+data_nc6 <- data_nc6 %>% filter(is.na(item_ord) | item_ord!="Sepiida/Teuthida")
 
-data_nc6 %>% filter(item_family == "Palinuridae/Scyllaridae") 
 data_nc6 %>% filter(item_ord=="Sepiida/Teuthida")
 
-data_nc6 <- data_nc6[-a,]
-data_nc6 <- data_nc6[-b,]
+#Noticed Sipuncula as Annelida....
+
+data_nc6 %>% filter(item_raw=="Sipuncula") %>% select(item_class, item_phylum)
+
+data_nc6 <- data_nc6 %>% mutate(item_class = replace(item_class, item_raw=="Sipuncula", NA)) 
+
+data_nc6 <-data_nc6 %>% mutate(item_phylum = replace(item_phylum, item_raw=="Sipuncula", "Sipuncula")) 
+
+
+data_nc6 %>% filter(item_raw=="Stomatopoda") %>% select(item_ord, item_class, item_phylum) 
+
+data_nc6 <-data_nc6 %>% mutate(item_ord = replace(item_ord, item_raw=="Stomatopoda", "Stomatopoda"))
 
  #7. Export clean data
 write.csv(data_nc6, "data/data_clean_nc.csv")

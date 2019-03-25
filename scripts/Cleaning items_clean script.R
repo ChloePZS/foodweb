@@ -92,6 +92,9 @@ new_data <- new_data %>% mutate(grp1 = replace(grp1, item_cor == "Detritus_OM", 
   mutate(grp2 = replace(grp2, item_cor == "Detritus_OM", "Detritus")) %>%
   mutate(grp3 = replace(grp3, item_cor == "Detritus_OM", "Detritus"))
 
+new_data %>% filter(item_cor=="Detritus_OM")
+new_data %>% filter(item_cor=="Inorganic")
+
 #For Solenogastrids_Chitons
 new_data %>% filter(grp_raw=="Amphineura")
 solchi <- new_data %>% filter(item_raw=="Solenogastrids_Chitons")
@@ -135,6 +138,9 @@ data_transfo <- new_data_select %>%
   mutate(Level = as.numeric(Level)) %>%
   filter(!is.na(Tax_id))
 
+#PB from data transfo
+data_transfo %>% filter(item_cor=="Detritus_OM")
+data_transfo %>% filter(item_cor=="Inorganic")
 
 #Get the lowest level by site, sp, based on grp2
 library(plyr)
@@ -142,13 +148,17 @@ Test <- ddply(data_transfo, .(site_code, fish_sp, grp2), summarize, Lvlmin = max
 
 #Merge the data sets to have the lowest level per item
 data_merge <- new_data_select %>% 
-  merge(., Test, by = c("fish_sp", "site_code","grp2"), all.x = TRUE)
+  merge(., Test, by = c("fish_sp", "site_code","grp2"), all= TRUE)
 
 dim(data_merge)
 dim(new_data_select)
 
 new_data_select <- unique(new_data_select)
 data_merge <- unique(data_merge)
+
+new_data_select %>% filter(item_raw=="Sand") 
+data_merge %>% filter(item_raw=="Sand")
+data_merge %>% filter(item_cor=="Detritus_OM")
 
 #Create a variable for the lowest row level
 data_merge <- data_merge %>% mutate(row_level = case_when(
@@ -167,25 +177,27 @@ data_merge %>% filter(is.na(fish_sp)) #Okay no Na's values
 
 #Check which rows with diff Lvlmin and row_level diff
 diff <- data_merge[!(data_merge$Lvlmin == data_merge$row_level),] 
-diff %>% filter(grp2 == "Detritus") #so the NA"s or the Detritus rows
 
+data_merge %>% filter(item_cor=="Detritus_OM") 
+data_merge %>% filter(item_raw=="Sand")
 
 #Removing rows according to Lvlmin and row_level : USE of which and not filter coz removed the Na lines so the detritus
+x <- data_merge %>% filter(Lvlmin==7 &row_level==1 & !(grp3 == "Zooplankton"))
 x <- which(data_merge$Lvlmin==7 & data_merge$row_level==1 & !(data_merge$grp3 == "Zooplankton"))
 data_merge <- data_merge[-x,]
 
-data_merge <- data_merge %>% filter(!(Lvlmin==7 & row_level==2))
+data_merge <- data_merge %>% filter(is.na(Lvlmin) | !(Lvlmin==7 & row_level==2))
 #data_merge <- data_merge %>% filter(!(Lvlmin==7 & row_level==3) & item_cor=="Fish_eggs" & item_cor=="Fish_larvae")
 a <- diff %>% filter(Lvlmin==7 , row_level==3 , item_cor != "Fish_eggs", item_cor !="Fish_larvae" , item_cor !="Ascidiacea", grp3 != "Zooplankton")
 a <- which(data_merge$Lvlmin==7 & data_merge$row_level==3 & !(data_merge$item_cor=="Fish_eggs") & !(data_merge$item_cor=="Fish_larvae") & !(data_merge$item_cor=="Ascidiacea") & !(data_merge$grp3=="Zooplankton"))
 data_merge <- data_merge[-a,]
 
-b <- diff %>% filter(Lvlmin==7 , row_level==4 , grp3 != "Zooplankton", grp2 !="Cephalopoda" , grp2 != "Echinoidea" , grp2 !="Copepoda")
-b <- which(data_merge$Lvlmin==7 & data_merge$row_level==4 & !(data_merge$grp3 == "Zooplankton") & !(data_merge$grp2 =="Cephalopoda") &!(data_merge$grp2 == "Echinoidea") & !(data_merge$grp2 =="Copepoda"))
+b <- diff %>% filter(Lvlmin==7 , row_level==4 , grp3 != "Zooplankton", grp2 !="Cephalopoda" , grp2 != "Echinoidea" , grp2 !="Copepoda", item_cor !="Caridea")
+b <- which(data_merge$Lvlmin==7 & data_merge$row_level==4 & !(data_merge$grp3 == "Zooplankton") & !(data_merge$grp2 =="Cephalopoda") &!(data_merge$grp2 == "Echinoidea") & !(data_merge$grp2 =="Copepoda") &!(data_merge$item_cor =="Caridea"))
 data_merge <- data_merge[-b,]
 
-c <- diff %>% filter(Lvlmin==6 , row_level==4, grp2 != "Isopoda" , grp2!= "Polychaeta" , grp3 != "Zooplankton",grp2 != "Fish")
-c <- which(data_merge$Lvlmin==6 & data_merge$row_level==4 & !(data_merge$grp3 == "Zooplankton") & !(data_merge$grp2 =="Isopoda") & !(data_merge$grp2 == "Polychaeta") & !(data_merge$grp2 =="Fish"))
+c <- diff %>% filter(Lvlmin==6 , row_level==4, grp2 != "Isopoda" , grp2!= "Polychaeta" , grp3 != "Zooplankton",grp2 != "Fish", item_cor != "Caridea", item_cor != "Paguroidea")
+c <- which(data_merge$Lvlmin==6 & data_merge$row_level==4 & !(data_merge$grp3 == "Zooplankton") & !(data_merge$grp2 =="Isopoda") & !(data_merge$grp2 == "Polychaeta") & !(data_merge$grp2 =="Fish") & !(data_merge$item_cor == "Caridea") & !(data_merge$item_cor == "Paguroidea"))
 data_merge <- data_merge[-c,]
 
 d <- diff %>% filter(Lvlmin==6 , row_level==1)
@@ -196,8 +208,8 @@ e <- diff %>% filter(Lvlmin==6 , row_level==2)
 e <- which(data_merge$Lvlmin==6 & data_merge$row_level==2)
 data_merge <- data_merge[-e,]
 
-f <- diff %>% filter(Lvlmin==6 , row_level==3, grp3 != "Zooplankton")
-f <- which(data_merge$Lvlmin==6 & data_merge$row_level==3 & data_merge$grp3 != "Zooplankton")
+f <- diff %>% filter(Lvlmin==6 , row_level==3, grp3 != "Zooplankton", item_cor != "Porites")
+f <- which(data_merge$Lvlmin==6 & data_merge$row_level==3 & data_merge$grp3 != "Zooplankton" & data_merge$item_cor != "Porites")
 data_merge <- data_merge[-f,]
 
 g <- diff %>% filter(Lvlmin==5 , row_level==2)
@@ -217,12 +229,26 @@ i <- diff %>% filter(Lvlmin==4 , row_level==3, grp3 != "Gastropoda" & item_raw =
 i <- which(data_merge$Lvlmin==4 & data_merge$row_level==3 & !(data_merge$grp3 == "Gastropoda") & (data_merge$item_raw == "Copepods" | data_merge$item_raw=="Insecta"))
 data_merge <- data_merge[-i,]
 
-sp <- data_merge %>% filter(fish_sp == "Prognathodes aculeatus")
+sp <- data_merge %>% filter(fish_sp == "Plesiops nigricans")
 
 
 #Export a clean data set
 data_clean <- data_merge %>% select(-Lvlmin, -row_level)
+
 write.csv(data_clean, "data/data_clean.csv")
+
+data_clean %>% filter(item_cor=="Detritus_OM")
+data_clean %>% filter(item_cor=="Inorganic")
+data_clean %>% filter(item_raw=="Sand")
+
+
+
+
+
+
+
+
+
 
 #Create a unique data set for groups
 data_clean_grp <- data_clean %>% select(item_raw, item_class, item_ord_cor, grp1, grp2, grp3)
@@ -243,15 +269,15 @@ data_clean <- data_clean %>%
 
 to_merge <- grp_item_data_clean %>% select(item_raw, grp1, grp2, grp3, grp4)
 
-data_clean2 <- dplyr::left_join(data_clean, to_merge, by="item_raw") %>%
-  dplyr::rename(grp1 = grp1.y , grp2 = grp2.y, grp3 = grp3.y) %>%
-  dplyr::select(-grp1.x, -grp2.x, -grp3.x)
+#data_clean2 <- dplyr::left_join(data_clean, to_merge, by="item_raw") %>%
+  #dplyr::rename(grp1 = grp1.y , grp2 = grp2.y, grp3 = grp3.y) %>%
+  #dplyr::select(-grp1.x, -grp2.x, -grp3.x)
 
-data_clean2 <- unique(data_clean2)
+#data_clean2 <- unique(data_clean2)
 
 #Two rows more than original data_clean
-z <- data_clean2 %>% dplyr::count(item_raw, grp1) #Check which rows are duplicated
-z[duplicated(z$item_raw),]
+#z <- data_clean2 %>% dplyr::count(item_raw, grp1) #Check which rows are duplicated
+#z[duplicated(z$item_raw),]
 data_clean2 %>% filter(item_raw=="Solenogastrids_Chitons") #It was for that item
 solch<-which(data_clean2$item_raw=="Solenogastrids_Chitons") #Id which row number
 data_clean2 <- data_clean2[-c(3221,3225),] #remove the duplicated rows
