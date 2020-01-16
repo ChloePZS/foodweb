@@ -1,0 +1,32 @@
+#Accumulation curve 2.0#
+
+
+#Load data set of each region --> qualitative matrices though
+data_vir <- data_ISfull_grp %>% filter(site_code == "vir")
+data_mari <- data_ISfull_grp %>% filter(site_code == "mari")
+data_haw <- data_ISfull_grp %>% filter(site_code == "haw")
+data_nca <- data_ISfull_grp %>% filter(site_code == "nca")
+data_mad <- data_ISfull_grp %>% filter(site_code == "mad")
+
+pa_vir_sp
+
+#Could try to have the pairwise interaction as columns, samples (nb indiv) as rows and 0-1 value if interaction
+#Problem is data pooled by species don't have diet for each individual sampled....
+
+#Try with Vir
+int_vir_mat <- data_vir %>% mutate(pairwise_int = paste(fish_sp,grp6, sep="-")) %>%
+  reshape2::acast(., nb_sample ~ pairwise_int, value.var = "nb_guts", mean) 
+int_vir_mat[is.na(int_vir_mat)]  <- 0 
+specaccum(int_vir_mat,"random") %>% plot(.)
+
+
+#Try simple relation btw nb of pairwise interaction per species fct nb of individual sampled
+nb_int_grp6 <- data_ISfull_grp %>% group_by(fish_sp, site_code) %>% dplyr::summarise(nb_int = n_distinct(grp6)) %>%
+  left_join(., data_ISfull_grp[ ,c("fish_sp","site_code","nb_sample")], by=c("fish_sp","site_code")) %>%
+  unique(.)
+
+ggplot(data = nb_int_grp6, aes(x=nb_sample, y=nb_int, color=site_code)) +
+geom_point(shape = 16, alpha = 0.4) +
+  xlim(0,300) +
+  geom_smooth(method="lm",   # Add linear regression line
+              se=TRUE)

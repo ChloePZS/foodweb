@@ -1,0 +1,119 @@
+---
+title: "Aide Chlo?"
+author: "J?r?my WICQUART"
+date: "11 mars 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+```{r}
+
+# 1. Import packages ----
+
+library(readxl)
+library(tidyverse)
+library(plyr)
+library(dplyr)
+library(tidyr)
+library(data.table)
+
+# 2. Import data ----
+
+data_raw <- read.csv("datatest.csv")
+
+
+```
+
+```{r}
+
+# 1. filter ----
+
+data_clean <- data_raw %>% 
+  select(fish_sp, site_code, item_kingdom, item_phylum, item_class, item_ord_cor, 
+         item_fam_cor, item_gen_cor, item_sp_cor, grp3)
+
+```
+
+```{r}
+
+# 1. Get the lowest level by fish_sp and grp3 ----
+
+# 1.1 Transform data --
+
+data_transfo <- data_clean %>% 
+  dplyr::rename(Kingdom = item_kingdom, Phylum = item_phylum, Class = item_class, Order = item_ord_cor,
+         Family = item_fam_cor, Genus = item_gen_cor, Species = item_sp_cor) %>% 
+  gather("Kingdom", "Phylum", "Class", "Order",
+         "Family", "Genus", "Species", key = "Level", 
+         value = "Tax_id") %>% 
+  mutate(Level = str_replace_all(Level, c("Kingdom" = "1", 
+                                          "Phylum" = "2",
+                                          "Class" = "3",
+                                          "Order" = "4",
+                                          "Family" = "5",
+                                          "Genus" = "6",
+                                          "Species" = "7"))) %>% 
+  mutate(Level = as.numeric(Level)) %>% 
+  filter(!is.na(Tax_id))
+
+
+# 1.2 Get the lowest level --
+
+Test <- ddply(data_transfo, .(fish_sp, grp3), summarize, Lvlmin = max(Level, na.rm = TRUE))
+  
+```
+
+
+```{r}
+
+data_final2 <- data_clean %>% 
+  merge(., Test, by = c("fish_sp", "grp3"), all.x = TRUE)
+
+```
+
+
+```{r}
+
+# 1. Merge with original data ----
+
+# 1.4 Transform data from wide to long format
+
+data_final <- data_clean %>% 
+  dplyr::rename(Kingdom = item_kingdom, Phylum = item_phylum, Class = item_class, Order = item_ord_cor,
+         Family = item_fam_cor, Genus = item_gen_cor, Species = item_sp_cor) %>% 
+  gather("Kingdom", "Phylum", "Class", "Order",
+         "Family", "Genus", "Species", key = "Level", 
+         value = "Tax_id") %>% 
+  mutate(Level = str_replace_all(Level, c("Kingdom" = "1", 
+                                          "Phylum" = "2",
+                                          "Class" = "3",
+                                          "Order" = "4",
+                                          "Family" = "5",
+                                          "Genus" = "6",
+                                          "Species" = "7"))) %>% 
+  mutate(Level = as.numeric(Level))
+
+# 1.2 Merge to get the lowest level
+
+data_final2 <- data_final %>% 
+  merge(., Test, by = c("fish_sp", "grp3"), all.x = TRUE)
+
+data_final3 <- data_final2 %>% 
+  filter(Level > Lvlmin)
+
+# 1.3 Remove rows lower than lowest level
+
+
+# 1.4 Transform data from long to wide format
+
+
+
+```
+
+
+
