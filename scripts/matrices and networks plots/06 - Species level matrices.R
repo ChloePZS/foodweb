@@ -12,7 +12,7 @@ data_haw <- data_ISfull_grp_final2 %>% filter(site_code == "haw")
 data_nca <- data_ISfull_grp_final2 %>% filter(site_code == "nca")
 data_mad <- data_ISfull_grp_final2 %>% filter(site_code == "mad")
 data_jap <- data_ISfull_grp_final2 %>% filter(site_code == "jap")
-#Check number of genus commun to all 5 sites
+#Check number of species commun to all 5 sites
 #intersect_all <- function(a,b,...){
   #Reduce(intersect, list(a,b,...))
 #}
@@ -20,6 +20,7 @@ data_jap <- data_ISfull_grp_final2 %>% filter(site_code == "jap")
 
 
     #1. Info by species#####
+#Choose here of matrices for gpr6 (most comparable), grp1 (most detailed) or prey classes
 
 #Virgin Islands
 #Need to "sum up" the % volume according to the categorie of item ....: if 7% of shrimp and 3% of crab = 10% Decapoda
@@ -57,7 +58,7 @@ data_jap_sp_sum <- data_jap %>% filter(!is.na(item_freq)) %>%
 n <- unique(data_ISfull_grp_final2$grp6)
 n <- n[order(n)] %>%
   as.character(.)
-m <- unique(data_ISfull_grp_final2$fish_sp) #693 species
+m <- unique(data_ISfull_grp_final2$fish_sp) #688 species
 m <- m[order(m)] #alphabetic order 
 
 
@@ -161,20 +162,9 @@ rows <- rownames(jap_ISmatrix_sp2)[rownames(jap_ISmatrix_sp2) %in% rownames(jap_
 jap_ISmatrix_sp2[rows, cols] <- jap_ISmatrix_sp_std[rows, cols] #Matrix with all item grps and fish families
 colSums(jap_ISmatrix_sp2)
 
-#trying japan qualitative from item_volper
-data_jap_sp_sum2 <- data_jap %>% filter(!is.na(item_volper)) %>%
-  plyr::ddply(.(fish_sp, grp6), summarise, mean = mean(item_volper))
-
-length(unique(data_jap_sp_sum2$fish_sp))#132 sp instead of 118 with item_freq
-
-jap_ISmatrix_sp_vol <- reshape2::acast(data_jap_sp_sum2, grp6 ~ fish_sp, value.var = "mean") 
-jap_ISmatrix_sp_vol[is.na(jap_ISmatrix_sp_vol)] <- 0  
-
-jap_ISmatrix_sp_vol <- apply(jap_ISmatrix_sp_vol, 2, function(x) x/sum(x)) #standardized matrix, colSums = 1
-
 
     #3. Export clean matrices####
-
+#Change the name according to the prey category used
 write.csv(vir_ISmatrix_sp_std, "data/vir_ISmatrix_sp_std_grp6.csv")
 write.csv(mari_ISmatrix_sp_std, "data/mari_ISmatrix_sp_std_grp6.csv")
 write.csv(nca_ISmatrix_sp_std, "data/nca_ISmatrix_sp_std_grp6.csv")
@@ -223,30 +213,3 @@ jap_ISmatrix_sp <- jap_ISmatrix_sp[-19,]
 jap_ISmatrix_sp_std <- apply(jap_ISmatrix_sp, 2, function(x) x/sum(x)) #standardized matrix, colSums = 1
 jap_ISmatrix_sp_std <-jap_ISmatrix_sp_std[, colSums(is.na(jap_ISmatrix_sp_std)) != nrow(jap_ISmatrix_sp_std)] #enlève colonnes dont somme différente nb de lines (cad sp où NA partout)
 
-
-   #4. Most connected species and preys
-#Check solution on beta diversity script
-
-  #5. Matrice with all species regardless the region
-data_sp_sum <- data_ISfull_grp  %>%
-  plyr::ddply(.(fish_sp, grp6), summarise, volper = sum(item_volper), itemfreq = mean(item_freq)) %>%
-  mutate(IS = itemfreq) %>%
-  filter(!is.na(itemfreq) , !is.na(volper))
-data_sp_sum$IS[is.na(data_sp_sum$IS)] <- data_sp_sum$volper[!is.na(data_sp_sum$volper)]
-
-data_ISmatrix_sp <- reshape2::acast(data_sp_sum, grp6 ~ fish_sp, value.var = "IS") 
-data_ISmatrix_sp[is.na(data_ISmatrix_sp)] <- 0  
-
-data_ISmatrix_sp_std <- apply(data_ISmatrix_sp, 2, function(x) x/sum(x)) #standardized matrix, colSums = 1
-colSums(data_ISmatrix_sp_std)
-
-write.csv(data_ISmatrix_sp_std, "data/data_ISmatrix_sp_std.csv")
-
-#Probleme coz can't do the mean over the two variable, so need to standardized before grouping by sp
-data_sp_sum <- data_ISfull_grp  %>%
-  plyr::ddply(.(fish_sp, grp6, site_code), summarise, volper = sum(item_volper), itemfreq = mean(item_freq)) %>%
-  mutate(IS = itemfreq) 
-data_sp_sum$IS[is.na(data_sp_sum$IS)] <- data_sp_sum$volper[!is.na(data_sp_sum$volper)]
-
-
-#OR work on the already matrices, but on dataframe and ddply

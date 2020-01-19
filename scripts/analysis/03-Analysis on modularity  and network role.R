@@ -31,7 +31,7 @@ pa_jap_sp <- decostand(jap_ISmatrix_sp_std, method="pa")
 
 
   #3. Modularity measure ####
-#Qualitative webs - Single algorithme run
+#Qualitative webs - One algorithme run
 set.seed(1)
 mod_mad_sp <- computeModules(pa_mad_sp)
 set.seed(2)
@@ -61,8 +61,8 @@ dim(mod_mad_sp@modules)[1]-1
 
 plotModuleWeb(mod_mad_sp)
 
-  #4. Null models
-#Curveball algorithme of Giovanni
+  #4. Null model
+#Curveball algorithme of Giovanni Strona et al., 2014
 curve_ball<-function(m){
   RC=dim(m)
   R=RC[1]
@@ -92,6 +92,7 @@ curve_ball<-function(m){
   rm
 } #function
 
+#Creating a 100 random matrices
 p <- 100
 rand_vir_sp3 <- lapply(1:p, function(x) curve_ball(pa_vir_sp))
 rand_mari_sp3 <- lapply(1:p, function(x) curve_ball(pa_mari_sp))
@@ -197,7 +198,7 @@ cz_full$species[cz_full$species == "Tylosurus acus.acus"] <- "Tylosurus acus acu
 cz_full <- merge(cz_full, data_ISfull_grp_final2[,c("fish_sp","family_cor")], by.x = "species", by.y = "fish_sp", all.x = T) %>%
   unique()
 
-write.csv2(cz_full, file = "output/cz_values species list.csv", row.names = F)
+write.csv2(cz_full, file = "output/cz_values species list.csv", row.names = F) 
 
 
 #Plot

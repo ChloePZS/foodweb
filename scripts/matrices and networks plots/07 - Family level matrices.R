@@ -1,19 +1,19 @@
-###################
-#Re-do family matrices with corrected data 03/05/2019
+#########################################
+#Family level matrices and network plots#
+#########################################
 
 library(tidyverse)
 library(plyr)
 
 #Create a subset for each region. data_ISfull_grp_final --> data without single and doubletones
-data_vir <- data_ISfull_grp_final %>% filter(site_code == "vir")
-data_mari <- data_ISfull_grp_final %>% filter(site_code == "mari")
-data_haw <- data_ISfull_grp_final %>% filter(site_code == "haw")
-data_nca <- data_ISfull_grp_final %>% filter(site_code == "nca")
-data_mad <- data_ISfull_grp_final %>% filter(site_code == "mad")
+data_vir <- data_ISfull_grp_final2 %>% filter(site_code == "vir")
+data_mari <- data_ISfull_grp_final2 %>% filter(site_code == "mari")
+data_haw <- data_ISfull_grp_final2 %>% filter(site_code == "haw")
+data_nca <- data_ISfull_grp_final2 %>% filter(site_code == "nca")
+data_mad <- data_ISfull_grp_final2 %>% filter(site_code == "mad")
+data_jap <- data_ISfull_grp_final2 %>% filter(site_code == "jap")
 
-data_jap
-
-####1. Mean IS per families####
+####1. Mean IS per families#### Using grp6 (most comparable prey category)
 
 ####Virgin Islands####
 #Need to "sum up" the % volume according to the categorie of grp6 : if 7% of shrimp and 3% of crab = 10% Decapoda
@@ -112,10 +112,10 @@ data_jap_fam_sum <- data_jap_fam_sum %>% select(family_cor, grp6, mean_fam) %>% 
 ####2. Matrices ####
 
 #Create nodes 
-n <- unique(data_ISfull_grp_final$grp6)
+n <- unique(data_ISfull_grp_final2$grp6)
 n <- n[order(n)] %>%
   as.character(.)
-m <- unique(data_ISfull_grp_final$family_cor) #84 family_cor
+m <- unique(data_ISfull_grp_final2$family_cor) #84 family_cor
 m <- m[order(m)] #alphabetic order 
 
 ####Virgin Islands####

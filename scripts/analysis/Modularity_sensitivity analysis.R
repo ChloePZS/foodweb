@@ -8,7 +8,7 @@ library(bipartite)
 library(ggpubr)
 library(ggplot2)
 
-      #1. Prey groups ####
+      #1. Observed modularity for the three prey categories ####
 
 #1. Import  final matrices --> to change according to prey groupings (e.g. grp6, grp1, item_class)
 vir_ISmatrix_sp_std <- read.csv("data/vir_ISmatrix_sp_std_item_class.csv", sep=",", row.names = 1) %>%
@@ -35,64 +35,24 @@ pa_jap_sp <- decostand(jap_ISmatrix_sp_std, method="pa")
 
 #3. Modularity measure ####
 #Qualitative webs
-#Retition to have a mean and SD for modularity
+#Reptiition to have a mean and SD for modularity - Example with West Indies and grp1
 
-  ##GRP1
-#Virgin islands
-mod_vir_sp_grp1 <- parallel::mclapply(1:100, function(x) computeModules(pa_vir_sp), mc.cores = 40)
-mod_vir_grp1 <- sapply(mod_vir_sp_grp1, function(x) x@likelihood)
-mean(mod_vir_grp1); sd(mod_vir_grp1)
-
-nb_mod_vir <- sapply(mod_vir_sp_grp1, function(x) dim(x@modules)[1]-1) 
-
-#Hawai
-mod_haw_sp_grp1 <- parallel::mclapply(1:100, function(x) computeModules(pa_haw_sp),mc.cores = 40)
-mod_haw_grp1 <- sapply(mod_haw_sp_grp1, function(x) x@likelihood)
-mean(mod_haw_grp1); sd(mod_haw_grp1)
-
-nb_mod_haw <- sapply(mod_haw_sp_grp1, function(x) dim(x@modules)[1]-1) 
-mean(nb_mod_haw); sd(nb_mod_haw)
-
-#Marshall Islands
-mod_mari_sp_grp1 <- parallel::mclapply(1:100, function(x) computeModules(pa_mari_sp), mc.cores = 40)
-mod_mari_grp1 <- sapply(mod_mari_sp_grp1, function(x) x@likelihood)
-mean(mod_mari_grp1); sd(mod_mari_grp1)
-
-nb_mod_mari <- sapply(mod_mari_sp_grp1, function(x) dim(x@modules)[1]-1) 
-mean(nb_mod_mari); sd(nb_mod_mari)
-
-#New caledonia
-mod_nca_sp_grp1 <- parallel::mclapply(1:100, function(x) computeModules(pa_nca_sp), mc.cores = 40)
-mod_nca_grp1 <- sapply(mod_nca_sp_grp1, function(x) x@likelihood)
-mean(mod_nca_grp1); sd(mod_nca_grp1)
-
-nb_mod_nca <- sapply(mod_nca_sp_grp1, function(x) dim(x@modules)[1]-1) 
-mean(nb_mod_nca); sd(nb_mod_nca)
-
-#Madagascar
-mod_mad_sp_grp1 <- parallel::mclapply(1:100, function(x) computeModules(pa_mad_sp), mc.cores = 40)
-mod_mad_grp1 <- sapply(mod_mad_sp_grp1, function(x) x@likelihood)
-mean(mod_mad_grp1); sd(mod_mad_grp1)
-
-nb_mod_mad <- sapply(mod_mad_sp_grp1, function(x) dim(x@modules)[1]-1) 
-mean(nb_mod_mad); sd(nb_mod_mad)
-
-#Japan
-mod_jap_sp_grp1 <- parallel::mclapply(1:100, function(x) computeModules(pa_jap_sp), mc.cores = 40)
-mod_jap_grp1 <- sapply(mod_jap_sp_grp1, function(x) x@likelihood)
-mean(mod_jap_grp1); sd(mod_jap_grp1)
-
-nb_mod_jap <- sapply(mod_jap_sp_grp1, function(x) dim(x@modules)[1]-1) 
-mean(nb_mod_jap); sd(nb_mod_jap)
+# mod_vir_sp_grp1 <- parallel::mclapply(1:100, function(x) computeModules(pa_vir_sp), mc.cores = 40)
+# mod_vir_grp1 <- sapply(mod_vir_sp_grp1, function(x) x@likelihood)
+# mean(mod_vir_grp1); sd(mod_vir_grp1)
+# 
+# nb_mod_vir <- sapply(mod_vir_sp_grp1, function(x) dim(x@modules)[1]-1) 
+# 
+# #Hawai
+# mod_haw_sp_grp1 <- parallel::mclapply(1:100, function(x) computeModules(pa_haw_sp),mc.cores = 40)
+# mod_haw_grp1 <- sapply(mod_haw_sp_grp1, function(x) x@likelihood)
+# mean(mod_haw_grp1); sd(mod_haw_grp1)
+# 
+# nb_mod_haw <- sapply(mod_haw_sp_grp1, function(x) dim(x@modules)[1]-1) 
+# mean(nb_mod_haw); sd(nb_mod_haw)
 
 
-obs_mod_grp1 <- c(mod_mad_grp1, mod_nca_grp1, mod_mari_grp1, mod_haw_grp1, mod_vir_grp1, mod_jap_grp1) %>%
-  as.data.frame() %>%
-  rename(., mod =".") %>%
-  add_column(site = rep(c("mad","nca","mari","haw","vir","jap"), each = 100)) %>%
-  add_column(obs = "grp1")
-
-#single algo
+#Run algorithme once
 obs_mod_vir_grp1 <- computeModules(pa_vir_sp)
 obs_mod_mari_grp1 <- computeModules(pa_mari_sp)
 obs_mod_mad_grp1 <- computeModules(pa_mad_sp)
@@ -107,62 +67,7 @@ obs_mod_grp1 <- c(obs_mod_mad_grp1@likelihood, obs_mod_nca_grp1@likelihood, obs_
   add_column(obs = "grp1")
 
 #Prey class grouping
-#Virgin islands
-mod_vir_sp_class <- parallel::mclapply(1:100, function(x) computeModules(pa_vir_sp), mc.cores = 40)
-mod_vir_class <- sapply(mod_vir_sp_class, function(x) x@likelihood)
-mean(mod_vir_class); sd(mod_vir_class)
-
-nb_mod_vir <- sapply(mod_vir_sp_class, function(x) dim(x@modules)[1]-1) 
-
-#Hawai
-mod_haw_sp_class <- parallel::mclapply(1:100, function(x) computeModules(pa_haw_sp),mc.cores = 40)
-mod_haw_class <- sapply(mod_haw_sp_class, function(x) x@likelihood)
-mean(mod_haw_class); sd(mod_haw_class)
-
-nb_mod_haw <- sapply(mod_haw_sp_class, function(x) dim(x@modules)[1]-1) 
-mean(nb_mod_haw); sd(nb_mod_haw)
-
-#Marshall Islands
-mod_mari_sp_class <- parallel::mclapply(1:100, function(x) computeModules(pa_mari_sp), mc.cores = 40)
-mod_mari_class <- sapply(mod_mari_sp_class, function(x) x@likelihood)
-mean(mod_mari_class); sd(mod_mari_class)
-
-nb_mod_mari <- sapply(mod_mari_sp_class, function(x) dim(x@modules)[1]-1) 
-mean(nb_mod_mari); sd(nb_mod_mari)
-
-#New caledonia
-mod_nca_sp_class <- parallel::mclapply(1:100, function(x) computeModules(pa_nca_sp), mc.cores = 40)
-mod_nca_class <- sapply(mod_nca_sp_class, function(x) x@likelihood)
-mean(mod_nca_class); sd(mod_nca_class)
-
-nb_mod_nca <- sapply(mod_nca_sp_class, function(x) dim(x@modules)[1]-1) 
-mean(nb_mod_nca); sd(nb_mod_nca)
-
-#Madagascar
-mod_mad_sp_class <- parallel::mclapply(1:100, function(x) computeModules(pa_mad_sp), mc.cores = 40)
-mod_mad_class <- sapply(mod_mad_sp_class, function(x) x@likelihood)
-mean(mod_mad_class); sd(mod_mad_class)
-
-nb_mod_mad <- sapply(mod_mad_sp_class, function(x) dim(x@modules)[1]-1) 
-mean(nb_mod_mad); sd(nb_mod_mad)
-
-#Japan
-mod_jap_sp_class <- parallel::mclapply(1:100, function(x) computeModules(pa_jap_sp), mc.cores = 40)
-mod_jap_class <- sapply(mod_jap_sp_class, function(x) x@likelihood)
-mean(mod_jap_class); sd(mod_jap_class)
-
-nb_mod_jap <- sapply(mod_jap_sp_class, function(x) dim(x@modules)[1]-1) 
-mean(nb_mod_jap); sd(nb_mod_jap)
-
-
-obs_mod_class <- c(mod_mad_class, mod_nca_class, mod_mari_class, mod_haw_class, mod_vir_class, mod_jap_class) %>%
-  as.data.frame() %>%
-  rename(., mod =".") %>%
-  add_column(site = rep(c("mad","nca","mari","haw","vir","jap"), each = 100)) %>%
-  add_column(obs = "class")
-
-
-#single algo
+#single algorithme
 obs_mod_vir_class <- computeModules(pa_vir_sp)
 obs_mod_mari_class <- computeModules(pa_mari_sp)
 obs_mod_mad_class <- computeModules(pa_mad_sp)
@@ -176,7 +81,7 @@ obs_mod_class <- c(obs_mod_mad_class@likelihood, obs_mod_nca_class@likelihood, o
   add_column(site = c("mad","nca","mari","haw","vir","jap")) %>%
   add_column(obs = "class")
 
-#add the one of grp6 
+#Grp6 prey category
 obs_mod_vir_grp6 <- computeModules(pa_vir_sp)
 obs_mod_mari_grp6 <- computeModules(pa_mari_sp)
 obs_mod_mad_grp6 <- computeModules(pa_mad_sp)
@@ -195,33 +100,15 @@ obs_mod_grp <- rbind(obs_mod_grp6, obs_mod_grp1, obs_mod_class) %>%
   mutate_if(is.character, as.factor) %>%
   add_column(dat = "Observed values")
 
-obs_mod_grp %>% group_by(site, obs) %>% summarize(mean = mean(mod)) 
-
 
 site.lab <- c("Hawaii","Madagascar","Marshall Islands","New Caledonia","Virgin Islands","Okinawa")
 names(site.lab) <-c("haw","mad","mari","nca","vir","jap")
 
 
-ggplot(data = obs_mod_grp, aes(x = site, y = mod))+
-  stat_summary(fun.data = quantiles_95, geom="boxplot", color="black")  +
-  #geom_point() +
-  #stat_summary(fun.data = mean_cl_boot, size=0.7, width = 0.1, linetype="solid", geom="errorbar", color="red")  +
-  facet_wrap(. ~ obs, labeller = labeller(site = site.lab))  +
-  labs (y = "Modularity\n", x = "\nPrey groupings") +
-  theme_test() +
-  theme(strip.text.y = element_text(size=11),
-        axis.line.x = element_line(colour = "black",size=0.5, lineend = "butt"),
-        axis.line.y = element_line(colour = "black", size=0.5),
-        axis.title = element_text(size=13.5),
-        axis.text = element_text(size=12, colour = "black")) 
 
-#lapply kruskal.test to each site. Need to "slit" first then "lapply"!!!
-lapply(split(obs_mod_grp, obs_mod_grp$site), function(d) { kruskal.test(mod ~ obs, data=d) }) #Diff between grps
-#Okay so modularity measure varies betw groups, but what is important is the comparison with the null models, 
-#therefore if the networks are significantly modular. But null model runs take ages...
-
-
-#Null model - CAREFULL TO CHECK ABOVE WHICH MATRICES HAVE BEEN LOADED !!!!!
+    #2. Modularity of random matrices 
+#Using curveball algortithme (Giovanni Strona et al., )
+#Null model 
 curve_ball<-function(m){
   RC=dim(m)
   R=RC[1]
@@ -251,7 +138,7 @@ curve_ball<-function(m){
   rm
 }
 
-#Creating random food webs ! Careful to check which matrices had been uploaded (i.e grp1, grp6 or classes)
+#1. Creating random food webs - Careful to check which matrices had been uploaded (i.e grp1, grp6 or classes) !!
 p <- 100
 rand_vir_sp3 <- lapply(1:p, function(x) curve_ball(pa_vir_sp))
 rand_mari_sp3 <- lapply(1:p, function(x) curve_ball(pa_mari_sp))
@@ -289,9 +176,6 @@ mod_nca_sp_null3_grp1 <- unlist(sapply(rand_nca_sp3, computeModules))
 mod_vir_sp_null3_grp1 <- unlist(sapply(rand_vir_sp3, computeModules)) 
 mod_jap_sp_null3_grp1 <- unlist(sapply(rand_jap_sp3, computeModules))
 
-#parallel
-#mclapply
-
 
 mod_null3_grp1 <- c(sapply(mod_mad_sp_null3_grp1, function(x) x@likelihood),
                sapply(mod_nca_sp_null3_grp1, function(x) x@likelihood),
@@ -328,11 +212,11 @@ mod_null3_class <- c(sapply(mod_mad_sp_null3_class, function(x) x@likelihood),
   add_column(obs = "class")
 
 
-# DF with mod for all 3 groupings
+#2. Preparing the DF with mod for all 3 groupings
 mod_null3_grp <- rbind(mod_null3_grp6, mod_null3_grp1, mod_null3_class) %>%
   add_column(dat = "Null distributions")
 
-#Combine de DF
+#Combine DF
 mod_full <- plyr::rbind.fill(obs_mod_grp, mod_null3_grp)
 
 obs_mod_mean$site <- factor(obs_mod_mean$site, levels = c("haw","mad","mari","nca","jap","vir"))
@@ -340,7 +224,8 @@ mod_null3_grp$site <- factor(mod_null3_grp$site, levels = c("haw","mad","mari","
 mod_full$site <- factor(mod_full$site, levels = c("haw","mad","mari","nca","jap","vir"))
 
   
-#plot - PB is the order of the x axis, white space above legend, facet names
+#3. Plot
+#preparing the plot
 quantiles_95 <- function(x) {
   r <- c(mean(x), quantile(x, probs=c(0.05)),quantile(x, probs=c(0.95)))
   names(r) <- c("y","ymin","ymax")
@@ -351,28 +236,7 @@ obs_lab <- c(class = "Prey class",
          grp6 = "Main grouping",
          grp1 = "Alternative grouping")
 
-ggplot(data=mod_full, aes(x=site, y=mod, color = dat)) +
-  stat_summary(fun.y = mean, geom="point",size=3, shape = 19) + 
-  stat_summary(fun.data = quantiles_95, geom ="errorbar", size=0.5, width=0.08) +
-  scale_color_manual(name = NULL, values = c("grey60","black"))+
-  scale_x_discrete(breaks=c("haw","mad","mari","nca","jap", "vir"),
-                   labels=c("Hawaii", "Madagascar", "Marshall Islands","New Caledonia", "Okinawa","West Indies"))+
-  facet_grid(obs ~ ., scales="free", switch ="y", labeller = labeller(obs = obs_lab))+
-  labs(y = "Modularity", x="") + 
-  theme_test() +
-  theme(strip.text.y = element_text(size=12),
-        legend.text = element_text(colour="black", size=12),
-        axis.line.x = element_line(colour = "black",size=0.5, lineend = "butt"),
-        axis.line.y = element_line(colour = "black", size=0.5),
-        axis.title = element_text(size=13.5),
-        axis.text = element_text(size=12, colour = "black")) +
-  guides(fill=FALSE) +
-  theme(legend.position = c(0.1,0.96),
-        legend.box = NULL, 
-        legend.title = NULL)
-
-
-
+#plot
 mod_plot2 <- ggplot(data=mod_null3_grp, aes(x=factor(site, levels = c("haw","mad","mari","nca","jap","vir")), y=mod, fill=site)) +
   geom_point(data=obs_mod_grp, size=2.5, aes(shape="Observed values", color ="Observed values"))+
   stat_summary(fun.data = quantiles_95, geom ="errorbar", width=0.08) +

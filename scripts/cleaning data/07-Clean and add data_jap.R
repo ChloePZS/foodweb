@@ -157,7 +157,7 @@ data_ISfull_grp_final2 <- data_ISfull_grp_final2[, c(16,17,15,14,1,2,18,3,4,5,8:
 write.csv(data_ISfull_grp_final2, "data/data_ISfull_grp_final.csv")
 
 
-#Some errors in species name .... and pred class as Insecta ... !!!! For fucksakes CHLOE !!
+#Some errors in species name .... and pred class as Insecta ... !!!! For fucksakes !!
 data_ISfull_grp_final2$fish_sp <-   dplyr::recode(data_ISfull_grp_final2$fish_sp, 
                                                   "Neomyxus chaptalii" = "Neomyxus leuciscus",
                                                   "Zebrasoma veliferum" = "Zebrasoma velifer",
