@@ -1,0 +1,625 @@
+item_raw;item_phylum;item_class;item_ord;grp1;grp6
+Fish;Chordata;Actinopterygii;NA;Actinopterygii;Actinopterygii
+Cephalopods;Mollusca;Cephalopoda;NA;Cephalopoda;Cephalopoda
+Aspidosiphon_sp;Sipuncula;Phascolosomatidea;Aspidosiphonida;Sipuncula;Worm
+Crab;Arthropoda;Malacostraca;Decapoda;Brachyura;Decapoda
+Polychaetes;Annelida;Polychaeta;NA;Annelida;Worm
+Asaphis_deflorata;Mollusca;Bivalvia;Veneroida;Bivalvia;Bivalvia
+Shrimp;Arthropoda;Malacostraca;Decapoda;Shrimp;Decapoda
+Hemichordates;Hemichordata;NA;NA;Hemichordata;Worm
+Stomatopod;Arthropoda;Malacostraca;Stomatopoda;Stomatopoda;Stomatopoda
+Gastropods;Mollusca;Gastropoda;NA;Gastropoda;Gastropoda
+Pelecypod;Mollusca;Bivalvia;NA;Bivalvia;Bivalvia
+Copepods;Arthropoda;Hexanauplia;NA;Copepoda;Zooplankton
+Crab_larvae;Arthropoda;Malacostraca;Decapoda;Zooplankton;Zooplankton
+Shrimp_larvae;Arthropoda;Malacostraca;Decapoda;Zooplankton;Zooplankton
+Pteropods_Cresis_sp;Mollusca;Gastropoda;Pteropoda;Pteropoda;Zooplankton
+Fish_eggs;Chordata;Actinopterygii;NA;Zooplankton;Zooplankton
+Plants;NA;NA;NA;Algae;Benthic autotroph
+Crab larvae;Arthropoda;Malacostraca;Decapoda;Zooplankton;Zooplankton
+Mysids;Arthropoda;Malacostraca;Mysida;Mysida;Zooplankton
+Appendicularians;Chordata;Appendicularia;NA;Tunicata;Zooplankton
+Stomatopod larvae;Arthropoda;Malacostraca;Stomatopoda;Zooplankton;Zooplankton
+Eggs;NA;NA;NA;Zooplankton;Zooplankton
+Gastropod larvae;Mollusca;Gastropoda;NA;Zooplankton;Zooplankton
+Siphonophores;Cnidaria;Hydrozoa;Siphonophorae;Hydrozoa;Zooplankton
+Pelecypod larvae;Mollusca;Bivalvia;NA;Zooplankton;Zooplankton
+Ostracods;Arthropoda;Ostracoda;NA;Ostracoda;Zooplankton
+Pteropods;Mollusca;Gastropoda;Pteropoda;Pteropoda;Zooplankton
+Hyperiid;Arthropoda;Malacostraca;Amphipoda;Amphipoda;Zooplankton
+Squids;Mollusca;Cephalopoda;Teuthida;Cephalopoda;Cephalopoda
+Anchoa_sp;Chordata;Actinopterygii;Clupeiformes;Actinopterygii;Actinopterygii
+Lysmata_moorei;Arthropoda;Malacostraca;Decapoda;Shrimp;Decapoda
+Scarus_sp;Chordata;Actinopterygii;Pleurotomariida;Actinopterygii;Actinopterygii
+Octopuses;Mollusca;Cephalopoda;Octopoda;Cephalopoda;Cephalopoda
+Gonodactylus_curacaoensis;Arthropoda;Malacostraca;Stomatopoda;Stomatopoda;Stomatopoda
+Echinoids;Echinodermata;Echinoidea;NA;Echinoidea;Echinoidea
+Haemulon_aurolineatum;Chordata;Actinopterygii;Lutjaniformes;Actinopterygii;Actinopterygii
+Gastropods larvae;Mollusca;Gastropoda;NA;Zooplankton;Zooplankton
+Jenkinsia_sp;Chordata;Actinopterygii;Clupeiformes;Actinopterygii;Actinopterygii
+Carpenter_ants;Arthropoda;Insecta;Hymenoptera;Insecta;Insecta
+Hermit_crab;Arthropoda;Malacostraca;Decapoda;Anomura;Decapoda
+Insecta;Arthropoda;Insecta;NA;Insecta;Insecta
+Cavolinids;Mollusca;Gastropoda;Pteropoda;Pteropoda;Zooplankton
+Seagrass;Tracheophyta;NA;NA;Seagrass;Benthic autotroph
+Carideans;Arthropoda;Malacostraca;Decapoda;Shrimp;Decapoda
+Gastropods;Mollusca;Gastropoda;Trochida;Gastropoda;Gastropoda
+Isopods;Arthropoda;Malacostraca;Isopoda;Isopoda;Zooplankton
+Stomatopod_larvae;Arthropoda;Malacostraca;Stomatopoda;Zooplankton;Zooplankton
+Ophiurids;Echinodermata;Ophiuroidea;NA;Ophiuroidea;Ophiuroidea
+Exocorallina_antillensis;Arthropoda;Malacostraca;Isopoda;Isopoda;Zooplankton
+Acanthochitona_pygmaea;Mollusca;Polyplacophora;Chitonida;Polyplacophora;Polyplacophora
+shrimp_larvae;Arthropoda;Malacostraca;Decapoda;Zooplankton;Zooplankton
+Choneplax_lata;Mollusca;Polyplacophora;Chitonida;Polyplacophora;Polyplacophora
+Acanthurus_sp;Chordata;Actinopterygii;Acanthuriformes;Actinopterygii;Actinopterygii
+Fish_larvae;Chordata;Actinopterygii;NA;Zooplankton;Zooplankton
+Cephalopod larvae;Mollusca;Cephalopoda;NA;Zooplankton;Zooplankton
+Hermit_crab_larvae;Arthropoda;Malacostraca;Decapoda;Zooplankton;Zooplankton
+Scyllaridae_larvae;Arthropoda;Malacostraca;Decapoda;Zooplankton;Zooplankton
+Polychaeta_larvae;Annelida;Polychaeta;NA;Zooplankton;Zooplankton
+Fish_scales;Chordata;Actinopterygii;NA;Actinopterygii;Actinopterygii
+Barnacle appendages and larvae;Arthropoda;Hexanauplia;NA;Cirripedia;Cirripedia
+Foraminifera;Foraminifera;NA;NA;Foraminifera;Foraminifera
+Alpheids;Arthropoda;Malacostraca;Decapoda;Shrimp;Decapoda
+Acanthochiton_hemphili;Mollusca;Polyplacophora;Chitonida;Polyplacophora;Polyplacophora
+Gonodactylus_oerstedii;Arthropoda;Malacostraca;Stomatopoda;Stomatopoda;Stomatopoda
+Octopus_briareus;Mollusca;Cephalopoda;Octopoda;Cephalopoda;Cephalopoda
+Echiuroids;Annelida;Polychaeta;Echiura;Annelida;Worm
+Panulirus_argus;Arthropoda;Malacostraca;Decapoda;Achelata;Decapoda
+Scyllarides_aequinoctialis;Arthropoda;Malacostraca;Decapoda;Achelata;Decapoda
+Eretmochelys_imbricata;Chordata;Reptilia;Testudines;Sea turtles;Sea turtles
+Spiny_lobster;Arthropoda;Malacostraca;Decapoda;Achelata;Decapoda
+Gastropods;Mollusca;Gastropoda;Littorinimorpha;Gastropoda;Gastropoda
+Barbatia_cancellaria;Mollusca;Bivalvia;Arcoida;Bivalvia;Bivalvia
+Blenniidae;Chordata;Actinopterygii;Blenniiformes;Actinopterygii;Actinopterygii
+Periclimenes_sp;Arthropoda;Malacostraca;Decapoda;Shrimp;Decapoda
+Sepiatheuthis_sepioidae;Mollusca;Cephalopoda;Teuthida;Cephalopoda;Cephalopoda
+Tozeuma_sp;Arthropoda;Malacostraca;Decapoda;Shrimp;Decapoda
+Salps;Chordata;Thaliacea;Salpida;Tunicata;Zooplankton
+Lucifer_faxani;Arthropoda;Malacostraca;Decapoda;Shrimp;Decapoda
+Gastropoda_larvae;Mollusca;Gastropoda;NA;Zooplankton;Zooplankton
+Eggs_unid;NA;NA;NA;Zooplankton;Zooplankton
+Pseudosquilla_ciliata;Arthropoda;Malacostraca;Stomatopoda;Stomatopoda;Stomatopoda
+Amphipoda;Arthropoda;Malacostraca;Amphipoda;Amphipoda;Zooplankton
+Tanaid;Arthropoda;Malacostraca;Tanaidacea;Tanaidacea;Zooplankton
+Alpheids_larvae;Arthropoda;Malacostraca;Decapoda;Zooplankton;Zooplankton
+Opheliids;Annelida;Polychaeta;NA;Annelida;Worm
+Eunicids;Annelida;Polychaeta;Eunicida;Annelida;Worm
+Oxystomata;Arthropoda;Malacostraca;Decapoda;Brachyura;Decapoda
+Octopoda_larvae;Mollusca;Cephalopoda;Octopoda;Zooplankton;Zooplankton
+Petrochirus_diogenes;Arthropoda;Malacostraca;Decapoda;Anomura;Decapoda
+Penaeidae;Arthropoda;Malacostraca;Decapoda;Shrimp;Decapoda
+Lysiosquilla_glabriuscula;Arthropoda;Malacostraca;Stomatopoda;Stomatopoda;Stomatopoda
+Scyllarid_lobster;Arthropoda;Malacostraca;Decapoda;Achelata;Decapoda
+Octopus_vulgaris;Mollusca;Cephalopoda;Octopoda;Cephalopoda;Cephalopoda
+Pteropods_Cavolina_sp;Mollusca;Gastropoda;Pteropoda;Pteropoda;Zooplankton
+Tunicates;Chordata;NA;NA;Tunicata;Tunicata
+Ctenophores;Ctenophora;NA;NA;Ctenophora;Zooplankton
+Heteropods;Arthropoda;Arachnida;Araneae;Arachnida;Arachnida
+Euphausids;Arthropoda;Malacostraca;Euphausiacea;Euphausiacea;Zooplankton
+Hymenopteran insect;Arthropoda;Insecta;Hymenoptera;Insecta;Insecta
+Diadema_antillarum;Echinodermata;Echinoidea;Diadematoida;Echinoidea;Echinoidea
+Linckia_guildingii;Echinodermata;Asteroidea;Valvatida;Asteroidea;Asteroidea
+Anthozoa;Cnidaria;Anthozoa;NA;Anthozoa;Anthozoa
+Serpulids;Annelida;Polychaeta;Sabellida;Annelida;Worm
+Sponges;Porifera;NA;NA;Porifera;Porifera
+Ophiothrix_sp;Echinodermata;Ophiuroidea;Ophiurida;Ophiuroidea;Ophiuroidea
+Eunice_sp;Annelida;Polychaeta;Eunicida;Annelida;Worm
+Harpacticoida;Arthropoda;Hexanauplia;Harpacticoida;Copepoda;Zooplankton
+Trididemnum_savignii;Chordata;Ascidiacea;Enterogona;Tunicata;Tunicata
+Apseudid;Arthropoda;Malacostraca;Tanaidacea;Tanaidacea;Zooplankton
+Chitons;Mollusca;Polyplacophora;NA;Polyplacophora;Polyplacophora
+Nebalia_sp;Arthropoda;Malacostraca;Leptostraca;Leptostraca;Zooplankton
+Dentalium_sp;Mollusca;Scaphopoda;Dentaliida;Scaphopoda;Scaphopoda
+Sipunculids;Sipuncula;NA;NA;Sipuncula;Worm
+Arabellids;Annelida;Polychaeta;Eunicida;Annelida;Worm
+Gastropods;Mollusca;Gastropoda;Neogastropoda;Gastropoda;Gastropoda
+Monacanthidae;Chordata;Actinopterygii;Tetraodontiformes;Actinopterygii;Actinopterygii
+Squilla_tricarinata;Arthropoda;Malacostraca;Stomatopoda;Stomatopoda;Stomatopoda
+Priapuloids;Cephalorynchia;Priapulida;NA;Priapulida;Worm
+Caprellids;Arthropoda;Malacostraca;Amphipoda;Amphipoda;Zooplankton
+Scaphopods;Mollusca;Scaphopoda;NA;Scaphopoda;Scaphopoda
+Bryozoa;Bryozoa;NA;NA;Bryozoa;Bryozoa
+Chloeia_sp;Annelida;Polychaeta;Eunicida;Annelida;Worm
+Undinula_vulgaris;Arthropoda;Hexanauplia;Calanoida;Copepoda;Zooplankton
+Gastropoda;Mollusca;Gastropoda;NA;Gastropoda;Gastropoda
+Solemya_occidentalis;Mollusca;Bivalvia;Solemyida;Bivalvia;Bivalvia
+Barnacle larvae;Arthropoda;Hexanauplia;NA;Zooplankton;Zooplankton
+Ischnochiton_papillosus;Mollusca;Polyplacophora;Chitonida;Polyplacophora;Polyplacophora
+Barnacle appendages;Arthropoda;Hexanauplia;NA;Cirripedia;Cirripedia
+Laevicardium_sp;Mollusca;Bivalvia;Veneroida;Bivalvia;Bivalvia
+Gastropods;Mollusca;Gastropoda;Cephalaspidea;Gastropoda;Gastropoda
+Holothurians;Echinodermata;Holothuroidea;NA;Holothuroidea;Holothuroidea
+Olivella_sp;Mollusca;Gastropoda;Neogastropoda;Gastropoda;Gastropoda
+Phyllactis_flosculifera;Cnidaria;Anthozoa;Actiniaria;Actiniaria;Anthozoa
+Cadulus_sp;Mollusca;Scaphopoda;Gadilida;Scaphopoda;Scaphopoda
+Mithrax_sp;Arthropoda;Malacostraca;Decapoda;Brachyura;Decapoda
+Thyone_pseudofusus;Echinodermata;Holothuroidea;Dendrochirotida;Holothuroidea;Holothuroidea
+Cumingia_antillarum;Mollusca;Bivalvia;Veneroida;Bivalvia;Bivalvia
+Algae;NA;NA;NA;Algae;Benthic autotroph
+Eggs_invert;NA;NA;NA;Zooplankton;Zooplankton
+Pinctada_radiata;Mollusca;Bivalvia;Pterioida;Bivalvia;Bivalvia
+Turbo_castanea;Mollusca;Gastropoda;Trochida;Gastropoda;Gastropoda
+Majids;Arthropoda;Malacostraca;Decapoda;Brachyura;Decapoda
+Polyplacophores;Mollusca;Polyplacophora;NA;Polyplacophora;Polyplacophora
+Acmaeids;Mollusca;Gastropoda;NA;Gastropoda;Gastropoda
+Cymodocea_manatorum;Tracheophyta;Magnoliopsida;Alismatales;Seagrass;Benthic autotroph
+Gammarids;Arthropoda;Malacostraca;Amphipoda;Amphipoda;Zooplankton
+Tellina_sp;Mollusca;Bivalvia;Veneroida;Bivalvia;Bivalvia
+Petrolisthes_galathinus;Arthropoda;Malacostraca;Decapoda;Anomura;Decapoda
+Hipponix_subrufus;Mollusca;Gastropoda;Littorinimorpha;Gastropoda;Gastropoda
+Excorallana_antillensis;Arthropoda;Malacostraca;Isopoda;Isopoda;Zooplankton
+Portunidae;Arthropoda;Malacostraca;Decapoda;Brachyura;Decapoda
+Aspidosiphon_cumingi;Sipuncula;Phascolosomatidea;Aspidosiphonida;Sipuncula;Worm
+Turbonilla_sp;Mollusca;Gastropoda;NA;Gastropoda;Gastropoda
+Gonodactylus_sp;Arthropoda;Malacostraca;Stomatopoda;Stomatopoda;Stomatopoda
+Spatangoids;Echinodermata;Echinoidea;Spatangoida;Echinoidea;Echinoidea
+Cantherhines_pullus;Chordata;Actinopterygii;Tetraodontiformes;Actinopterygii;Actinopterygii
+Fish_parts;Chordata;Actinopterygii;NA;Actinopterygii;Actinopterygii
+Pteropoda_Cavolina_sp;Mollusca;Gastropoda;Pteropoda;Pteropoda;Zooplankton
+Candacia_pachydactyla;Arthropoda;Hexanauplia;Calanoida;Copepoda;Zooplankton
+Pteropoda_Cavolina_longirostris;Mollusca;Gastropoda;Pteropoda;Pteropoda;Zooplankton
+Hippids;Arthropoda;Malacostraca;Decapoda;Anomura;Decapoda
+Pteropoda;Mollusca;Gastropoda;Pteropoda;Pteropoda;Zooplankton
+Engraulidae;Chordata;Actinopterygii;Clupeiformes;Actinopterygii;Actinopterygii
+Paguristes_grayi;Arthropoda;Malacostraca;Decapoda;Anomura;Decapoda
+Cymothoids;Arthropoda;Malacostraca;Isopoda;Isopoda;Zooplankton
+Zoanthus_sociatus;Cnidaria;Anthozoa;Zoantharia;Zoantharia;Anthozoa
+Opisthobranchia_Tridachia_crispata;Mollusca;Gastropoda;NA;Gastropoda;Gastropoda
+Ants;Arthropoda;Insecta;Hymenoptera;Insecta;Insecta
+Porcellanidae;Arthropoda;Malacostraca;Decapoda;Anomura;Decapoda
+Hydrozoa;Cnidaria;Hydrozoa;NA;Hydrozoa;Medusozoa
+Scleractinia;Cnidaria;Anthozoa;Scleractinia;Scleractinia;Anthozoa
+Zoanthus_sp;Cnidaria;Anthozoa;Zoantharia;Zoantharia;Anthozoa
+Scyphozoans;Cnidaria;Scyphozoa;NA;Scyphozoa;Medusozoa
+Fish;Chordata;Actinopterygii;Perciformes;Actinopterygii;Actinopterygii
+Thalassia_testudinum;Tracheophyta;Magnoliopsida;Alismatales;Seagrass;Benthic autotroph
+Oncaea_sp;Arthropoda;Hexanauplia;Poecilostomatoida;Copepoda;Zooplankton
+Diodora_variegata;Mollusca;Gastropoda;Lepetellida;Gastropoda;Gastropoda
+Palaemonids;Arthropoda;Malacostraca;Decapoda;Shrimp;Decapoda
+Clibanarius_sp;Arthropoda;Malacostraca;Decapoda;Anomura;Decapoda
+Paracerceis_caudata;Arthropoda;Malacostraca;Isopoda;Isopoda;Zooplankton
+Calloplax_janeirensis;Mollusca;Polyplacophora;Chitonida;Polyplacophora;Polyplacophora
+Ampharetids;Annelida;Polychaeta;Terebellida;Annelida;Worm
+Arcopsis_adamsi;Mollusca;Bivalvia;Arcoida;Bivalvia;Bivalvia
+Echinometra_sp;Echinodermata;Echinoidea;Echinoida;Echinoidea;Echinoidea
+Bivalvia;Mollusca;Bivalvia;NA;Bivalvia;Bivalvia
+Cymadusa_sp;Arthropoda;Malacostraca;Amphipoda;Amphipoda;Zooplankton
+Barnacles;Arthropoda;Hexanauplia;NA;Cirripedia;Cirripedia
+Gnathiids;Arthropoda;Malacostraca;Isopoda;Isopoda;Zooplankton
+Pycnogonids;Arthropoda;Pycnogonida;NA;Pycnogonida;Pycnogonida
+Mollusk_eggs;Mollusca;NA;NA;Zooplankton;Zooplankton
+Scleractinia_frags;Cnidaria;Anthozoa;Scleractinia;Scleractinia;Anthozoa
+Echinoids_frags;Echinodermata;Echinoidea;NA;Echinoidea;Echinoidea
+Sponges_spicules;Porifera;NA;NA;Porifera;Porifera
+Gorgonians;Cnidaria;Anthozoa;Alcyonacea;Octocorallia;Anthozoa
+Corypterus_sp;Chordata;Actinopterygii;Gobiiformes;Actinopterygii;Actinopterygii
+Echinometra_lacunter;Echinodermata;Echinoidea;Echinoida;Echinoidea;Echinoidea
+Barnacle_larvae;Arthropoda;Hexanauplia;NA;Zooplankton;Zooplankton
+Holocanthus_sp;Chordata;Actinopterygii;Tetraodontiformes;Actinopterygii;Actinopterygii
+Zoantharia;Cnidaria;Anthozoa;Zoantharia;Zoantharia;Anthozoa
+Sabellastarte_magnifica;Annelida;Polychaeta;Sabellida;Annelida;Worm
+Muricea_laxa;Cnidaria;Anthozoa;Alcyonacea;Octocorallia;Anthozoa
+Gastropoda_eggs;Mollusca;Gastropoda;NA;Zooplankton;Zooplankton
+Scleractinia_Oculina_diffusa;Cnidaria;Anthozoa;Scleractinia;Scleractinia;Anthozoa
+Palinuridae_larvae;Arthropoda;Malacostraca;Decapoda;Zooplankton;Zooplankton
+Didemnid;Chordata;Ascidiacea;Enterogona;Tunicata;Tunicata
+Bunodactis_stelloides;Cnidaria;Anthozoa;Actiniaria;Actiniaria;Anthozoa
+Pterogorgia_sp;Cnidaria;Anthozoa;Alcyonacea;Octocorallia;Anthozoa
+Ruppia_maritima;Tracheophyta;Magnoliopsida;Alismatales;Seagrass;Benthic autotroph
+Tunicates;Chordata;Ascidiacea;NA;Tunicata;Tunicata
+Gorgonia_flabellum;Cnidaria;Anthozoa;Alcyonacea;Octocorallia;Anthozoa
+Spermatophyta;Tracheophyta;NA;NA;Seagrass;Benthic autotroph
+Wormtube_noncalcareous;Annelida;NA;NA;Annelida;Worm
+Nudibranch eggs;Mollusca;Gastropoda;Nudibranchia;Zooplankton;Zooplankton
+Gorgonian_frags;Cnidaria;Anthozoa;Alcyonacea;Octocorallia;Anthozoa
+Dardanus_venosus;Arthropoda;Malacostraca;Decapoda;Anomura;Decapoda
+Asteroids;Echinodermata;Asteroidea;NA;Asteroidea;Asteroidea
+Scleractinia_Cladocora_arbuscula;Cnidaria;Anthozoa;Scleractinia;Scleractinia;Anthozoa
+Anthozoa_nocorals;Cnidaria;Anthozoa;NA;Anthozoa;Anthozoa
+Isopods_larvae;Arthropoda;Malacostraca;Isopoda;Zooplankton;Zooplankton
+Sargassum_sp;Ochrophyta;Phaeophyceae;Fucales;Algae;Benthic autotroph
+Scleractinia_Colpophyllia_sp;Cnidaria;Anthozoa;Scleractinia;Scleractinia;Anthozoa
+Pelecypod_larvae;Mollusca;Bivalvia;NA;Zooplankton;Zooplankton
+Halimeda_sp;Chlorophyta;Ulvophyceae;Bryopsidales;Algae;Benthic autotroph
+Clibanarius_tricolor;Arthropoda;Malacostraca;Decapoda;Anomura;Decapoda
+Sertularia_sp;Cnidaria;Hydrozoa;Leptothecata;Hydrozoa;Zooplankton
+Zoanthus;Cnidaria;Anthozoa;Zoantharia;Zoantharia;Anthozoa
+Papyridea_sp;Mollusca;Bivalvia;Veneroida;Bivalvia;Bivalvia
+Hydroids;Cnidaria;Hydrozoa;NA;Hydrozoa;Medusozoa
+Orgmaterial_unid;NA;NA;NA;Detritus;Detritus
+Alcyonaria;Cnidaria;Anthozoa;NA;Octocorallia;Anthozoa
+Pagurus_bonairensis;Arthropoda;Malacostraca;Decapoda;Anomura;Decapoda
+Alcyonaria;Cnidaria;Anthozoa;Alcyonacea;Octocorallia;Anthozoa
+Caulerpa_racemosa;Chlorophyta;Ulvophyceae;Bryopsidales;Algae;Benthic autotroph
+Oreaster_reticulata;Echinodermata;Asteroidea;Valvatida;Asteroidea;Asteroidea
+Lytechinus_variegatus;Echinodermata;Echinoidea;Temnopleuroida;Echinoidea;Echinoidea
+Microcosmus_exasperatus;Chordata;Ascidiacea;Stolidobranchia;Tunicata;Tunicata
+Holothuria_arenicola;Echinodermata;Holothuroidea;Aspidochirotida;Holothuroidea;Holothuroidea
+Amphiopods;Arthropoda;Malacostraca;Amphipoda;Amphipoda;Zooplankton
+Acanthochitona_sp;Mollusca;Polyplacophora;Chitonida;Polyplacophora;Polyplacophora
+Onuphids;Annelida;Polychaeta;Eunicida;Annelida;Worm
+Aspidosiphon_spinososcutatus;Sipuncula;Phascolosomatidea;Aspidosiphonida;Sipuncula;Worm
+Mycale_sp;Porifera;Demospongiae;Poecilosclerida;Porifera;Porifera
+Stenorhynchus_seticornis;Arthropoda;Malacostraca;Decapoda;Brachyura;Decapoda
+Astropecten_sp;Echinodermata;Asteroidea;Paxillosida;Asteroidea;Asteroidea
+Pennaria_sp;Cnidaria;Hydrozoa;Anthoathecata;Hydrozoa;Medusozoa
+Trididemnum_sp;Chordata;Ascidiacea;Enterogona;Tunicata;Tunicata
+Pinctada_sp;Mollusca;Bivalvia;Pterioida;Bivalvia;Bivalvia
+Eucidaris_tribuloides;Echinodermata;Echinoidea;Cidaroida;Echinoidea;Echinoidea
+Haemulon_carbonarium;Chordata;Actinopterygii;Lutjaniformes;Actinopterygii;Actinopterygii
+Percnon_gibbesi;Arthropoda;Malacostraca;Decapoda;Brachyura;Decapoda
+Valonia_utricularis;Chlorophyta;Ulvophyceae;Cladophorales;Algae;Benthic autotroph
+Tetraodontidae;Chordata;Actinopterygii;Tetraodontiformes;Actinopterygii;Actinopterygii
+Barnacle;Arthropoda;Hexanauplia;NA;Cirripedia;Cirripedia
+Algae&orgdetritus;NA;NA;NA;Detritus;Detritus
+Algae&orgdetritus;NA;NA;NA;Algae;Benthic autotroph
+Algae&detritus;NA;NA;NA;Detritus;Detritus
+Algae&detritus;NA;NA;NA;Algae;Benthic autotroph
+Crab_zoeae;Arthropoda;Malacostraca;Decapoda;Zooplankton;Zooplankton
+Protoconch;Mollusca;NA;NA;Zooplankton;Zooplankton
+Polychaeta;Annelida;Polychaeta;NA;Annelida;Worm
+Shrimp_frags;Arthropoda;Malacostraca;Decapoda;Shrimp;Decapoda
+Calcarina_sp;Foraminifera;Globothalamea;Rotaliida;Foraminifera;Foraminifera
+Xanthid crab;Arthropoda;Malacostraca;Decapoda;Brachyura;Decapoda
+Fish_frags;Chordata;Actinopterygii;NA;Actinopterygii;Actinopterygii
+Crab_frags;Arthropoda;Malacostraca;Decapoda;Brachyura;Decapoda
+Cirripectus_variolosus;Chordata;Actinopterygii;Blenniiformes;Actinopterygii;Actinopterygii
+Abudefduf_dicki;Chordata;Actinopterygii;Perciformes;Actinopterygii;Actinopterygii
+Trapezia_sp;Arthropoda;Malacostraca;Decapoda;Brachyura;Decapoda
+Stomatopod_frags;Arthropoda;Malacostraca;Stomatopoda;Stomatopoda;Stomatopoda
+Labridae;Chordata;Actinopterygii;Labriformes;Actinopterygii;Actinopterygii
+Odontodactylus_sp;Arthropoda;Malacostraca;Stomatopoda;Stomatopoda;Stomatopoda
+Etisus_sp;Arthropoda;Malacostraca;Decapoda;Brachyura;Decapoda
+Siganus_sp;Chordata;Actinopterygii;Perciformes;Actinopterygii;Actinopterygii
+Abudefduf_leucopomus;Chordata;Actinopterygii;Perciformes;Actinopterygii;Actinopterygii
+Foraminifera_Sand;Foraminifera;NA;NA;Foraminifera;Foraminifera
+Sand;NA;NA;NA;Inorganic;Inorganic
+Epinephelus_sp;Chordata;Actinopterygii;Perciformes;Actinopterygii;Actinopterygii
+Abudefduf_sp;Chordata;Actinopterygii;Perciformes;Actinopterygii;Actinopterygii
+Juveniles_unid;Chordata;Actinopterygii;NA;Actinopterygii;Actinopterygii
+Apogon_novemfasciatus;Chordata;Actinopterygii;Kurtiformes;Actinopterygii;Actinopterygii
+Allanetta_ovalaua;Chordata;Actinopterygii;Atheriniformes;Actinopterygii;Actinopterygii
+Small_fish;Chordata;Actinopterygii;NA;Actinopterygii;Actinopterygii
+Veliger_larvae;Mollusca;Gastropoda;NA;Zooplankton;Zooplankton
+Gobiidae;Chordata;Actinopterygii;Gobiiformes;Actinopterygii;Actinopterygii
+Acanthurus_triostegus;Chordata;Actinopterygii;Acanthuriformes;Actinopterygii;Actinopterygii
+Balistidae;Chordata;Actinopterygii;Tetraodontiformes;Actinopterygii;Actinopterygii
+Parupeneus_trifasciatus;Chordata;Actinopterygii;Syngnathiformes;Actinopterygii;Actinopterygii
+Ctenogobius_sp;Chordata;Actinopterygii;Gobiiformes;Actinopterygii;Actinopterygii
+Abudefduf_amabilis;Chordata;Actinopterygii;Perciformes;Actinopterygii;Actinopterygii
+Pomacentridae_juv;Chordata;Actinopterygii;Perciformes;Actinopterygii;Actinopterygii
+Apogon_erythrinus;Chordata;Actinopterygii;Kurtiformes;Actinopterygii;Actinopterygii
+Istiblennius_paulus;Chordata;Actinopterygii;Blenniiformes;Actinopterygii;Actinopterygii
+Tripterygion_minutus;Chordata;Actinopterygii;Blenniiformes;Actinopterygii;Actinopterygii
+Thalamita_sp;Arthropoda;Malacostraca;Decapoda;Brachyura;Decapoda
+Crab_megalopa;Arthropoda;Malacostraca;Decapoda;Zooplankton;Zooplankton
+Galathea_sp;Arthropoda;Malacostraca;Decapoda;Anomura;Decapoda
+Turbinaria_sp;Ochrophyta;Phaeophyceae;Fucales;Algae;Benthic autotroph
+Parthenopiid crab;Arthropoda;Malacostraca;Decapoda;Brachyura;Decapoda
+Pachygrapus_plicatus;Arthropoda;Malacostraca;Decapoda;Brachyura;Decapoda
+Maiid crab;Arthropoda;Malacostraca;Decapoda;Brachyura;Decapoda
+Algae_fronds;NA;NA;NA;Algae;Benthic autotroph
+Chromis_caeruleus;Chordata;Actinopterygii;Perciformes;Actinopterygii;Actinopterygii
+Gastropoda;Mollusca;Gastropoda;Cephalaspidea;Gastropoda;Gastropoda
+Xanthid crab frags;Arthropoda;Malacostraca;Decapoda;Brachyura;Decapoda
+Pelecypoda;Mollusca;Bivalvia;NA;Bivalvia;Bivalvia
+Solenogastrids;Mollusca;Solenogastres;NA;Solenogastres;Solenogastres
+Charybdis_sp;Arthropoda;Malacostraca;Decapoda;Brachyura;Decapoda
+Pomacentridae;Chordata;Actinopterygii;Perciformes;Actinopterygii;Actinopterygii
+Calanoida;Arthropoda;Hexanauplia;Calanoida;Copepoda;Zooplankton
+Diatoms;NA;NA;NA;Phytoplankton;Phytoplankton
+Desmids;Charophyta;NA;NA;Phytoplankton;Phytoplankton
+Filamentous_algae;NA;NA;NA;Algae;Benthic autotroph
+Detritus;NA;NA;NA;Detritus;Detritus
+Detritus_Sand;NA;NA;NA;Detritus;Detritus
+Oscillatoria_sp;Cyanobacteria;Cyanophyceae;Oscillatoriales;Cyanobacteria;Cyanobacteria
+Marginopora_sp;Foraminifera;Tubothalamea;Miliolida;Foraminifera;Foraminifera
+Shrimp_pelagic;Arthropoda;Malacostraca;Decapoda;Shrimp;Decapoda
+Pebbles;NA;NA;NA;Inorganic;Inorganic
+Tachinotus_bailloni_juv;Chordata;Actinopterygii;Carangiformes;Actinopterygii;Actinopterygii
+Bathygobius_fuscus;Chordata;Actinopterygii;Gobiiformes;Actinopterygii;Actinopterygii
+Amphiprion_melanopus;Chordata;Actinopterygii;Perciformes;Actinopterygii;Actinopterygii
+Apogon_frenatus;Chordata;Actinopterygii;Kurtiformes;Actinopterygii;Actinopterygii
+Alpheus_sp;Arthropoda;Malacostraca;Decapoda;Shrimp;Decapoda
+Eviota_sp;Chordata;Actinopterygii;Gobiiformes;Actinopterygii;Actinopterygii
+Leander_sp;Arthropoda;Malacostraca;Decapoda;Shrimp;Decapoda
+Octopus_sp;Mollusca;Cephalopoda;Octopoda;Cephalopoda;Cephalopoda
+Gymnothorax_margaritophorus;Chordata;Actinopterygii;Anguilliformes;Actinopterygii;Actinopterygii
+Holocentrus_sammara;Chordata;Actinopterygii;Holocentriformes;Actinopterygii;Actinopterygii
+Holocentridae;Chordata;Actinopterygii;Holocentriformes;Actinopterygii;Actinopterygii
+Petrolisthes_sp;Arthropoda;Malacostraca;Decapoda;Anomura;Decapoda
+Hippolytids;Arthropoda;Malacostraca;Decapoda;Shrimp;Decapoda
+Holocentrus_diadema;Chordata;Actinopterygii;Holocentriformes;Actinopterygii;Actinopterygii
+Spratelloides_delicatulus;Chordata;Actinopterygii;Clupeiformes;Actinopterygii;Actinopterygii
+Pempheris_oualensis;Chordata;Actinopterygii;Pempheriformes;Actinopterygii;Actinopterygii
+Pseudocheilinus_sp;Chordata;Actinopterygii;Labriformes;Actinopterygii;Actinopterygii
+Stenopus_hispidus;Arthropoda;Malacostraca;Decapoda;Shrimp;Decapoda
+Octopus_beak;Mollusca;Cephalopoda;Octopoda;Cephalopoda;Cephalopoda
+Sand_Pebbles;NA;NA;NA;Inorganic;Inorganic
+Mullidae;Chordata;Actinopterygii;Syngnathiformes;Actinopterygii;Actinopterygii
+Gastropoda_frags;Mollusca;Gastropoda;NA;Gastropoda;Gastropoda
+Portunus_longispinosus;Arthropoda;Malacostraca;Decapoda;Brachyura;Decapoda
+Coenobita_sp;Arthropoda;Malacostraca;Decapoda;Anomura;Decapoda
+Abudefduf_glaucus;Chordata;Actinopterygii;Perciformes;Actinopterygii;Actinopterygii
+Polychaeta pelagic;Annelida;Polychaeta;NA;Annelida;Worm
+Polynoids;Annelida;Polychaeta;NA;Annelida;Worm
+Octopus_cyanea;Mollusca;Cephalopoda;Octopoda;Cephalopoda;Cephalopoda
+Labridae_juv;Chordata;Actinopterygii;Perciformes;Actinopterygii;Actinopterygii
+Ptychodera_sp;Hemichordata;Enteropneusta;NA;Hemichordata;Worm
+Kraussia_rugulosus;Arthropoda;Malacostraca;Decapoda;Brachyura;Decapoda
+Calcinus_sp;Arthropoda;Malacostraca;Decapoda;Anomura;Decapoda
+Alpheus_ventrosus;Arthropoda;Malacostraca;Decapoda;Shrimp;Decapoda
+Gastropoda;Mollusca;Gastropoda;Littorinimorpha;Gastropoda;Gastropoda
+Sipunculidae_frags;Sipuncula;NA;NA;Sipuncula;Worm
+Stenatherina_temmincki;Chordata;Actinopterygii;Atheriniformes;Actinopterygii;Actinopterygii
+Atys_sp-Cerithium_sp;Mollusca;Gastropoda;Cephalaspidea;Gastropoda;Gastropoda
+Sabellids;Annelida;Polychaeta;Sabellida;Annelida;Worm
+Cyclopoida;Arthropoda;Hexanauplia;Cyclopoida;Copepoda;Zooplankton
+Semelangulus_sp;Mollusca;Bivalvia;Veneroida;Bivalvia;Bivalvia
+Sand_Foraminifera;NA;NA;NA;Foraminifera;Foraminifera
+Copepods_metanauplii;Arthropoda;Hexanauplia;NA;Zooplankton;Zooplankton
+Tanaid isopods;Arthropoda;Malacostraca;Tanaidacea;Tanaidacea;Zooplankton
+Gastropoda;Mollusca;Gastropoda;Neogastropoda;Gastropoda;Gastropoda
+Tetralia_glaberrima;Arthropoda;Malacostraca;Decapoda;Brachyura;Decapoda
+Nebaliaceans;Arthropoda;Malacostraca;Leptostraca;Leptostraca;Zooplankton
+Calymmichthys_goramensis;Chordata;Actinopterygii;Syngnathiformes;Actinopterygii;Actinopterygii
+Gnatholepis_anjerensis;Chordata;Actinopterygii;Gobiiformes;Actinopterygii;Actinopterygii
+Parapercidae;Chordata;Actinopterygii;Perciformes;Actinopterygii;Actinopterygii
+Istiblennius_sp;Chordata;Actinopterygii;Blenniiformes;Actinopterygii;Actinopterygii
+Algae_filaments_limestone_powder;NA;NA;NA;Algae;Benthic autotroph
+Scleractinia_polyps;Cnidaria;Anthozoa;Scleractinia;Scleractinia;Anthozoa
+Scleractinia_polyps_skeleton;Cnidaria;Anthozoa;Scleractinia;Scleractinia;Anthozoa
+Algae_scrapings;NA;NA;NA;Algae;Benthic autotroph
+Algae_scrapings_limestone_powder;NA;NA;NA;Algae;Benthic autotroph
+Algae_filaments;NA;NA;NA;Algae;Benthic autotroph
+Tetralia_sp;Arthropoda;Malacostraca;Decapoda;Brachyura;Decapoda
+Vermetidae_frags;Mollusca;Gastropoda;Littorinimorpha;Gastropoda;Gastropoda
+Nemertinea;Nemertea;NA;NA;Nemertea;Worm
+Foraminifera;Foraminifera;Globothalamea;Rotaliida;Foraminifera;Foraminifera
+Algae_sand;NA;NA;NA;Algae;Benthic autotroph
+Algae_fronds_limestone_powder;NA;NA;NA;Algae;Benthic autotroph
+Coralline_algae;Rhodophyta;Florideophyceae;Corallinales;Coralline algae;Coralline algae
+scraped polyps and skeletal particles;Cnidaria;Anthozoa;Scleractinia;Scleractinia;Anthozoa
+Scraped_Filamentous_algae;NA;NA;NA;Algae;Benthic autotroph
+Algae_fronds_filaments;NA;NA;NA;Algae;Benthic autotroph
+Algae_filaments_sand;NA;NA;NA;Algae;Benthic autotroph
+Algae_fronds_filaments_sand;NA;NA;NA;Algae;Benthic autotroph
+Dictyota_Padina_sp;Ochrophyta;Phaeophyceae;Dictyotales;Algae;Benthic autotroph
+Dictyota_sp_limestone_powder;Ochrophyta;Phaeophyceae;Dictyotales;Algae;Benthic autotroph
+Scarus_sp;Chordata;Actinopterygii;Labriformes;Actinopterygii;Actinopterygii
+Algae_pebbles;NA;NA;NA;Algae;Benthic autotroph
+Mites;Arthropoda;Arachnida;NA;Arachnida;Arachnida
+Pelecypoda_frags;Mollusca;Bivalvia;NA;Bivalvia;Bivalvia
+Detritus_sand;NA;NA;NA;Detritus;Detritus
+Algae_filaments_sand_limestone;NA;NA;NA;Algae;Benthic autotroph
+Algae_filaments_bitten;NA;NA;NA;Algae;Benthic autotroph
+Algae_filaments_scraped;NA;NA;NA;Algae;Benthic autotroph
+Algae_fronds_bitten;NA;NA;NA;Algae;Benthic autotroph
+Algae_fronds_sand;NA;NA;NA;Algae;Benthic autotroph
+Istiblennius_sp_eggs;Chordata;Actinopterygii;NA;Zooplankton;Zooplankton
+Winged_ant;Arthropoda;Insecta;Hymenoptera;Insecta;Insecta
+Shrimp_nauplii;Arthropoda;Malacostraca;Decapoda;Shrimp;Decapoda
+Polychaetes larvae;Annelida;Polychaeta;NA;Zooplankton;Zooplankton
+Chromis_caeruleus_eggs;Chordata;Actinopterygii;NA;Zooplankton;Zooplankton
+Caligoida;Arthropoda;Hexanauplia;Caligoida;Copepoda;Zooplankton
+Copepods_freeliving;Arthropoda;Hexanauplia;NA;Copepoda;Zooplankton
+Cypris_larvae;Arthropoda;Hexanauplia;NA;Zooplankton;Zooplankton
+Solenogastrids_Chitons;Mollusca;Solenogastres;NA;Polyplacophora;Polyplacophora
+Solenogastrids_Chitons;Mollusca;Polyplacophora;NA;Solenogastres;Solenogastres
+Chitons frags;Mollusca;Polyplacophora;NA;Polyplacophora;Polyplacophora
+Gastropoda_rockdwelling;Mollusca;Gastropoda;NA;Gastropoda;Gastropoda
+Scleractinia_Pocillopora_damicornis;Cnidaria;Anthozoa;Scleractinia;Scleractinia;Anthozoa
+Algae_clumps;NA;NA;NA;Algae;Benthic autotroph
+Belonidae;Chordata;Actinopterygii;Beloniformes;Actinopterygii;Actinopterygii
+Arca_sp;Mollusca;Bivalvia;Arcoida;Bivalvia;Bivalvia
+Ophiurids_frags;Echinodermata;Ophiuroidea;NA;Ophiuroidea;Ophiuroidea
+Beetles;Arthropoda;Insecta;Coleoptera;Insecta;Insecta
+Algae_fronds_filaments_rocks;NA;NA;NA;Algae;Benthic autotroph
+Ant;Arthropoda;Insecta;Hymenoptera;Insecta;Insecta
+Housefly;Arthropoda;Insecta;Diptera;Insecta;Insecta
+Palaemonidae_frags;Arthropoda;Malacostraca;Decapoda;Shrimp;Decapoda
+Algae_scrapings_sand;NA;NA;NA;Algae;Benthic autotroph
+Gastropoda_minute;Mollusca;Gastropoda;NA;Gastropoda;Gastropoda
+Algae_scrapings_rocks;NA;NA;NA;Algae;Benthic autotroph
+Scleractinia_Acropora;Cnidaria;Anthozoa;Scleractinia;Scleractinia;Anthozoa
+Scleractinia_polyps_skeletalpowder;Cnidaria;Anthozoa;Scleractinia;Scleractinia;Anthozoa
+Scleractinia_Pavona_varians;Cnidaria;Anthozoa;Scleractinia;Scleractinia;Anthozoa
+Stylaster_sanguineus;Cnidaria;Hydrozoa;Anthoathecata;Hydrozoa;Medusozoa
+Abudefdus_biocellatus;Chordata;Actinopterygii;Perciformes;Actinopterygii;Actinopterygii
+Gastropoda_shells;Mollusca;Gastropoda;NA;Gastropoda;Gastropoda
+Vermetidae_tubes;Mollusca;Gastropoda;Littorinimorpha;Gastropoda;Gastropoda
+Echinometra_mathaei;Echinodermata;Echinoidea;Echinoida;Echinoidea;Echinoidea
+Eucidaris_sp;Echinodermata;Echinoidea;Cidaroida;Echinoidea;Echinoidea
+Chama_sp;Mollusca;Bivalvia;Veneroida;Bivalvia;Bivalvia
+Algae_fronds_filaments_limestone;NA;NA;NA;Algae;Benthic autotroph
+Macroalgae;NA;NA;NA;Algae;Benthic autotroph
+Amphipodes;Arthropoda;Malacostraca;Amphipoda;Amphipoda;Zooplankton
+Phanerogames;Tracheophyta;NA;NA;Seagrass;Benthic autotroph
+Echinides Podia;Echinodermata;Echinoidea;NA;Echinoidea;Echinoidea
+Mardréporaires Polyps;Cnidaria;Anthozoa;Scleractinia;Scleractinia;Anthozoa
+Opistobranches;Mollusca;Gastropoda;NA;Gastropoda;Gastropoda
+Cirripèdes panaches;Arthropoda;Hexanauplia;NA;Cirripedia;Cirripedia
+Alcyonaires Polyps;Cnidaria;Anthozoa;NA;Octocorallia;Anthozoa
+Pelecypodes;Mollusca;Bivalvia;NA;Bivalvia;Bivalvia
+Ostracodes;Arthropoda;Ostracoda;NA;Ostracoda;Zooplankton
+Madréporaires;Cnidaria;Anthozoa;Scleractinia;Scleractinia;Anthozoa
+Gastropodes;Mollusca;Gastropoda;NA;Gastropoda;Gastropoda
+Eponges;Porifera;NA;NA;Porifera;Porifera
+Eponges_larvae;Porifera;NA;NA;Zooplankton;Zooplankton
+Mollusques_eggs;Mollusca;NA;NA;Zooplankton;Zooplankton
+Hydraires;Cnidaria;Hydrozoa;NA;Hydrozoa;Medusozoa
+Alcyonaires;Cnidaria;Anthozoa;NA;Octocorallia;Anthozoa
+Pogonophores;Annelida;Polychaeta;Sabellida;Annelida;Worm
+Ascidies;Chordata;Ascidiacea;NA;Tunicata;Tunicata
+Cumacés;Arthropoda;Malacostraca;Cumacea;Cumacea;Zooplankton
+Ascidies larves;Chordata;Ascidiacea;NA;Zooplankton;Zooplankton
+Sipunculides;Sipuncula;NA;NA;Sipuncula;Worm
+Debris_OM;NA;NA;NA;Detritus;Detritus
+Crabes;Arthropoda;Malacostraca;Decapoda;Brachyura;Decapoda
+Brachyura_larvae;Arthropoda;Malacostraca;Decapoda;Zooplankton;Zooplankton
+OM;NA;NA;NA;Detritus;Detritus
+Nematodes;Nematoda;NA;NA;Nematoda;Worm
+Cirripèdes;Arthropoda;Hexanauplia;NA;Cirripedia;Cirripedia
+Appendiculaires;Chordata;Appendicularia;NA;Tunicata;Zooplankton
+Copepodes;Arthropoda;Hexanauplia;NA;Copepoda;Zooplankton
+Insecta_larvae;Arthropoda;Insecta;NA;Insecta;Insecta
+Harpacticoida_Cycloida;Arthropoda;Hexanauplia;Harpacticoida;Copepoda;Zooplankton
+Harpacticoida_Cycloida;Arthropoda;Hexanauplia;Cyclopoida;Copepoda;Zooplankton
+Pagures;Arthropoda;Malacostraca;Decapoda;Anomura;Decapoda
+Pycnogonides;Arthropoda;Pycnogonida;NA;Pycnogonida;Pycnogonida
+Brachyura;Arthropoda;Malacostraca;Decapoda;Brachyura;Decapoda
+Tanaidacés;Arthropoda;Malacostraca;Tanaidacea;Tanaidacea;Zooplankton
+Galatheidae;Arthropoda;Malacostraca;Decapoda;Anomura;Decapoda
+Ophiurides;Echinodermata;Ophiuroidea;NA;Ophiuroidea;Ophiuroidea
+Bryozoaires;Bryozoa;NA;NA;Bryozoa;Bryozoa
+Crinoid;Echinodermata;Crinoidea;NA;Crinoidea;Crinoidea
+Zoanthaires;Cnidaria;Anthozoa;Zoantharia;Zoantharia;Anthozoa
+Actiniaires;Cnidaria;Anthozoa;Actiniaria;Actiniaria;Anthozoa
+Phanerogames débris;Tracheophyta;NA;NA;Seagrass;Benthic autotroph
+Protochordates;Hemichordata;NA;NA;Hemichordata;Worm
+Stomatopoda;Arthropoda;Malacostraca;Stomatopoda;Stomatopoda;Stomatopoda
+Debris_unid;NA;NA;NA;Detritus;Detritus
+Echinides;Echinodermata;Echinoidea;NA;Echinoidea;Echinoidea
+Holothurides;Echinodermata;Holothuroidea;NA;Holothuroidea;Holothuroidea
+Echiures;Annelida;Polychaeta;Echiura;Annelida;Worm
+Calanoida_Harpacticoida;Arthropoda;Hexanauplia;Harpacticoida;Copepoda;Zooplankton
+Calanoida_Harpacticoida;Arthropoda;Hexanauplia;Calanoida;Copepoda;Zooplankton
+Amphipodes;Arthropoda;Malacostraca;Amphipoda;Amphipoda;Zooplankton
+Cephalopode larvae;Mollusca;Cephalopoda;NA;Zooplankton;Zooplankton
+Calanoida_Cycloida;Arthropoda;Hexanauplia;Calanoida;Copepoda;Zooplankton
+Calanoida_Cycloida;Arthropoda;Hexanauplia;Decapoda;Copepoda;Zooplankton
+Calanoida_Cycloida;Arthropoda;Hexanauplia;Cyclopoida;Copepoda;Zooplankton
+Filamentous_Diatoms_Cyanophyceae_Debris;NA;NA;NA;Algae;Benthic autotroph
+Pelecypodes larvae;Mollusca;Bivalvia;NA;Zooplankton;Zooplankton
+Stomatopoda_larvae;Arthropoda;Malacostraca;Stomatopoda;Zooplankton;Zooplankton
+Harpacticoida_Cycloida;Arthropoda;Hexanauplia;NA;Copepoda;Zooplankton
+Cephalopodes;Mollusca;Cephalopoda;NA;Cephalopoda;Cephalopoda
+Acariens;Arthropoda;Arachnida;NA;Arachnida;Arachnida
+Arachnides;Arthropoda;Arachnida;NA;Arachnida;Arachnida
+Natantia;Arthropoda;Malacostraca;Decapoda;Shrimp;Decapoda
+Natantia larvae;Arthropoda;Malacostraca;Decapoda;Zooplankton;Zooplankton
+Scaphopodes;Mollusca;Scaphopoda;NA;Scaphopoda;Scaphopoda
+Harpacticoida_Cycloida;Arthropoda;Hexanauplia;Cycloida;Copepoda;Zooplankton
+Caligoida_parasite;Arthropoda;Hexanauplia;Caligoida;Copepoda;Zooplankton
+Gnathiids_parasite_larvae;Arthropoda;Malacostraca;Isopoda;Zooplankton;Zooplankton
+Fish_scales_skin;Chordata;Actinopterygii;NA;Actinopterygii;Actinopterygii
+Scyllarus;Arthropoda;Malacostraca;Decapoda;Achelata;Decapoda
+Cephalochordates;Chordata;NA;NA;Cephalochordata;Cephalochordata
+Sand_OM;NA;NA;NA;Detritus;Detritus
+Galatheides;Arthropoda;Malacostraca;Decapoda;Anomura;Decapoda
+Eponges_buds;Porifera;NA;NA;Porifera;Porifera
+Monstrilloida;Arthropoda;Hexanauplia;Monstrilloida;Copepoda;Zooplankton
+Cyanophycea_Diatoms_Filamentous-algae;NA;NA;NA;Algae;Benthic autotroph
+Decapodes_larvae;Arthropoda;Malacostraca;Decapoda;Zooplankton;Zooplankton
+Abudefduf_imparipennis;Chordata;Actinopterygii;Perciformes;Actinopterygii;Actinopterygii
+Xanthids;Arthropoda;Malacostraca;Decapoda;Brachyura;Decapoda
+Plagiotremus_goslinei;Chordata;Actinopterygii;Blenniiformes;Actinopterygii;Actinopterygii
+Megalopa_larvae;Arthropoda;Malacostraca;Decapoda;Zooplankton;Zooplankton
+Larvaceans;Chordata;Appendicularia;NA;Tunicata;Zooplankton
+Zoeae_larvae;Arthropoda;Malacostraca;Decapoda;Zooplankton;Zooplankton
+Arachnids;Arthropoda;Arachnida;NA;Arachnida;Arachnida
+Caridean;Arthropoda;Malacostraca;Decapoda;Shrimp;Decapoda
+Sipunculid_introverts;Sipuncula;NA;NA;Sipuncula;Worm
+Prosobranch gastropods;Mollusca;Gastropoda;NA;Gastropoda;Gastropoda
+Opisthobranchia;Mollusca;Gastropoda;NA;Gastropoda;Gastropoda
+Oxyrhynchid;Arthropoda;Malacostraca;Decapoda;Brachyura;Decapoda
+Flabellifera;Arthropoda;Malacostraca;Isopoda;Isopoda;Zooplankton
+Limpets;Mollusca;Gastropoda;NA;Gastropoda;Gastropoda
+Gnathiids_larvae;Arthropoda;Malacostraca;Isopoda;Zooplankton;Zooplankton
+Pagurid crab;Arthropoda;Malacostraca;Decapoda;Anomura;Decapoda
+Brachyuran Crab;Arthropoda;Malacostraca;Decapoda;Brachyura;Decapoda
+Pomacentrus_jenkinsi;Chordata;Actinopterygii;Perciformes;Actinopterygii;Actinopterygii
+Octopods;Mollusca;Cephalopoda;Octopoda;Cephalopoda;Cephalopoda
+Holocentrus_xantherythrus;Chordata;Actinopterygii;Holocentriformes;Actinopterygii;Actinopterygii
+Crab_adults;Arthropoda;Malacostraca;Decapoda;Brachyura;Decapoda
+Echinospira larvae;Mollusca;Gastropoda;NA;Zooplankton;Zooplankton
+Hippid Crab;Arthropoda;Malacostraca;Decapoda;Anomura;Decapoda
+Eggs_planktonic;NA;NA;NA;Zooplankton;Zooplankton
+Algae_frags;NA;NA;NA;Algae;Benthic autotroph
+Sand_Foraminifera_Debris;NA;NA;NA;Detritus;Detritus
+Stenopid;Arthropoda;Malacostraca;Decapoda;Shrimp;Decapoda
+Debris;NA;NA;NA;Detritus;Detritus
+Grapsidae;Arthropoda;Malacostraca;Decapoda;Brachyura;Decapoda
+Algae_benthic_bitten;NA;NA;NA;Algae;Benthic autotroph
+Debris_Sand_Foraminifera;NA;NA;NA;Detritus;Detritus
+Nemerteans;Nemertea;NA;NA;Nemertea;Worm
+Echinoids podia pedicellaria;Echinodermata;Echinoidea;NA;Echinoidea;Echinoidea
+Terebellids;Annelida;Polychaeta;Terebellida;Annelida;Worm
+Prosobranch gastropods eggs;Mollusca;Gastropoda;NA;Zooplankton;Zooplankton
+Demersal_fish_eggs;Chordata;Actinopterygii;NA;Zooplankton;Zooplankton
+Bluegreen algae;Cyanobacteria;NA;NA;Cyanobacteria;Cyanobacteria
+Gastropoda_planktonic;Mollusca;Gastropoda;NA;Gastropoda;Gastropoda
+Echinospira;Mollusca;Gastropoda;NA;Gastropoda;Gastropoda
+Ostracoda;Arthropoda;Ostracoda;NA;Ostracoda;Zooplankton
+Lobster phyllosomes;Arthropoda;Malacostraca;Decapoda;Zooplankton;Zooplankton
+Eggs_demersal;NA;NA;NA;Zooplankton;Zooplankton
+Algae_frags_diatoms;NA;NA;NA;Algae;Benthic autotroph
+Mucus_nematocyst_zoox_orgdebris;Cnidaria;Anthozoa;NA;Anthozoa;Anthozoa
+Polychaeta_errant_frags;Annelida;Polychaeta;NA;Annelida;Worm
+Echinoids podia;Echinodermata;Echinoidea;NA;Echinoidea;Echinoidea
+Anemones;Cnidaria;Anthozoa;Actiniaria;Actiniaria;Anthozoa
+Enteropneusta;Hemichordata;Enteropneusta;NA;Hemichordata;Worm
+Gastropoda_opercula;Mollusca;Gastropoda;NA;Gastropoda;Gastropoda
+Polychaetes heads;Annelida;Polychaeta;NA;Annelida;Worm
+Crustacea_eggs;Arthropoda;NA;NA;Zooplankton;Zooplankton
+Mucus_nematocyst_zoox_tissuefrag;Cnidaria;Anthozoa;NA;Anthozoa;Anthozoa
+Algae_diatoms;NA;NA;NA;Algae;Benthic autotroph
+Polychaetes errant;Annelida;Polychaeta;NA;Annelida;Worm
+Fish_eggs_demersal;Chordata;Actinopterygii;NA;Zooplankton;Zooplankton
+Org_frags;NA;NA;NA;Detritus;Detritus
+Penaeidae_larvae;Arthropoda;Malacostraca;Decapoda;Zooplankton;Zooplankton
+Nauplius_larvae;Arthropoda;NA;NA;Zooplankton;Zooplankton
+Shrimp larvae;Arthropoda;Malacostraca;Decapoda;Zooplankton;Zooplankton
+Hydroids_frags;Cnidaria;Hydrozoa;NA;Hydrozoa;Medusozoa
+Chaetognaths;Chaetognatha;NA;NA;Chaetognatha;Zooplankton
+Calappids;Arthropoda;Malacostraca;Decapoda;Brachyura;Decapoda
+Saron_marmoratus;Arthropoda;Malacostraca;Decapoda;Shrimp;Decapoda
+Diatoms_colonial;NA;NA;NA;Phytoplankton;Phytoplankton
+Sand_Debris;NA;NA;NA;Detritus;Detritus
+Gammaridean amphipods;Arthropoda;Malacostraca;Amphipoda;Amphipoda;Zooplankton
+Sand_algae;NA;NA;NA;Algae;Benthic autotroph
+Org_slurry;NA;NA;NA;Detritus;Detritus
+Scleractinia_skeleton_tissue;Cnidaria;Anthozoa;Scleractinia;Scleractinia;Anthozoa
+Gelatinous clumps of bluegreen algae;Cyanobacteria;NA;NA;Cyanobacteria;Cyanobacteria
+Filamentous_red_algae;NA;NA;NA;Algae;Benthic autotroph
+Fleshy_algae;NA;NA;NA;Algae;Benthic autotroph
+Brachyurans;Arthropoda;Malacostraca;Decapoda;Brachyura;Decapoda
+Ostreidae;Mollusca;Bivalvia;Ostreoida;Bivalvia;Bivalvia
+Scleractinia_Pocillopora_Porites;Cnidaria;Anthozoa;Scleractinia;Scleractinia;Anthozoa
+Scleractinia_Porites;Cnidaria;Anthozoa;Scleractinia;Scleractinia;Anthozoa
+Pectinidae;Mollusca;Bivalvia;Pectinoida;Bivalvia;Bivalvia
+Cidarids_Echinometrids;Echinodermata;Echinoidea;Cidaroida;Echinoidea;Echinoidea
+Cidarids_Echinometrids;Echinodermata;Echinoidea;Camarodonta;Echinoidea;Echinoidea
+Actinopterygii;Chordata;Actinopterygii;NA;Actinopterygii;Actinopterygii
+Worms;NA;NA;NA;Worm;Worm
+Nudibranchia;Mollusca;Gastropoda;Nudibranchia;Gastropoda;Gastropoda
+Ophiuroidea;Echinodermata;Ophiuroidea;NA;Ophiuroidea;Ophiuroidea
+Cephalopoda;Mollusca;Cephalopoda;NA;Cephalopoda;Cephalopoda
+Paguroidea;Arthropoda;Malacostraca;Decapoda;Anomura;Decapoda
+Octopoda;Mollusca;Cephalopoda;Octopoda;Cephalopoda;Cephalopoda
+Alcyonacea;Cnidaria;Anthozoa;Alcyonacea;Octocorallia;Anthozoa
+Sabellidae;Annelida;Polychaeta;Sabellida;Annelida;Worm
+Spatangoida;Echinodermata;Echinoidea;Spatangoida;Echinoidea;Echinoidea
+Annelida;Annelida;NA;NA;Annelida;Worm
+Holothuroidea;Echinodermata;Holothuroidea;NA;Holothuroidea;Holothuroidea
+Jellyfish;Cnidaria;NA;NA;Medusozoa;Zooplankton
+Asteroidea;Echinodermata;Asteroidea;NA;Asteroidea;Asteroidea
+Porifera;Porifera;NA;NA;Porifera;Porifera
+Strombidae;Mollusca;Gastropoda;Littorinimorpha;Gastropoda;Gastropoda
+Echinoidea;Echinodermata;Echinoidea;NA;Echinoidea;Echinoidea
+Haliotidae;Mollusca;Gastropoda;Lepetellida;Gastropoda;Gastropoda
+Cerithiidae;Mollusca;Gastropoda;NA;Gastropoda;Gastropoda
+Clypeasteroida;Echinodermata;Echinoidea;Clypeasteroida;Echinoidea;Echinoidea
+Dentaliidae;Mollusca;Scaphopoda;Dentaliida;Scaphopoda;Scaphopoda
+Halimeda;Chlorophyta;Ulvophyceae;Bryopsidales;Algae;Benthic autotroph
+Nemertea;Nemertea;NA;NA;Nemertea;Worm
+Sipuncula;Sipuncula;NA;NA;Sipuncula;Worm
+Brachiopoda;Brachiopoda;NA;NA;Brachiopoda;Brachiopoda
+Copepoda;Arthropoda;Hexanauplia;NA;Copepoda;Zooplankton
+Turritellidae;Mollusca;Gastropoda;NA;Gastropoda;Gastropoda
+Plankton;NA;NA;NA;Zooplankton;Zooplankton
+Polyplacophora;Mollusca;Polyplacophora;NA;Polyplacophora;Polyplacophora
+Palinuridae/Scyllaridae;Arthropoda;Malacostraca;Decapoda;Achelata;Decapoda
+Sepiida/Teuthida;Mollusca;Cephalopoda;Teuthida;Cephalopoda;Cephalopoda
+Sepiida/Teuthida;Mollusca;Cephalopoda;Sepiida;Cephalopoda;Cephalopoda
