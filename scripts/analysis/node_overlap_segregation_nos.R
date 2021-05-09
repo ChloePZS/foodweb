@@ -1,12 +1,17 @@
 ####################################
 #Node overlap and segregation - nos#
 ####################################
-library(tidyverse)
-library(reshape2)
-library(nos)
-library(ggpubr)
-library(ggridges)
 
+#packages
+library(tidyverse); library(reshape2); library(nos); library(ggpubr); library(ggridges)
+
+    #1. load data
+a <- read.csv('data/foodweb_final.csv',header = T)
+sites <- unique(a$site)
+a <- a %>% select(., site, cons_class, cons_fam, cons_sp, cons_size, lev1, lev2, w)
+
+
+#function to obtain the expected overlap
 get_pot_net<-function(b){ #not the fastest way, but it works...
   pot<-c()
   for (i in 1:dim(b)[1]){
@@ -22,13 +27,8 @@ get_pot_net<-function(b){ #not the fastest way, but it works...
   pot<-unique(pot)
   return (pot)}
 
-a<-read.csv('data/foodweb_final.csv',header = T)
-sites<-unique(a$site)
-a <- a %>% select(., site, cons_class, cons_fam, cons_sp, cons_size, lev1, lev2, w) %>% unique()
-#a<-aggregate(w~site+cons_class+cons_fam+cons_sp+cons_size+lev1+lev2, a, sum)
-
+    #2. nos values for each site and 3 interaction strength thresholds (0, 0.25 & 0.5)
 sites<-c("haw","mad","mari","nca","vir","jap")
-#value nos   threshold site 
 nos_res<-list()
 for (site in sites){
   for (tre in c(0,0.25,0.5)){
@@ -36,8 +36,7 @@ for (site in sites){
     b<-b[b$w>tre,]
     b[,1]<-as.character(b[,1])
     b[,2]<-as.character(paste0('prey_',b[,2]))
-    nnn<-NOSM_POT_dir(b[,c(2,1)],get_pot_net(b), perc = 1, sl = 0)
-    #nnn<-NOSM_bip(b[,c(2,1)], perc = 1, sl = 0) use this to get the "old" results
+    nnn<-NOSM_POT_dir(b[,c(2,1)], get_pot_net(b), perc = 1, sl = 0)
     res_in<-data.frame(value = nnn$ov_in, nos = 'in', threshold = tre, site = site)
     res_out<-data.frame(value = nnn$ov_out, nos = 'out', threshold = tre, site = site)
     nos_res<-rbind(nos_res,res_in,res_out)
@@ -45,31 +44,23 @@ for (site in sites){
     }
   }
 
-nos_res$nos<-as.character(nos_res$nos)
-nos_res$threshold<-as.character(nos_res$threshold)
-nos_res$site<-as.character(nos_res$site)
+nos_res <- nos_res %>% mutate (nos = as.character(nos),
+                               threshold = as.factor(threshold),
+                               site = as.factor(site))
+
+#modularity as the sd(NOS) for each goup and interction strength threshold
+nos_res %>% filter(nos == "in") %>% group_by(site, threshold) %>%
+  summarise_at(vars(value), list (mod = sd))
+
+  #3. plots
 site_names<-c("Hawaii","Madagascar","Marshall Islands","New Caledonia","West Indies","Okinawa")
-
-nos_vir <- nos_res %>% filter(site == "vir", nos == "in") 
-sd(nos_vir$value)
-nos_nca <- nos_res %>% filter(site == "nca", nos == "in") 
-sd(nos_nca$value)
-nos_mari <- nos_res %>% filter(site == "mari", nos == "in") 
-sd(nos_mari$value)
-nos_mad <- nos_res %>% filter(site == "mad", nos == "in") 
-sd(nos_mad$value)
-nos_haw <- nos_res %>% filter(site == "haw", nos == "in") 
-sd(nos_haw$value)
-nos_jap <- nos_res %>% filter(site == "jap", nos == "in") 
-sd(nos_jap$value)
-
 plots<-list()
 for (n in 1:6){
   loc_data<-nos_res[nos_res$site==sites[n],]
   sub_plot <- ggplot(data = subset(loc_data, nos %in% "in"), mapping = aes(x = value, fill = threshold, color = threshold)) +
   geom_density(alpha = 0.1, size = 0.3, aes(y = ..density..)) +
-  scale_fill_manual(values = c("#67e6dc","darkslategray4","black")) + #c("grey70", "grey35","black"))
-  scale_color_manual(values = c("#67e6dc","darkslategray4","black")) + #c("gold", "coral","darkorchid4")) #67e6dc
+  scale_fill_manual(name = "Interaction strength threshold", values = c("#67e6dc","darkslategray4","black")) + 
+  scale_color_manual(name = "Interaction strength threshold",values = c("#67e6dc","darkslategray4","black")) + 
   scale_x_continuous(expand = c(0,0.05)) +
   labs(title = site_names[n],
        y = "", 
@@ -84,11 +75,10 @@ for (n in 1:6){
  plots[[n]]<-sub_plot}
 
 
-
-
-NOS_in.plot <- ggpubr::ggarrange(plotlist=plots,#hawNOS_p, madNOS_p, mariNOS_p, ncaNOS_p, japNOS_p, virNOS_p,
+NOS_in.plot <- ggpubr::ggarrange(plotlist=plots,
                   ncol = 2, nrow = 3,
                   common.legend = TRUE, legend="bottom") 
+NOS_in.plot
 
 ggsave("fig4_NOS_in_plot.pdf", width = 8.7, height = 12, units = "cm", dpi = 300)
 

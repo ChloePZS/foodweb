@@ -1,25 +1,52 @@
-####################################
+#################################
 #Analysis on shared interactions#
-####################################
+#################################
 
-library(tidyverse)
-library(picante)
-library(RColorBrewer)
-library(reshape2)
-library(ggpubr)
+#packages
+library(tidyverse); library(data.table); library(plyr); library(reshape2); library(ggpubr)
 
-a<-read.csv('data/foodweb_final.csv',header = T)
-sites<-unique(a$site)
-a <- a %>% select(., site, cons_class, cons_fam, cons_sp, cons_size, lev1, lev2, w) %>% unique()
-#a<-aggregate(w~site+cons_class+cons_fam+cons_sp+cons_size+lev1+lev2, a, sum)
+    #1. Load data ####
+a <- read.csv('data/foodweb_final.csv',header = T)
+sites <- unique(a$site)
+a <- a %>% select(., site, cons_class, cons_fam, cons_sp, cons_size, lev1, lev2, w) 
 
-quantiles_95 <- function(x) {
-  r <- c(mean(x), quantile(x, probs=c(0.05)),quantile(x, probs=c(0.95)))
-  names(r) <- c("y","ymin","ymax")
-  r
-}
+    #2. Generate matrices ####
+#matrix of the same size and for comparison (i.e. each matrix includes all consumers and prey across all sites)
+#at the family level and using "lev2" prey grouping (i.e. main classification)
+get_mat<-function(l,fun='mean',bin='F'){ #function for generating matrices
+  if (fun=='mean'){
+    l_mat<-dcast(l,lev2~cons_fam,value.var="w",fun.aggregate = mean,fill=0,drop=F)} 
+  else {
+    l_mat<-dcast(l,lev2~cons_fam,value.var="w",fun.aggregate = sum, fill=0,drop=F)}
+  #use fun.aggregate = sum for vir, mean for the others
+  row.names(l_mat)<-l_mat[,1]
+  l_mat<-l_mat[,2:dim(l_mat)[2]]
+  l_mat<-t(t(l_mat)/colSums(l_mat))
+  if (bin!='F'){l_mat<-1*(l_mat>0)}
+  l_mat[is.nan(l_mat)] <- 0
+  return (l_mat)
+}  
 
+#weighted matrices
+vir_mat_fam <- get_mat(a[a$site=='vir',],fun='sum')
+mari_mat_fam <- get_mat(a[a$site=='mari',])
+nca_mat_fam <- get_mat(a[a$site=='nca',])
+haw_mat_fam <- get_mat(a[a$site=='haw',])
+mad_mat_fam <- get_mat(a[a$site=='mad',])
+jap_mat_fam <- get_mat(a[a$site=='jap',])
+  
+#binary matrices
+pa_vir <- get_mat(a[a$site=='vir',],fun='sum', bin = 'T') ; pa_vir[is.na(pa_vir)] <- 0
+pa_mari <- get_mat(a[a$site=='mari',], bin = 'T'); pa_mari[is.na(pa_mari)] <- 0
+pa_nca <- get_mat(a[a$site=='nca',], bin = 'T'); pa_nca[is.na(pa_nca)] <- 0
+pa_haw <- get_mat(a[a$site=='haw',], bin = 'T') ; pa_haw[is.na(pa_haw)] <- 0
+pa_mad <- get_mat(a[a$site=='mad',], bin = 'T'); pa_mad[is.na(pa_mad)] <- 0
+pa_jap <- get_mat(a[a$site=='jap',], bin = 'T'); pa_jap[is.na(pa_jap)] <- 0
 
+pa_sum <- pa_jap +  pa_vir + pa_mari + pa_nca + pa_haw + pa_mad  #get the sum of the binary matrices 
+
+    #3. Null model and random matrices ####
+#null model function
 null_mod<-function(x){      #x is the dataset for a given locality, i.e. see b above; function returns a randomized version of b, that you can then use in all the analyses
   l <- list()
   spp <- unique(x$cons_sp)
@@ -53,72 +80,6 @@ null_mod<-function(x){      #x is the dataset for a given locality, i.e. see b a
   return (l)
 }
 
-# #to generate a null dataset:
-# null_b<-null_mod(b)
-get_mat<-function(l,fun='mean',bin='F'){
-  if (fun=='mean'){
-    l_mat<-dcast(l,lev2~cons_fam,value.var="w",fun.aggregate = mean,fill=0,drop=F)} 
-  else {
-    l_mat<-dcast(l,lev2~cons_fam,value.var="w",fun.aggregate = sum, fill=0,drop=F)}
-  #use fun.aggregate = sum for vir, mean for the others
-  row.names(l_mat)<-l_mat[,1]
-  l_mat<-l_mat[,2:dim(l_mat)[2]]
-  l_mat<-t(t(l_mat)/colSums(l_mat))
-  if (bin!='F'){l_mat<-1*(l_mat>0)}
-  l_mat[is.nan(l_mat)] <- 0
-  return (l_mat)
-  }  
-  
-###example, select the virgin islands data
-#sites [1] vir  mad  nca  jap  haw  mari
-
-###generate matrix of the same size for comparison (i.e. each matrix includes all consumers and prey across all sites)
-b<-a
-b$w<-b$w*(b$site=='vir')
-vir_ISmatrix2 <- get_mat(b,fun='sum')
-b<-a
-b$w<-b$w*(b$site=='mari')
-mari_ISmatrix2 <- get_mat(b)
-b<-a
-b$w<-b$w*(b$site=='nca')
-nca_ISmatrix2 <-  get_mat(b)
-b<-a
-b$w<-b$w*(b$site=='haw')
-haw_ISmatrix2 <-  get_mat(b)
-b<-a
-b$w<-b$w*(b$site=='mad')
-mad_ISmatrix2 <-  get_mat(b)
-b<-a
-b$w<-b$w*(b$site=='jap')
-jap_ISmatrix2 <-  get_mat(b)
-
-  #2. Transform into qualitative matrices
-pa_vir <- decostand(vir_ISmatrix2, method="pa")
-pa_mari <- decostand(mari_ISmatrix2, method="pa")
-pa_nca <- decostand(nca_ISmatrix2, method="pa")
-pa_haw <- decostand(haw_ISmatrix2, method="pa")
-pa_mad <- decostand(mad_ISmatrix2, method="pa")
-pa_jap <- decostand(jap_ISmatrix2, method="pa")
-
-pa_sum <- pa_jap +  pa_vir + pa_mari + pa_nca + pa_haw + pa_mad  #get the sum of the qualitative matrices 
-
-  #3. Calculation of the index for the proportions of shared interactions
-#Function of the metric
-chloe <- function(m1, m2, m3, m4, m5, m6, Sum, n) {
-  sum(m1[which(Sum>(n-1))],m2[which(Sum>(n-1))], m3[which(Sum>(n-1))], m4[which(Sum>(n-1))], m5[which(Sum>(n-1))], m6[which(Sum>(n-1))]) / 
-    sum(sum(colSums(m1)), sum(colSums(m2)), sum(colSums(m3)), sum(colSums(m4)), sum(colSums(m5)), sum(colSums(m6)))
-}
-
-#sum of 
-prop_int <-c(chloe(vir_ISmatrix2, nca_ISmatrix2, mari_ISmatrix2, mad_ISmatrix2, haw_ISmatrix2, jap_ISmatrix2, Sum= pa_sum, n=6),
-             chloe(vir_ISmatrix2, nca_ISmatrix2, mari_ISmatrix2, mad_ISmatrix2, haw_ISmatrix2, jap_ISmatrix2, Sum= pa_sum, n=5),  
-             chloe(vir_ISmatrix2, nca_ISmatrix2, mari_ISmatrix2, mad_ISmatrix2, haw_ISmatrix2,jap_ISmatrix2, Sum= pa_sum, n=4)  ,
-             chloe(vir_ISmatrix2, nca_ISmatrix2, mari_ISmatrix2, mad_ISmatrix2, haw_ISmatrix2, jap_ISmatrix2, Sum= pa_sum, n=3),
-             chloe(vir_ISmatrix2, nca_ISmatrix2, mari_ISmatrix2, mad_ISmatrix2, haw_ISmatrix2,jap_ISmatrix2, Sum= pa_sum, n=2))
-
-  #4. Permutations ####
-#new null model
-
 #create randomized matrices; also for the previous code, it would be much better to have a single
 #list indexed by locality including the observed and the null matrices
 rand_vir <- list()
@@ -127,7 +88,8 @@ rand_nca <- list()
 rand_mad <- list()
 rand_haw <- list()
 rand_jap <- list()
-for (i in 1:100){
+
+for (i in 1:1000){
   b<-a
   nl<-null_mod(b[b$site=='vir',])
   b[b$site=='vir',]<-nl
@@ -172,83 +134,85 @@ for (i in 1:100){
  
   print (i) }
 
+    #4. Proportion of shared interactions ####
+#function for the metric
+shared_int <- function(m1, m2, m3, m4, m5, m6, Sum, n) {
+  sum(m1[which(Sum>(n-1))],m2[which(Sum>(n-1))], m3[which(Sum>(n-1))], m4[which(Sum>(n-1))], m5[which(Sum>(n-1))], m6[which(Sum>(n-1))]) / 
+    sum(sum(colSums(m1)), sum(colSums(m2)), sum(colSums(m3)), sum(colSums(m4)), sum(colSums(m5)), sum(colSums(m6)))
+}
 
-p <- 100
+  #4.1 observed proportions of shared interactions 
+obs_int <-c(shared_int(vir_mat_fam, nca_mat_fam, mari_mat_fam, mad_mat_fam, haw_mat_fam, jap_mat_fam, Sum= pa_sum, n=6),
+             shared_int(vir_mat_fam, nca_mat_fam, mari_mat_fam, mad_mat_fam, haw_mat_fam, jap_mat_fam, Sum= pa_sum, n=5),  
+             shared_int(vir_mat_fam, nca_mat_fam, mari_mat_fam, mad_mat_fam, haw_mat_fam,jap_mat_fam, Sum= pa_sum, n=4)  ,
+             shared_int(vir_mat_fam, nca_mat_fam, mari_mat_fam, mad_mat_fam, haw_mat_fam, jap_mat_fam, Sum= pa_sum, n=3),
+             shared_int(vir_mat_fam, nca_mat_fam, mari_mat_fam, mad_mat_fam, haw_mat_fam,jap_mat_fam, Sum= pa_sum, n=2)) %>%
+            data.frame(value = ., nb_int = c(seq(6,2)), dat = "obs") 
 
-#Function to get the index for each of the p permutations and for n number of networks with shared interactions (from 2 to 5)
-nm_interactions2 <- lapply(1:p, function (z) {
-  chloe <- function(m1, m2, m3, m4, m5, m6, Sum, n) {
+
+  #4.2 random matrices
+#function to get the metric for each of the p randomizations and for n number of networks with shared interactions (from 2 to 6)
+p <- 1000
+nm_int2 <- lapply(1:p, function (z) {
+  shared_int <- function(m1, m2, m3, m4, m5, m6, Sum, n) {
     sum(m1[which(Sum>(n-1))],m2[which(Sum>(n-1))], m3[which(Sum>(n-1))], m4[which(Sum>(n-1))], m5[which(Sum>(n-1))], m6[which(Sum>(n-1))]) / 
       sum(sum(colSums(m1)), sum(colSums(m2)), sum(colSums(m3)), sum(colSums(m4)), sum(colSums(m5)), sum(colSums(m6)))
   }#eo function
-  chloe(rand_vir[[z]], rand_nca[[z]], rand_mad[[z]], rand_mari[[z]], rand_haw[[z]] , rand_jap[[z]], Sum = pa_sum, n = 2)   
+  shared_int(rand_vir[[z]], rand_nca[[z]], rand_mad[[z]], rand_mari[[z]], rand_haw[[z]] , rand_jap[[z]], Sum = pa_sum, n = 2)   
 })#eo lapply
 
-nm_interactions3 <- lapply(1:p, function (z) {
-  chloe <- function(m1, m2, m3, m4, m5, m6, Sum, n) {
+nm_int3 <- lapply(1:p, function (z) {
+  shared_int <- function(m1, m2, m3, m4, m5, m6, Sum, n) {
     sum(m1[which(Sum>(n-1))],m2[which(Sum>(n-1))], m3[which(Sum>(n-1))], m4[which(Sum>(n-1))], m5[which(Sum>(n-1))], m6[which(Sum>(n-1))]) / 
       sum(sum(colSums(m1)), sum(colSums(m2)), sum(colSums(m3)), sum(colSums(m4)), sum(colSums(m5)), sum(colSums(m6)))
   }#eo function
-  chloe(rand_vir[[z]], rand_nca[[z]], rand_mad[[z]], rand_mari[[z]], rand_haw[[z]] , rand_jap[[z]], Sum = pa_sum, n = 3)   
+  shared_int(rand_vir[[z]], rand_nca[[z]], rand_mad[[z]], rand_mari[[z]], rand_haw[[z]] , rand_jap[[z]], Sum = pa_sum, n = 3)   
 })#eo lapply
 
-nm_interactions4 <- lapply(1:p, function (z) {
-  chloe <- function(m1, m2, m3, m4, m5, m6, Sum, n) {
+nm_int4 <- lapply(1:p, function (z) {
+  shared_int <- function(m1, m2, m3, m4, m5, m6, Sum, n) {
     sum(m1[which(Sum>(n-1))],m2[which(Sum>(n-1))], m3[which(Sum>(n-1))], m4[which(Sum>(n-1))], m5[which(Sum>(n-1))], m6[which(Sum>(n-1))]) / 
       sum(sum(colSums(m1)), sum(colSums(m2)), sum(colSums(m3)), sum(colSums(m4)), sum(colSums(m5)), sum(colSums(m6)))
   }#eo function
-  chloe(rand_vir[[z]], rand_nca[[z]], rand_mad[[z]], rand_mari[[z]], rand_haw[[z]] , rand_jap[[z]], Sum = pa_sum, n = 4)   
+  shared_int(rand_vir[[z]], rand_nca[[z]], rand_mad[[z]], rand_mari[[z]], rand_haw[[z]] , rand_jap[[z]], Sum = pa_sum, n = 4)   
 })#eo lapply
 
-nm_interactions5 <- lapply(1:p, function (z) {
-  chloe <- function(m1, m2, m3, m4, m5, m6, Sum, n) {
+nm_int5 <- lapply(1:p, function (z) {
+  shared_int <- function(m1, m2, m3, m4, m5, m6, Sum, n) {
     sum(m1[which(Sum>(n-1))],m2[which(Sum>(n-1))], m3[which(Sum>(n-1))], m4[which(Sum>(n-1))], m5[which(Sum>(n-1))], m6[which(Sum>(n-1))]) / 
       sum(sum(colSums(m1)), sum(colSums(m2)), sum(colSums(m3)), sum(colSums(m4)), sum(colSums(m5)), sum(colSums(m6)))
   }#eo function
-  chloe(rand_vir[[z]], rand_nca[[z]], rand_mad[[z]], rand_mari[[z]], rand_haw[[z]] , rand_jap[[z]], Sum = pa_sum, n = 5)   
+  shared_int(rand_vir[[z]], rand_nca[[z]], rand_mad[[z]], rand_mari[[z]], rand_haw[[z]] , rand_jap[[z]], Sum = pa_sum, n = 5)   
 })#eo lapply
 
-
-nm_interactions6 <- lapply(1:p, function (z) {
-  chloe <- function(m1, m2, m3, m4, m5, m6, Sum, n) {
+nm_int6 <- lapply(1:p, function (z) {
+  shared_int <- function(m1, m2, m3, m4, m5, m6, Sum, n) {
       sum(m1[which(Sum>(n-1))],m2[which(Sum>(n-1))], m3[which(Sum>(n-1))], m4[which(Sum>(n-1))], m5[which(Sum>(n-1))], m6[which(Sum>(n-1))]) / 
       sum(sum(colSums(m1)), sum(colSums(m2)), sum(colSums(m3)), sum(colSums(m4)), sum(colSums(m5)), sum(colSums(m6)))
   }#eo function
-    chloe(rand_vir[[z]], rand_nca[[z]], rand_mad[[z]], rand_mari[[z]], rand_haw[[z]] , rand_jap[[z]], Sum = pa_sum, n = 6)   
+    shared_int(rand_vir[[z]], rand_nca[[z]], rand_mad[[z]], rand_mari[[z]], rand_haw[[z]], rand_jap[[z]], Sum = pa_sum, n = 6)   
   })#eo lapply
 
+nm_intlist<- list("2" = nm_int2,"3" = nm_int3, "4" = nm_int4, "5" = nm_int5,"6" = nm_int6)
 
-nm_interactions2 <- do.call(rbind, nm_interactions2)
-nm_interactions3 <- do.call(rbind, nm_interactions3)
-nm_interactions4 <- do.call(rbind, nm_interactions4)
-nm_interactions5 <- do.call(rbind, nm_interactions5)
-nm_interactions6 <- do.call(rbind, nm_interactions6)
+rand_int <- rbindlist(nm_intlist, idcol = "nb_int") %>% 
+  gather(., -nb_int, key = "", value = "value") %>% 
+  select(., nb_int, value) %>%
+  mutate(., dat = "rand") #store proportions of random matrices into a df
 
-#5. Df and plot ####
-#Dataframe with observed and random values
-df_nm_interactions2 <- data.frame(nm_interactions2) %>% mutate(nb_int = 2) %>% dplyr::rename(value = nm_interactions2)
-df_nm_interactions3 <- data.frame(nm_interactions3) %>% mutate(nb_int = 3) %>% dplyr::rename(value = nm_interactions3)
-df_nm_interactions4 <- data.frame(nm_interactions4) %>% mutate(nb_int = 4) %>% dplyr::rename(value = nm_interactions4)
-df_nm_interactions5 <- data.frame(nm_interactions5) %>% mutate(nb_int = 5) %>% dplyr::rename(value = nm_interactions5)
-df_nm_interactions6 <- data.frame(nm_interactions6) %>% mutate(nb_int = 6) %>% dplyr::rename(value = nm_interactions6)
-
-
-rand_int <- rbind(df_nm_interactions6, df_nm_interactions5, df_nm_interactions4, df_nm_interactions3, df_nm_interactions2) %>% mutate(nb_int = factor(nb_int, levels = c(2,3,4,5,6)))
-rand_int$data <- "rand"
-
-obs_int <- data.frame(prop_int) %>% dplyr::rename(value = prop_int) %>% mutate (nb_int = c(6,5,4,3,2),
-                                                                                data = "obs")
-#df <- rbind(rand_int, obs_int)
-
+  #4.3 Zscores & plot for proportions of shared interactions
 #Z scores
-z2 <- (obs_int$value[obs_int$nb_int == 2] - mean(rand_int$value[rand_int$nb_int == 2])) / sd(rand_int$value[rand_int$nb_int == 2])
-z3 <- (obs_int$value[obs_int$nb_int == 3] - mean(rand_int$value[rand_int$nb_int == 3])) / sd(rand_int$value[rand_int$nb_int == 3])
-z4 <- (obs_int$value[obs_int$nb_int == 4] - mean(rand_int$value[rand_int$nb_int == 4])) / sd(rand_int$value[rand_int$nb_int == 4])
-z5 <- (obs_int$value[obs_int$nb_int == 5] - mean(rand_int$value[rand_int$nb_int == 5])) / sd(rand_int$value[rand_int$nb_int == 5])
-z6 <- (obs_int$value[obs_int$nb_int == 6] - mean(rand_int$value[rand_int$nb_int == 6])) / sd(rand_int$value[rand_int$nb_int == 6])
+df_int <- rbind(obs_int, rand_int)
+ddply(df_int, .(nb_int), summarize, 
+      z_score = ((value[dat=="obs"] - mean(value[dat=="rand"]))/sd(value[dat=="rand"])))
 
+#plot
+quantiles_95 <- function(x) {
+  r <- c(mean(x), quantile(x, probs=c(0.05)),quantile(x, probs=c(0.95)))
+  names(r) <- c("y","ymin","ymax")
+  r
+}
 
-#Plot of proportions of shared interactions
 prop.plot <- ggplot(rand_int, aes(x=nb_int, y=value)) +
   stat_summary(fun = mean, geom="point",size=1) + 
   stat_summary(fun.data  = quantiles_95,
@@ -271,105 +235,52 @@ prop.plot <- ggplot(rand_int, aes(x=nb_int, y=value)) +
         axis.line = element_line(size=0.4, colour = "black"),
         axis.ticks = element_line(colour = "black", size = 0.3)) 
 
-prop.plot
+prop.plot + ggtitle("null model with body size ratio 0.5-1.2")
 
-#6. Correlation between quantitative and qualitative matrices  #####
-#Marshall Islands
-#Get the matrices into long format
-df_mariIS <- melt(mari_ISmatrix2)
+    #5. Strength of shared interactions ####
+#correlation between quantitative and qualitative matrices 
+  #5.1 get the matrices into a long format
 df_pa_sum <- melt(pa_sum) %>%
-  dplyr::rename(nb_int = value)
-df_mariIS2 <- left_join(df_mariIS, df_pa_sum) %>% filter(nb_int != 0) %>% mutate(site = "mari")
-df_mariIS2$nb_int <- as.factor(df_mariIS2$nb_int)
+  dplyr::rename(nb_int = value) %>% mutate(., nb_int = as.factor(nb_int)) #for the matrix of the sum of all binary matrices
 
-#Hawaii
-df_hawIS <- melt(haw_ISmatrix2)
-df_pa_sum <- melt(pa_sum) %>%
-  dplyr::rename(nb_int = value)
-df_hawIS2 <- left_join(df_hawIS, df_pa_sum) %>% filter(nb_int != 0) %>% mutate(site = "haw")
-df_hawIS2$nb_int <- as.factor(df_hawIS2$nb_int)
+#function for all observed matrices
+obs_mats <- list(haw_mat_fam, mad_mat_fam, mari_mat_fam, nca_mat_fam, vir_mat_fam, jap_mat_fam) 
+list_df <- list() #create a list to save my dataframes
+for (n in 1:6){
+  mat<-obs_mats[[n]]
+  df_mat <- melt(mat)
+  df_pa_sum <- melt(pa_sum) %>%
+    dplyr::rename(nb_int = value)
+  df_mat <- full_join(df_mat, df_pa_sum) %>% filter(nb_int != 0) %>% mutate(site = sites[n])
+  list_df[[n]] <- df_mat
+}
 
-#Madagascar
-df_madIS <- melt(mad_ISmatrix2)
-df_pa_sum <- melt(pa_sum) %>%
-  dplyr::rename(nb_int = value)
-df_madIS2 <- left_join(df_madIS, df_pa_sum) %>% filter(nb_int != 0) %>% mutate(site =  "mad")
-df_madIS2$nb_int <- as.factor(df_madIS2$nb_int)
+df_allIS <- do.call(rbind, list_df) %>% 
+  mutate(site = as.factor(site), nb_int = as.factor(nb_int), data = "obs") 
 
-#New Caledonia
-df_ncaIS <- melt(nca_ISmatrix2)
-df_pa_sum <- melt(pa_sum) %>%
-  dplyr::rename(nb_int = value)
-df_ncaIS2 <- left_join(df_ncaIS, df_pa_sum) %>% filter(nb_int != 0) %>% mutate(site = "nca")
-df_ncaIS2$nb_int <- as.factor(df_ncaIS2$nb_int)
-
-#West Indies
-df_virIS <- melt(vir_ISmatrix2)
-df_pa_sum <- melt(pa_sum) %>%
-  dplyr::rename(nb_int = value)
-df_virIS2 <- left_join(df_virIS, df_pa_sum) %>% filter(nb_int != 0) %>% mutate(site = "vir")
-df_virIS2$nb_int <- as.factor(df_virIS2$nb_int)
-
-#Japan
-df_japIS <- melt(jap_ISmatrix2)
-df_pa_sum <- melt(pa_sum) %>%
-  dplyr::rename(nb_int = value)
-df_japIS2 <- left_join(df_japIS, df_pa_sum) %>% filter(nb_int != 0) %>% mutate(site = "jap")
-df_japIS2$nb_int <- as.factor(df_japIS2$nb_int)
-
-#full data set
-df_allIS <- rbind(df_hawIS2, df_madIS2, df_mariIS2, df_ncaIS2, df_virIS2, df_japIS2) 
-df_allIS$site <- as.factor(df_allIS$site)
-df_allIS$nb_int <- as.factor(df_allIS$nb_int)
-df_allIS <- df_allIS %>% mutate (site_name = case_when(site == "haw" ~ "Hawaii",
-                                                       site == "mad" ~ "Madagascar",
-                                                       site == "mari" ~ "Marshall Islands",
-                                                       site == "nca"~ "New Caledonia",
-                                                       site == "vir" ~ "West Indies",
-                                                       site == "jap" ~ "Okinawa"))
-
-
-######null model
+  #5.2 random matrices
 sites<-c("haw","mad","mari","nca","vir","jap")
-all_mats<-list(rand_haw,rand_mad,rand_mari,rand_nca,rand_vir,rand_jap) #you can reuse the null matrices generated before
+all_mats<-list(rand_haw,rand_mad,rand_mari,rand_nca,rand_vir,rand_jap) #same null matrices as before
 nm_n<-length(all_mats[[1]]) #number of null matrices
 all_mats[1]
 null_vals<-c()
 for (n in 1:6){
-  for (m in 1:nm_n){#see how I synthesized your code; check if ok
+  for (m in 1:nm_n){
     mat<-all_mats[[n]][[m]]
     df_mat <- melt(mat)
     df_pa_sum <- melt(pa_sum) %>%
       dplyr::rename(nb_int = value)
-    df_mat <- left_join(df_mat, df_pa_sum) %>% filter(nb_int != 0) %>% mutate(site = sites[n])
+    df_mat <- full_join(df_mat, df_pa_sum) %>% filter(nb_int != 0) %>% mutate(site = sites[n])
     mean_ov<-aggregate(df_mat$value~df_mat$nb_int+df_mat$site,FUN='mean')
     null_vals<-rbind(null_vals,mean_ov)
   }}
 
-colnames(null_vals)<-c('nb_int','site','value',"data")
-
-####plot example
-pdf('null_interaction_strength_ov.pdf',width=12,height=8)
-par(mfrow=c(2,3))
-for (n in 1:6){
-  loc_vals<-null_vals[null_vals$site==sites[n],]
-  mean_vals<-aggregate(loc_vals$null_ov ~loc_vals$nb_int,FUN = 'mean')
-  sd_vals<-aggregate(loc_vals$null_ov~loc_vals$nb_int,FUN = 'sd')
-  x<-mean_vals[,1]
-  y<-mean_vals[,2]
-  y.sd<-sd_vals[,2]
-  plot(x,y,las=1,xlab='food web n',ylab='strength of shared interactions',main=sites[n],ylim=c(min(y-y.sd),max(y+y.sd)),pch=16)
-  lines(mean_vals[,1],mean_vals[,2])
-  arrows(x0=x, y0=y-y.sd, x1=x, y1=y+y.sd, code=3, angle=90, length=0.05)
-}
-dev.off()
-
-##################Chloe, add the null values to your plot as you like
-df_allIS <- df_allIS %>% mutate(data = "obs")
+colnames(null_vals)<-c('nb_int','site','value')
 null_vals <- null_vals %>% mutate(data = "null",
-                                  nb_int = as.factor(nb_int)) 
+                                  nb_int = as.factor(nb_int))
 
-test <- plyr::rbind.fill(df_allIS, null_vals) %>%
+  #5.3 plot 
+IS_df <- plyr::rbind.fill(df_allIS, null_vals) %>%
   mutate (site_name = case_when(site == "haw" ~ "Hawaii",
                                 site == "mad" ~ "Madagascar",
                                 site == "mari" ~ "Marshall Islands",
@@ -378,16 +289,7 @@ test <- plyr::rbind.fill(df_allIS, null_vals) %>%
                                 site == "jap" ~ "Okinawa"),
           data = as.factor(data)) 
 
-
-#Plot with mean_se  
-df_allIS$nb_int <- as.factor(df_allIS$nb_int)
-
-hhh<-df_allIS[df_allIS$site=='haw',]
-b<-aggregate(hhh$value~hhh$nb_int,FUN='mean')
-plot(as.numeric(b[,1]),as.numeric(b[,2]))
-
-
-IS.plot <- ggplot(data=test, aes(x = nb_int, y=value, group = data)) + 
+IS.plot <- ggplot(data=IS_df, aes(x = nb_int, y=value, group = data)) + 
   geom_line(aes(linetype = data), color="black", size=0.3, stat="summary", fun = 'mean')+
   stat_summary(fun = mean, geom="point",size=1, color = "black") + 
   stat_summary(fun.data = mean_se, geom ="errorbar", size=0.3, width=0.2) +
@@ -410,15 +312,15 @@ IS.plot <- ggplot(data=test, aes(x = nb_int, y=value, group = data)) +
         legend.position = c(0.13,0.89),
         legend.box = NULL) 
 
-IS.plot
+IS.plot 
 
-  #7. Combine the two plots and save
+    #6. Combine the two plots ####
 shared.int.plot <- ggarrange(prop.plot, IS.plot, 
           labels = c("A","B"),
           font.label = list(size = 8, face = "bold"),
           ncol = 2, nrow = 1,
           widths = c(1.5,2))
-shared.int.plot
-#ggsave("output/figures/fig2.pdf", plot = shared.int.plot, width = 17.8, height = 7.5, units = "cm", dpi = 300)
 
-ggsave("output/figures/fig2_shared interactions.png", plot = shared.int.plot, units="in", width=10, height=4, dpi=300)
+shared.int.plot 
+
+ggsave("output/figures/fig2_sharedint.png", plot = shared.int.plot, units="in", width=10, height=4, dpi=300)
