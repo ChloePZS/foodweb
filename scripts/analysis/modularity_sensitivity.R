@@ -8,7 +8,7 @@ library(bipartite)
 library(ggpubr)
 library(ggplot2)
 
-      #1. Observed modularity for the three prey categories ####
+      #1. Observed modularity for the three prey categories ###
 
 #1. Import  final matrices --> to change according to prey groupings (e.g. grp6, grp1, item_class)
 vir_ISmatrix_sp_std <- read.csv("data/vir_ISmatrix_sp_std_item_class.csv", sep=",", row.names = 1) %>%
