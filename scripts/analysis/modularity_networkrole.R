@@ -44,7 +44,7 @@ null_mod<-function(x){  #x is the dataset for a given locality, i.e. see b above
     r_pair <- as.character(sample(spp,2))
     r1<-null_l[[r_pair[1]]]
     r2<-null_l[[r_pair[2]]]
-    if (r1$cons_size[1]/r2$cons_size[1]>0.8 && r1$cons_size[1]/r2$cons_size[1]<1.2){ 
+    if (r1$cons_size[1]/r2$cons_size[1]>0.25 && r1$cons_size[1]/r2$cons_size[1]<1.75){ 
       r1_r2<-which(r1$lev1 %in% setdiff(r1$lev1,r2$lev1))
       r2_r1<-which(r2$lev1 %in% setdiff(r2$lev1,r1$lev1))
       if (length(r1_r2)*length(r2_r1)>0){
@@ -131,6 +131,11 @@ rand_mod <- unlist(lapply(rand_mat_sp, lapply, computeModules)) #apply computeMo
 mod_null <- data.frame(mod = sapply(rand_mod, function(x) x@likelihood),
                        site = rep(c("vir","mad","mari","nca","haw","jap"), each=nm_n))
 
+#modularity with body size ratio 0.5-1.5 and 0.25-1.75
+mod_null_0.5 <- mod_null_0.5 %>% mutate  (null = "0.5-1.5")
+mod_null_0.25 <- mod_null_0.25 %>% mutate(null = "0.25-1.75")
+mod_null_sup <- rbind(mod_null_0.25, mod_null_0.5) 
+
 
 #plot
 quantiles_95 <- function(x) {
@@ -163,37 +168,8 @@ mod_plot <- ggplot(data=mod_null, aes(x=factor(site, levels = c("haw","mad","mar
 
 mod_plot
 
-#modularity with body ratio >0.25 & >0.5
-mod_null_0.25 <- mod_null %>% mutate(null = "0.25")
-mod_null_0.5 <- mod_null %>% mutate  (null = "0.5")
 
-mod_null_sup <- rbind(mod_null_0.25, mod_null_0.5) 
-mod_null_sup$null <- factor(mod_null_sup$null,levels = c("0.25","0.5"))
-
-mod_plot_supp <- ggplot(data=mod_null_sup, aes(x=factor(site, levels = c("haw","mad","mari","nca","jap","vir")), y=mod, color = null)) +
-  stat_summary(fun.data = quantiles_95, geom ="errorbar", width=0.08) +
-  stat_summary(fun = mean, geom="point",size=3.3) + 
-  geom_point(data = mod_obs, aes(y = mod, x=factor(site, levels = c("haw","mad","mari","nca","jap","vir")), shape = "Observed values"), size=3.3, color = "black") + 
-  scale_color_manual(name = "Null distributions", values = c("grey26","grey60"))+
-  scale_shape_manual(name = NULL, values = 19) +
-  scale_x_discrete(breaks=c("haw","mad","mari","nca","vir","jap"),
-                   labels=c("Hawaii", "Madagascar", "Marshall Islands","New Caledonia","West Indies","Okinawa"))+
-  
-  labs(y = "Modularity\n", x="") +
-  theme_test() +
-  theme(strip.text.y = element_text(size=11),
-        legend.text = element_text(colour="black", size=10),
-        axis.line.x = element_line(colour = "black",size=0.5, lineend = "butt"),
-        axis.line.y = element_line(colour = "black", size=0.5),
-        axis.title = element_text(size=13.5),
-        axis.text = element_text(size=12, colour = "black")) +
-  guides(fill=FALSE) +
-  theme(legend.position = "right",
-        legend.box = NULL)
-
-
-
-      #5. Network role - CZ values ####
+    #5. Network role - CZ values ####
 sites <- c("vir", "mad","mari","nca","haw","jap")
 list_metamod <- list()
 set.seed(2)
@@ -247,7 +223,7 @@ netrole_plot <- ggplot(cz_full, aes(x = c, y = z)) +
 
 netrole_plot
 
-#facet plot
+#facet plot for each region
 netplot_facet <- ggplot(cz_full, aes(x = c, y = z)) +
   geom_point(aes(fill = as.factor(role), color = as.factor(role)),
              size = 3, shape = 21, alpha = 0.8) +
@@ -278,7 +254,7 @@ netplot_facet
 ggsave(ggsave("output/figures/network role plot_facetB_NewmanQ.png", plot = netplot_facet, units="in", width=11, height=7, dpi=300)
 )
 
-  #6. Combine plots and save ####
+    #6. Combine plots and save ####
 mod.plot.cb <- ggarrange(mod_plot, netrole_plot, 
           labels = c("A","B"),
           font.label = list(size = 12, face = "bold"),
@@ -286,7 +262,5 @@ mod.plot.cb <- ggarrange(mod_plot, netrole_plot,
           heights = c(1,2))
 mod.plot.cb 
 
-ggsave("output/figures/modularity & network role_binarynet_Newman.png", plot = mod.plot.cb, units="in", width=9, height=11, dpi=300)
-
-ggsave("output/figures/supp_mod_body ratio 0.25.png", plot = mod.plot.cb, units="in", width=9, height=11, dpi=300)
+ggsave("output/figures/fig4.png", plot = mod.plot.cb, units="in", width=9, height=11, dpi=300)
 

@@ -136,7 +136,8 @@ for (i in 1:1000){
 
     #4. Proportion of shared interactions ####
 #function for the metric
-shared_int <- function(m1, m2, m3, m4, m5, m6, Sum, n) {
+#Sum of interaction strength for interactions shared between n foodwebs divided by the sum of fish families of each foodwebs
+shared_int <- function(m1, m2, m3, m4, m5, m6, Sum, n) { 
   sum(m1[which(Sum>(n-1))],m2[which(Sum>(n-1))], m3[which(Sum>(n-1))], m4[which(Sum>(n-1))], m5[which(Sum>(n-1))], m6[which(Sum>(n-1))]) / 
     sum(sum(colSums(m1)), sum(colSums(m2)), sum(colSums(m3)), sum(colSums(m4)), sum(colSums(m5)), sum(colSums(m6)))
 }
@@ -148,7 +149,6 @@ obs_int <-c(shared_int(vir_mat_fam, nca_mat_fam, mari_mat_fam, mad_mat_fam, haw_
              shared_int(vir_mat_fam, nca_mat_fam, mari_mat_fam, mad_mat_fam, haw_mat_fam, jap_mat_fam, Sum= pa_sum, n=3),
              shared_int(vir_mat_fam, nca_mat_fam, mari_mat_fam, mad_mat_fam, haw_mat_fam,jap_mat_fam, Sum= pa_sum, n=2)) %>%
             data.frame(value = ., nb_int = c(seq(6,2)), dat = "obs") 
-
 
   #4.2 random matrices
 #function to get the metric for each of the p randomizations and for n number of networks with shared interactions (from 2 to 6)
@@ -234,8 +234,6 @@ prop.plot <- ggplot(rand_int, aes(x=nb_int, y=value)) +
         axis.text = element_text(size=11, colour = "black"),
         axis.line = element_line(size=0.4, colour = "black"),
         axis.ticks = element_line(colour = "black", size = 0.3)) 
-
-prop.plot + ggtitle("null model with body size ratio 0.5-1.2")
 
     #5. Strength of shared interactions ####
 #correlation between quantitative and qualitative matrices 
@@ -323,4 +321,4 @@ shared.int.plot <- ggarrange(prop.plot, IS.plot,
 
 shared.int.plot 
 
-ggsave("output/figures/fig2_sharedint.png", plot = shared.int.plot, units="in", width=10, height=4, dpi=300)
+ggsave("output/figures/fig2.png", plot = shared.int.plot, units="in", width=10, height=4, dpi=300)
